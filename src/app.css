@@ -1,0 +1,57 @@
+body {
+	background: #f5f7fb;
+	color: #1f2937;
+}
+
+.app-main {
+	padding: 2rem 0 3rem;
+}
+
+.page-header {
+	margin-bottom: 1.5rem;
+}
+
+.page-kicker {
+	color: #64748b;
+	font-size: 0.95rem;
+	margin-bottom: 0.35rem;
+}
+
+.dashboard-card {
+	border: 0;
+	border-radius: 0.5rem;
+	box-shadow: 0 0.75rem 1.75rem rgba(15, 23, 42, 0.06);
+}
+
+.todo-item-completed {
+	opacity: 0.58;
+}
+
+.todo-title-completed {
+	text-decoration: line-through;
+}
+
+.calendar-day {
+	min-height: 12rem;
+}
+
+.chart-placeholder {
+	min-height: 14rem;
+	background: repeating-linear-gradient(
+		135deg,
+		#f8fafc,
+		#f8fafc 12px,
+		#eef2f7 12px,
+		#eef2f7 24px
+	);
+}
+
+@media (max-width: 767.98px) {
+	.app-main {
+		padding-top: 1.25rem;
+	}
+
+	.calendar-day {
+		min-height: auto;
+	}
+}
