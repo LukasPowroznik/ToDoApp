@@ -1,6 +1,7 @@
 <script>
 	const categories = ['Privat', 'Arbeit', 'Sport', 'Sonstiges'];
-	const priorities = ['hoch', 'mittel', 'niedrig'];
+	const priorities = ['Low', 'Medium', 'High'];
+	const durations = ['30 min', '1 h', '2 h', '4 h', 'Ganztägig'];
 
 	let { modalId = 'editTodoModal', todo = null } = $props();
 
@@ -9,11 +10,13 @@
 			title: '',
 			description: '',
 			category: 'Privat',
-			priority: 'mittel',
-			dueDate: '',
+			priority: 'Medium',
+			deadline: '',
 			estimatedDuration: '',
-			status: 'offen',
-			recurrence: ''
+			status: 'Open',
+			recurring: false,
+			recurrence: undefined,
+			createdAt: new Date().toISOString()
 		}
 	);
 </script>
@@ -71,47 +74,51 @@
 						</div>
 
 						<div class="col-md-6">
-							<label class="form-label" for={`${modalId}-due-date`}>Deadline</label>
+							<label class="form-label" for={`${modalId}-deadline`}>Deadline</label>
 							<input
 								class="form-control"
-								id={`${modalId}-due-date`}
-								name="dueDate"
+								id={`${modalId}-deadline`}
+								name="deadline"
 								type="date"
-								value={currentTodo.dueDate ?? ''}
+								value={currentTodo.deadline ?? ''}
 							/>
 						</div>
 
 						<div class="col-md-6">
 							<label class="form-label" for={`${modalId}-duration`}>Geschätzte Dauer</label>
-							<input
-								class="form-control"
+							<select
+								class="form-select"
 								id={`${modalId}-duration`}
 								name="estimatedDuration"
-								type="text"
-								value={currentTodo.estimatedDuration}
-							/>
+								value={currentTodo.estimatedDuration ?? ''}
+							>
+								<option value="">keine Angabe</option>
+								{#each durations as duration}
+									<option value={duration}>{duration}</option>
+								{/each}
+							</select>
 						</div>
 
 						<div class="col-md-6">
 							<label class="form-label" for={`${modalId}-status`}>Status</label>
 							<select class="form-select" id={`${modalId}-status`} name="status" value={currentTodo.status}>
-								<option value="offen">offen</option>
-								<option value="erledigt">erledigt</option>
+								<option value="Open">Open</option>
+								<option value="Completed">Completed</option>
 							</select>
 						</div>
 
 						<div class="col-md-6">
-							<label class="form-label" for={`${modalId}-recurrence`}>Wiederholung</label>
+							<label class="form-label" for={`${modalId}-recurrence-type`}>Wiederholung</label>
 							<select
 								class="form-select"
-								id={`${modalId}-recurrence`}
-								name="recurrence"
-								value={currentTodo.recurrence ?? ''}
+								id={`${modalId}-recurrence-type`}
+								name="recurrenceType"
+								value={currentTodo.recurrence?.type ?? ''}
 							>
 								<option value="">keine</option>
-								<option value="täglich">täglich</option>
-								<option value="wöchentlich">wöchentlich</option>
-								<option value="monatlich">monatlich</option>
+								<option value="daily">daily</option>
+								<option value="weekly">weekly</option>
+								<option value="monthly">monthly</option>
 							</select>
 						</div>
 					</div>

@@ -2,10 +2,12 @@
 	import TodoList from '$lib/components/TodoList.svelte';
 	import { demoTodos } from '$lib/data/demoTodos.js';
 
-	const openTodos = demoTodos.filter((todo) => !todo.completed);
-	const completedTodos = demoTodos.filter((todo) => todo.completed);
-	const overdueTodos = demoTodos.filter((todo) => !todo.completed && todo.dueDate < '2026-05-06');
-	const unscheduledTodos = demoTodos.filter((todo) => !todo.completed && !todo.dueDate);
+	const openTodos = demoTodos.filter((todo) => todo.status === 'Open');
+	const completedTodos = demoTodos.filter((todo) => todo.status === 'Completed');
+	const overdueTodos = demoTodos.filter(
+		(todo) => todo.status === 'Open' && todo.deadline && todo.deadline < '2026-05-06'
+	);
+	const unscheduledTodos = demoTodos.filter((todo) => todo.status === 'Open' && !todo.deadline);
 </script>
 
 <div class="container">

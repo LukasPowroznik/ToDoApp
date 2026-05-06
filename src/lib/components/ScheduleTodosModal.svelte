@@ -1,7 +1,9 @@
 <script>
 	let { modalId = 'scheduleTodosModal', todos = [] } = $props();
 
-	const unscheduledTodos = $derived(todos.filter((todo) => !todo.completed && !todo.dueDate));
+	const unscheduledTodos = $derived(
+		todos.filter((todo) => todo.status === 'Open' && !todo.deadline)
+	);
 </script>
 
 <div class="modal fade" id={modalId} tabindex="-1" aria-labelledby={`${modalId}Label`} aria-hidden="true">
@@ -32,7 +34,7 @@
 											<input
 												class="form-control"
 												id={`${modalId}-${todo.id}`}
-												name={`dueDate-${todo.id}`}
+												name={`deadline-${todo.id}`}
 												type="date"
 											/>
 										</div>

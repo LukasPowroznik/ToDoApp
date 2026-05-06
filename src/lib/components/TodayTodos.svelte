@@ -3,7 +3,7 @@
 
 	let { todos = [], today = '2026-05-06', readableDate = '06.05.2026' } = $props();
 
-	const todaysTodos = $derived(todos.filter((todo) => todo.dueDate === today));
+	const todaysTodos = $derived(todos.filter((todo) => todo.deadline === today));
 </script>
 
 <div class="card dashboard-card h-100">

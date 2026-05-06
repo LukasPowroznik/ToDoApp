@@ -2,12 +2,14 @@
 	let { todos = [], monthPrefix = '2026-05', today = '2026-05-06' } = $props();
 
 	const openTodosThisMonth = $derived(todos.filter(
-		(todo) => !todo.completed && todo.dueDate?.startsWith(monthPrefix)
+		(todo) => todo.status === 'Open' && todo.deadline?.startsWith(monthPrefix)
 	));
 	const scheduledThisMonth = $derived(
-		todos.filter((todo) => todo.dueDate?.startsWith(monthPrefix))
+		todos.filter((todo) => todo.deadline?.startsWith(monthPrefix))
 	);
-	const overdueTodos = $derived(todos.filter((todo) => !todo.completed && todo.dueDate < today));
+	const overdueTodos = $derived(
+		todos.filter((todo) => todo.status === 'Open' && todo.deadline && todo.deadline < today)
+	);
 </script>
 
 <div class="row g-3">

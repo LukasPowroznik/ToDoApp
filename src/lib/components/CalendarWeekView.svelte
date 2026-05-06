@@ -1,11 +1,11 @@
 <script>
 	import EmptyState from '$lib/components/EmptyState.svelte';
-	import { categoryBadgeClasses } from '$lib/data/demoTodos.js';
+	import { categoryBadgeClasses, recurrenceLabels } from '$lib/data/demoTodos.js';
 
 	let { weekDays = [], todos = [] } = $props();
 
-	const scheduledTodos = $derived(todos.filter((todo) => todo.dueDate));
-	const getTodosForDate = (date) => scheduledTodos.filter((todo) => todo.dueDate === date);
+	const scheduledTodos = $derived(todos.filter((todo) => todo.deadline));
+	const getTodosForDate = (date) => scheduledTodos.filter((todo) => todo.deadline === date);
 </script>
 
 {#if scheduledTodos.length > 0}
@@ -21,15 +21,17 @@
 							<div class="d-grid gap-2">
 								{#each getTodosForDate(day.date) as todo}
 									<button
-										class={`btn text-start border bg-white ${todo.completed ? 'todo-item-completed' : ''}`}
+										class={`btn text-start border bg-white ${todo.status === 'Completed' ? 'todo-item-completed' : ''}`}
 										type="button"
 									>
 										<span class="d-block fw-semibold">{todo.title}</span>
 										<span class={`badge mt-2 ${categoryBadgeClasses[todo.category]}`}>
 											{todo.category}
 										</span>
-										{#if todo.isRecurring}
-											<span class="badge text-bg-dark mt-2 ms-1">{todo.recurrence}</span>
+										{#if todo.recurring && todo.recurrence}
+											<span class="badge text-bg-dark mt-2 ms-1">
+												{recurrenceLabels[todo.recurrence.type]}
+											</span>
 										{/if}
 									</button>
 								{/each}

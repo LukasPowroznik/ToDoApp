@@ -1261,40 +1261,35 @@ Falls MongoDB lokal noch nicht eingerichtet ist, dürfen für den ersten Prototy
 
 ## Datenmodell
 
-Eine Aufgabe kann als Objekt gespeichert werden:
+Ein einzelnes To-Do muss immer dieser Struktur folgen. Dieses Modell ist die verbindliche Grundlage für Demo-Daten, Komponenten, Formulare, API-Endpunkte und die spätere MongoDB-Speicherung.
 
-```js
-{
-  _id: 'mongodb_object_id_or_placeholder',
-  id: crypto.randomUUID(),
-  title: 'Beispielaufgabe',
-  description: 'Kurze Beschreibung der Aufgabe',
-  status: 'offen',
-  completed: false,
-  createdAt: new Date().toISOString(),
-  dueDate: '2026-05-20',
-  completedAt: null,
-  category: 'Privat',
-  priority: 'mittel',
-  estimatedDuration: '1 h',
-  isRecurring: false,
-  recurrence: null
-}
+```ts
+type Todo = {
+  id: string;
+  title: string;
+  description?: string;
+  category: 'Privat' | 'Arbeit' | 'Sport' | 'Sonstiges';
+  deadline?: string;
+  priority: 'Low' | 'Medium' | 'High';
+  status: 'Open' | 'Completed';
+  estimatedDuration?: '30 min' | '1 h' | '2 h' | '4 h' | 'Ganztägig';
+  recurring: boolean;
+  recurrence?: {
+    type: 'daily' | 'weekly' | 'monthly';
+    weekdays?: string[];
+  };
+  createdAt: string;
+  completedAt?: string;
+};
 ```
 
-Optional können später weitere Eigenschaften ergänzt werden:
+Wichtig:
 
-```js
-{
-  recurrence: {
-    frequency: 'weekly',
-    weekdays: ['monday']
-  },
-  updatedAt: null,
-  area: 'Platzhalter-Bereich',
-  isImportant: false
-}
-```
+- `deadline` soll als ISO-Datum gespeichert werden, zum Beispiel `2026-05-20`.
+- `completedAt` soll nur gesetzt werden, wenn `status` den Wert `Completed` hat.
+- `recurrence` soll nur gesetzt werden, wenn `recurring` den Wert `true` hat.
+- Für neue Aufgaben soll `createdAt` automatisch als ISO-String gesetzt werden.
+- Im Code und in gespeicherten Daten müssen die englischen Enum-Werte verwendet werden, zum Beispiel `Open`, `Completed`, `Low`, `Medium`, `High`, `daily`, `weekly` und `monthly`. Deutsche Begriffe dürfen nur als sichtbare UI-Beschriftungen verwendet werden.
 
 ---
 
