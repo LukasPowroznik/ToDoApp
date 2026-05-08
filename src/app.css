@@ -23,6 +23,28 @@ body {
 	box-shadow: 0 0.75rem 1.75rem rgba(15, 23, 42, 0.06);
 }
 
+.stat-filter-card {
+	background: #ffffff;
+	border: 1px solid #dbe3ef;
+	color: inherit;
+	transition:
+		border-color 0.15s ease,
+		box-shadow 0.15s ease,
+		transform 0.15s ease;
+}
+
+.stat-filter-card:hover,
+.stat-filter-card:focus-visible {
+	border-color: #8bb4ff;
+	box-shadow: 0 0.85rem 1.9rem rgba(15, 23, 42, 0.09);
+	transform: translateY(-1px);
+}
+
+.stat-filter-card-active {
+	border-color: #0d6efd;
+	box-shadow: 0 0 0 0.18rem rgba(13, 110, 253, 0.15);
+}
+
 .todo-item-completed {
 	opacity: 0.58;
 }
