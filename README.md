@@ -1,128 +1,145 @@
-# Projektdokumentation - [Projekttitel]
+# Projektdokumentation - ToDoApp
 
 ## Inhaltsverzeichnis
 
 1. [Ausgangslage](#1-ausgangslage)
 2. [Lösungsidee](#2-lösungsidee)
 3. [Vorgehen & Artefakte](#3-vorgehen--artefakte)
-    1. [Understand & Define](#31-understand--define)
-    2. [Sketch](#32-sketch)
-    3. [Decide](#33-decide)
-    4. [Prototype](#34-prototype)
-    5. [Validate](#35-validate)
-4. [Erweiterungen [Optional]](#4-erweiterungen-optional)
-5. [Projektorganisation [Optional]](#5-projektorganisation-optional)
+   1. [Understand & Define](#31-understand--define)
+   2. [Sketch](#32-sketch)
+   3. [Decide](#33-decide)
+   4. [Prototype](#34-prototype)
+   5. [Validate](#35-validate)
+4. [Erweiterungen](#4-erweiterungen)
+5. [Projektorganisation](#5-projektorganisation)
 6. [KI-Deklaration](#6-ki-deklaration)
-7. [Anhang [Optional]](#7-anhang-optional)
-
-> **Hinweis:** Massgeblich sind die im **Unterricht** und auf **Moodle** kommunizierten Anforderungen.
-
-<!-- WICHTIG: DIE KAPITELSTRUKTUR DARF NICHT VERÄNDERT WERDEN! -->
-
-<!-- Diese Vorlage ist für eine README.md im Repository gedacht. Abschnitte mit [Optional] können weggelassen werden, wenn in den Übungen nichts anderes verlangt wird. -->
+7. [Anhang](#7-anhang)
 
 ## 1. Ausgangslage
-Kurz beschreiben, welches Problem adressiert wird und welches Ergebnis angestrebt ist. Wem nützt die Lösung, wer ist beteiligt oder betroffen?
-- **Problem:** _[Das Problem ist identifiziert, verständlich beschrieben und optional mit Beispielen illustriert]_  
-- **Ziele:** _[stichwortartig oder einige Sätze]_  
-- **Primäre Zielgruppe:** _[kurz beschreiben]_  
-- **Weitere Stakeholder [Optional]:** _[z. B. Verwaltung, Geschäftsleitung]_  
 
+Viele To-Do-Listen sammeln Aufgaben, zeigen aber nicht immer gut, welche Aufgaben heute relevant sind, welche bereits überfällig sind und welche noch geplant werden müssen. Dieses Projekt untersucht als Prototyp, wie eine kleine To-Do-App Aufgaben übersichtlich strukturieren, terminieren und in einer Kalenderansicht sichtbar machen kann.
+
+- **Problem:** Aufgaben sollen nicht nur gesammelt, sondern nach Status, Termin und Priorität schnell erfassbar sein.
+- **Ziele:** Aufbau eines bedienbaren SvelteKit-Prototyps mit Dashboard, Aufgabenübersicht und Kalenderansicht.
+- **Primäre Zielgruppe:** Einzelpersonen, die private, schulische oder berufliche Aufgaben kompakt planen möchten.
+- **Weitere Stakeholder:** Lehrperson und Mitstudierende im Modul Prototyping.
 
 ## 2. Lösungsidee
-Beschreibt die Lösungsidee.
-- **Kernfunktionalität:** _[Workflows kurz nennen und optional illustrieren]_  
-- **Annahmen [Optional]:** _[welche Hypothesen werden geprüft?]_
-- **Abgrenzung [Optional]:** _[Was gehört explizit nicht zum Umfang?]_
+
+Die ToDoApp ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt einen schnellen Überblick über heutige, offene, fällige und überfällige Aufgaben. Ergänzend gibt es eine Seite für alle To-Dos und eine Wochenansicht im Kalender.
+
+- **Kernfunktionalität:** Dashboard, Aufgabenliste, Demo-Daten, Statusanzeigen, Wochenkalender und vorbereitete Modal-Komponenten für Erfassen und Terminieren.
+- **Annahmen:** Nutzerinnen und Nutzer profitieren von einer Kombination aus Liste und Kalender, weil Aufgaben dadurch sowohl inhaltlich als auch zeitlich sichtbar werden.
+- **Abgrenzung:** Aktuell verwendet der Prototyp statische Demo-Daten. MongoDB, echte CRUD-Logik, persistente Speicherung und produktives Deployment sind noch nicht abgeschlossen.
 
 ## 3. Vorgehen & Artefakte
-Die Durchführung erfolgt phasenbasiert; dokumentieren Sie die wichtigsten Ergebnisse je Phase.
+
+Die Umsetzung erfolgt schrittweise über GitHub Issues. Zuerst wurden Projektstruktur und Grundlayout erstellt, danach folgen Dokumentation, konkrete Interaktionen, Datenbankintegration und Deployment.
 
 ### 3.1 Understand & Define
-- **Zielgruppenverständnis:** _[Problemraumanalyse, Recherche, (Proto-)Personas]_
-- **Wesentliche Erkenntnisse:** _[Stichpunkte]_
+
+- **Zielgruppenverständnis:** Die App richtet sich an Personen, die einfache Aufgabenverwaltung ohne komplexes Projektmanagement benötigen.
+- **Wesentliche Erkenntnisse:** Wichtig sind schnelle Orientierung, klare Prioritäten, erkennbare Termine und einfache Navigation zwischen Dashboard, Liste und Kalender.
 
 ### 3.2 Sketch
-- **Variantenüberblick:** _[kurz]_
-- **Skizzen:** _[Mehrere Varianten; Unterschiede kurz dokumentieren.]_
+
+- **Variantenüberblick:** Die aktuelle Variante setzt auf eine klassische Web-App-Struktur mit Top-Navigation, Dashboard-Karten und separaten Detailseiten.
+- **Skizzen:** Erste Layoutideen wurden direkt als statischer SvelteKit-Prototyp umgesetzt.
 
 ### 3.3 Decide
-- **Gewählte Variante & Begründung:** _[Entscheidkriterien nennen]_  
-- **End-to-End-Ablauf:** _[Beschreibung inkl. User Journey Map]_  
-- **Mockup:** _[URL, z. B. Figma; Screenshots mit kurzen Beschreibungen]_  
+
+- **Gewählte Variante & Begründung:** Ein Dashboard als Startseite wurde gewählt, weil es den Projektzustand schnell sichtbar macht und als Einstieg in weitere Funktionen dient.
+- **End-to-End-Ablauf:** Nutzer öffnen das Dashboard, prüfen heutige oder überfällige Aufgaben, wechseln zur Aufgabenliste oder betrachten terminierte Aufgaben im Kalender.
+- **Mockup:** Der aktuelle Stand ist ein lauffähiger Code-Prototyp im Repository.
 
 ### 3.4 Prototype
 
 #### 3.4.1. Entwurf (Design)
-Beschreibt die Gestaltung und Interaktion.
-> **Hinweis:** Hier wird der **Prototyp** beschrieben, nicht das **Mockup**.
-- **Informationsarchitektur:** _[z. B. Seiten/Navigation: Konzept, nicht die technische Umsetzung]_
-- **User Interface Design:** _[wichtige Screens: Screenshots mit kurzen Erläuterungen]_  
-- **Designentscheidungen:** _[zentrale Entscheidungen und Begründungen]_
+
+Der Prototyp verwendet Bootstrap für ein ruhiges, responsives Interface mit Karten, Listen, Badges und Navigation. Das Layout ist bewusst einfach gehalten, damit die wichtigsten Informationen schnell scanbar bleiben.
+
+- **Informationsarchitektur:** Drei Hauptbereiche sind umgesetzt: Dashboard (`/`), Alle To-Dos (`/tasks`) und Kalender (`/calendar`).
+- **User Interface Design:** Dashboard-Karten zeigen Kennzahlen, die Aufgabenliste zeigt Demo-Aufgaben mit Status und Priorität, die Kalenderseite zeigt eine statische Wochenansicht.
+- **Designentscheidungen:** Bootstrap wurde verwendet, um schnell ein konsistentes, responsives Grundlayout zu erstellen.
 
 #### 3.4.2. Umsetzung (Technik)
-Fasst die technische Realisierung zusammen.
-- **Technologie-Stack:** _[SvelteKit, Bibliotheken falls genutzt]_
-- **Tooling:** _[IDE/Erweiterungen, lokale/Cloud-Tools; den Einsatz von KI beschreiben Sie im Kapitel **KI-Deklaration**]_  
-- **Struktur & Komponenten:** _[Seiten, Routen, State/Stores, wichtige Komponenten]_
-- **Daten & Schnittstellen:** _[Wie werden Daten gespeichert, verwaltet, abgerufen?]_
-- **Deployment:** _[URL]_  
-- **Besondere Entscheidungen:** _[z. B. Trade-offs, Vereinfachungen]_  
+
+- **Technologie-Stack:** SvelteKit, Svelte 5, Vite und Bootstrap.
+- **Tooling:** Entwicklung mit Node.js, npm und GitHub Issues zur Aufgabenplanung.
+- **Struktur & Komponenten:**
+  - `src/routes/+page.svelte`: Dashboard
+  - `src/routes/tasks/+page.svelte`: Aufgabenübersicht
+  - `src/routes/calendar/+page.svelte`: Kalender-Wochenansicht
+  - `src/lib/components`: Wiederverwendbare UI-Komponenten
+  - `src/lib/data/demoTodos.js`: Statische Demo-Daten
+- **Daten & Schnittstellen:** Der aktuelle Prototyp nutzt lokale Demo-Daten. Eine MongoDB-Integration ist als nächster größerer Schritt geplant.
+- **Deployment:** Noch nicht produktiv deployed. Netlify Deployment ist als eigenes Issue vorgesehen.
+- **Besondere Entscheidungen:** Die App trennt die UI bereits in Komponenten, obwohl die Datenlogik noch statisch ist. Dadurch kann später leichter auf echte Daten umgestellt werden.
+
+#### Lokales Setup
+
+```bash
+npm install
+npm run dev
+```
+
+Der Entwicklungsserver wird standardmäßig über Vite gestartet. Für einen Produktionsbuild:
+
+```bash
+npm run build
+npm run preview
+```
+
+Der Build wurde lokal mit `npm.cmd run build` erfolgreich getestet.
 
 ### 3.5 Validate
-- **URL der getesteten Version** (separat deployt)
-- **Ziele der Prüfung:** _[welche Fragen sollen beantwortet werden?]_  
-- **Vorgehen:** _[moderiert/unmoderiert; remote/on-site]_  
-- **Stichprobe:** _[Mit wem wurde getestet? Profil; Anzahl]_  
-- **Aufgaben/Szenarien:** _[Ausformulierte Testaufgaben]_  
-- **Kennzahlen & Beobachtungen:** _[z. B. Erfolgsquote, Zeitbedarf, qualitative Findings]_  
-- **Zusammenfassung der Resultate:** _[Wichtigste Erkenntnisse; 2-4 Sätze]_  
-- **Abgeleitete Verbesserungen:** _[Anforderungen, die als nächstes umgesetzt werden sollten, priorisiert, kurz begründet; falls Verbesserungen im Prototyp konkret umgesetzt wurden: In Kap. 4 dokumentieren]_  
 
-## 4. Erweiterungen [Optional]
-Dokumentiert Erweiterungen über den Mindestumfang hinaus.
-> **Hinweis:** Jede Erweiterung ist separat nach dem folgenden Schema zu beschreiben.
+Eine formale Evaluation ist noch offen. Der aktuelle Prototyp kann bereits lokal geprüft werden, um Navigation, visuelle Struktur und Verständlichkeit der wichtigsten Ansichten zu bewerten.
 
-### _[4.x Kurzbeschreibung / Titel]_  
-- **Beschreibung & Nutzen:** _[Was wurde erweitert? Warum?]_  
-- **Wo umgesetzt:** _[Wie und wo wurde es gemacht? Frontend, Backend, Datenbank?]_  
-- **Referenz:** _[Wo wird die Erweiterung auch noch beschrieben, z.B. Screenshot oder Beschreibung in einem anderen Kapitel]_  
-- **Aus Evaluation abgeleitet?:** _[Wurde diese Erweiterung als Folge eines in der Evaluation identifizierten Issues implementiert?]_  
+- **URL der getesteten Version:** Noch offen.
+- **Ziele der Prüfung:** Verständlichkeit des Dashboards, Auffindbarkeit der Aufgabenübersicht und Lesbarkeit der Kalenderansicht.
+- **Vorgehen:** Geplant ist ein kurzer Test mit typischen Aufgaben wie "heutige Aufgaben finden", "überfällige Aufgaben erkennen" und "Kalenderwoche prüfen".
+- **Stichprobe:** Noch offen.
+- **Aufgaben/Szenarien:** Noch zu definieren.
+- **Kennzahlen & Beobachtungen:** Noch offen.
+- **Zusammenfassung der Resultate:** Noch offen.
+- **Abgeleitete Verbesserungen:** Werden nach der Evaluation ergänzt.
 
-> Das folgende **Beispiel** wurde bewusst kurz gehalten. Erweiterungen dürfen auch ausführlicher beschrieben werden.
+## 4. Erweiterungen
 
-### 4.1 Tabelle nach Kategorien filtern
-- **Beschreibung & Nutzen:** Tabelle X kann nach Kategorie gefiltert werden, weil User typischerweise nur an einer bestimmten Kategorie interessiert sind.  
-- **Wo umgesetzt:** 
-  - **Frontend:** Tabelle mit Dropdown in Datei ...
-  - **Backend:** Form Action ... in Datei ...
-  - **Datenbank:** MongoDB-Query in Datei ...
-- **Referenz:** Screenshot in Kap. x.y
-- **Aus Evaluation abgeleitet?:** Ja, Issue x.y
+Aktuell sind noch keine optionalen Erweiterungen abgeschlossen. Geplante Erweiterungen und nächste Entwicklungsschritte sind:
 
-## 5. Projektorganisation [Optional]
-Beispiele:
-- **Repository & Struktur:** _[Link; kurze Strukturübersicht]_  
-- **Issue-Management:** _[Vorgehen kurz beschreiben]_  
-- **Commit-Praxis:** _[z. B. sprechende Commits]_
+- Filter auf der Alle-To-Dos-Seite
+- Funktionierende Modals zum Erfassen und Terminieren von Aufgaben
+- MongoDB-Integration für persistente Daten
+- Netlify Deployment
+- Abschließende Reflexion und Dokumentation
+
+## 5. Projektorganisation
+
+- **Repository:** `LukasPowroznik/ToDoApp`
+- **Repository-Struktur:** SvelteKit-Projekt mit Routen unter `src/routes`, Komponenten unter `src/lib/components` und Demo-Daten unter `src/lib/data`.
+- **Issue-Management:** Die Umsetzung ist in GitHub Issues organisiert. Issue #1 zum Projekt-Setup ist abgeschlossen.
+- **Commit-Praxis:** Änderungen sollen in nachvollziehbaren, thematisch passenden Commits dokumentiert werden.
 
 ## 6. KI-Deklaration
-Die folgende Deklaration ist verpflichtend und beschreibt den Einsatz von KI im Projekt.
 
 ### 6.1 KI-Tools
-- **Eingesetzte Tools**: _[z. B. Copilot, ChatGPT, Claude, lokale Modelle; Version/Variante wenn bekannt]_
-- **Zweck & Umfang**: _[wie, wofür und in welchem Ausmass wurde KI eingesetzt (z. B. Textentwürfe, Codevorschläge, Tests, Refactoring); welche Teile stammen (ganz/teilweise) aus KI-Unterstützung?]_
-- **Eigene Leistung (Abgrenzung):** _[was ist eigenständig erarbeitet/überarbeitet worden?]_
+
+- **Eingesetzte Tools:** Codex / ChatGPT im Entwicklungsumfeld.
+- **Zweck & Umfang:** Unterstützung beim Strukturieren von GitHub Issues, Prüfen des Projektstands und Formulieren der Projektdokumentation.
+- **Eigene Leistung:** Entscheidungen zum Projektumfang, fachliche Einordnung und finale Überarbeitung bleiben Teil der eigenen Projektarbeit.
 
 ### 6.2 Prompt-Vorgehen
-_[Überlegungen zu Prompt-Vorgehen, Qualität und Urheberrecht/Quellen. Wie wurde beim Prompting vorgegangen? Zu beschreiben ist die grundlegende Vorgehensweise. Einzelne, konkrete Prompts sollten höchstens als Beispiele aufgeführt werden. ]_
+
+KI wurde gezielt für konkrete Aufgaben eingesetzt, zum Beispiel zum Erstellen von Issues und zur Aktualisierung der README anhand des aktuellen Repository-Stands. Ergebnisse werden geprüft und bei Bedarf angepasst, bevor sie ins Projekt übernommen werden.
 
 ### 6.3 Reflexion
-_[Nutzen, Grenzen, Risiken/Qualitätssicherung, ...]_
 
-## 7. Anhang [Optional]
-Beispiele:
-- **Quellen:** _[verwendete Vorlagen/Assets/Modelle; Lizenz/Urheberrecht; ...]_
-- **Testskript & Materialien:** _[Link/Datei]_  
-- **Rohdaten/Auswertung:** _[Link/Datei]_  
+KI beschleunigt organisatorische und dokumentarische Arbeit, ersetzt aber nicht die fachliche Bewertung des Prototyps. Besonders wichtig ist, generierte Texte mit dem tatsächlichen Projektstand abzugleichen, damit keine Funktionen dokumentiert werden, die noch nicht umgesetzt sind.
 
+## 7. Anhang
+
+- **Quellen:** SvelteKit-Dokumentation, Bootstrap-Dokumentation und Projektdateien im Repository.
+- **Testskript & Materialien:** Noch offen.
+- **Rohdaten/Auswertung:** Noch offen.
