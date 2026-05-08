@@ -29,7 +29,7 @@
 		<div class="d-flex justify-content-between align-items-start gap-3 mb-3">
 			<div>
 				<h2 class="h5 mb-1">Heute terminierte To-Dos</h2>
-				<p class="text-secondary mb-0">Aufgaben mit Fälligkeitsdatum {readableDate}.</p>
+				<p class="text-secondary mb-0">Aufgaben mit geplantem Termin {readableDate}.</p>
 			</div>
 			<span class="badge text-bg-primary">{todaysTodos.length}</span>
 		</div>

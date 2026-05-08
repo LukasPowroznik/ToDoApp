@@ -7,12 +7,14 @@ export function getDayOfMonth(dateString) {
 }
 
 export function isTodoDueOnDate(todo, date) {
-	if (!todo.deadline || date < todo.deadline) {
+	const startDate = todo.scheduledDate;
+
+	if (!startDate || date < startDate) {
 		return false;
 	}
 
 	if (!todo.recurring || !todo.recurrence?.type) {
-		return todo.deadline === date;
+		return startDate === date;
 	}
 
 	if (todo.recurrence.type === 'daily') {
@@ -20,14 +22,14 @@ export function isTodoDueOnDate(todo, date) {
 	}
 
 	if (todo.recurrence.type === 'weekly') {
-		return getWeekday(date) === getWeekday(todo.deadline);
+		return getWeekday(date) === getWeekday(startDate);
 	}
 
 	if (todo.recurrence.type === 'monthly') {
-		return getDayOfMonth(date) === getDayOfMonth(todo.deadline);
+		return getDayOfMonth(date) === getDayOfMonth(startDate);
 	}
 
-	return todo.deadline === date;
+	return startDate === date;
 }
 
 export function isTodoOccurrenceCompleted(todo, date) {
@@ -42,7 +44,9 @@ export function buildTodoOccurrence(todo, date) {
 	return {
 		...todo,
 		calendarDate: date,
-		isRecurringOccurrence: Boolean(todo.recurring && todo.recurrence && date !== todo.deadline),
+		isRecurringOccurrence: Boolean(
+			todo.recurring && todo.recurrence && date !== todo.scheduledDate
+		),
 		isOccurrenceCompleted: isTodoOccurrenceCompleted(todo, date)
 	};
 }

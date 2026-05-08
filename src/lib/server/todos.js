@@ -25,6 +25,7 @@ export async function createTodo(todo) {
 		description: todo.description ?? '',
 		category: todo.category ?? 'Privat',
 		deadline: todo.deadline || undefined,
+		scheduledDate: todo.scheduledDate || undefined,
 		priority: todo.priority ?? 'Medium',
 		status: todo.status ?? 'Open',
 		estimatedDuration: todo.estimatedDuration ?? '',
@@ -94,6 +95,12 @@ export async function updateTodo(id, todo) {
 		update.deadline = todo.deadline;
 	} else {
 		unset.deadline = '';
+	}
+
+	if (todo.scheduledDate) {
+		update.scheduledDate = todo.scheduledDate;
+	} else {
+		unset.scheduledDate = '';
 	}
 
 	if (recurrenceType) {

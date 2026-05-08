@@ -14,7 +14,7 @@
 	const weekDates = $derived(weekDays.map((day) => day.date));
 	const scheduledTodos = $derived(
 		todos.flatMap((todo) => {
-			if (!todo.deadline) {
+			if (!todo.scheduledDate) {
 				return [];
 			}
 
@@ -141,7 +141,7 @@
 		<div class="card-body">
 			<EmptyState
 				title="Keine terminierten Aufgaben"
-				description="Aufgaben mit Deadline erscheinen später automatisch in der Wochenansicht."
+				description="Aufgaben mit geplantem Termin erscheinen spaeter automatisch in der Wochenansicht."
 			/>
 		</div>
 	</div>

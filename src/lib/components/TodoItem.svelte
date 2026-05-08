@@ -79,7 +79,8 @@
 		<div class="d-flex flex-wrap gap-2">
 			<span class={`badge ${categoryBadgeClasses[todo.category]}`}>{todo.category}</span>
 			<span class={`badge ${priorityBadgeClasses[todo.priority]}`}>{todo.priority}</span>
-			<span class="badge text-bg-light">{todo.deadline ?? 'ohne Termin'}</span>
+			<span class="badge text-bg-light">Termin: {todo.scheduledDate ?? 'offen'}</span>
+			<span class="badge text-bg-light">Deadline: {todo.deadline ?? 'offen'}</span>
 			<span class="badge text-bg-light">{todo.estimatedDuration}</span>
 			{#if todo.recurring && todo.recurrence}
 				<span class="badge text-bg-dark">{recurrenceLabels[todo.recurrence.type]}</span>

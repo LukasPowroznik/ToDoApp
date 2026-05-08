@@ -1,41 +1,100 @@
 <script>
-	let { modalId = 'scheduleTodosModal', todos = [] } = $props();
+	import { invalidateAll } from '$app/navigation';
 
-	const unscheduledTodos = $derived(
-		todos.filter((todo) => todo.status === 'Open' && !todo.deadline)
-	);
+	let { modalId = 'scheduleTodosModal', todos = [] } = $props();
+	let isSaving = $state(false);
+	let errorMessage = $state('');
+
+	const openTodos = $derived(todos.filter((todo) => todo.status === 'Open'));
+
+	async function handleSubmit(event) {
+		event.preventDefault();
+
+		const formData = new FormData(event.currentTarget);
+		const updates = openTodos
+			.map((todo) => ({
+				todo,
+				scheduledDate: formData.get(`scheduledDate-${todo.id}`)?.toString() ?? ''
+			}))
+			.filter(({ todo, scheduledDate }) => scheduledDate !== (todo.scheduledDate ?? ''));
+
+		if (updates.length === 0) {
+			errorMessage = 'Bitte waehle mindestens einen neuen Termin aus.';
+			return;
+		}
+
+		isSaving = true;
+		errorMessage = '';
+
+		try {
+			await Promise.all(
+				updates.map(({ todo, scheduledDate }) =>
+					fetch(`/api/todos/${todo.id}`, {
+						method: 'PATCH',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({
+							...todo,
+							scheduledDate
+						})
+					}).then((response) => {
+						if (!response.ok) {
+							throw new Error('Termine konnten nicht gespeichert werden.');
+						}
+					})
+				)
+			);
+
+			await invalidateAll();
+
+			const modalElement = document.getElementById(modalId);
+			const modal = window.bootstrap?.Modal.getInstance(modalElement);
+			modal?.hide();
+		} catch (error) {
+			errorMessage = error.message;
+		} finally {
+			isSaving = false;
+		}
+	}
 </script>
 
 <div class="modal fade" id={modalId} tabindex="-1" aria-labelledby={`${modalId}Label`} aria-hidden="true">
 	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
 		<div class="modal-content">
-			<form>
+			<form onsubmit={handleSubmit}>
 				<div class="modal-header">
 					<h2 class="modal-title fs-5" id={`${modalId}Label`}>ToDo's terminieren</h2>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schliessen"></button>
 				</div>
 
 				<div class="modal-body">
-					{#if unscheduledTodos.length > 0}
+					{#if errorMessage}
+						<div class="alert alert-danger" role="alert">{errorMessage}</div>
+					{/if}
+
+					{#if openTodos.length > 0}
 						<p class="text-secondary">
-							Offene Aufgaben ohne Deadline können hier einem Datum zugewiesen werden.
+							Plane offene Aufgaben auf ein Bearbeitungsdatum. Die Deadline bleibt dabei unveraendert.
 						</p>
 
 						<div class="list-group">
-							{#each unscheduledTodos as todo}
+							{#each openTodos as todo}
 								<div class="list-group-item">
 									<div class="row g-3 align-items-center">
 										<div class="col-md">
 											<h3 class="h6 mb-1">{todo.title}</h3>
-											<p class="text-secondary small mb-0">{todo.description}</p>
+											<p class="text-secondary small mb-1">{todo.description}</p>
+											<p class="text-secondary small mb-0">Deadline: {todo.deadline ?? 'offen'}</p>
 										</div>
 										<div class="col-md-4">
-											<label class="form-label" for={`${modalId}-${todo.id}`}>Fälligkeitsdatum</label>
+											<label class="form-label" for={`${modalId}-${todo.id}`}>Geplant am</label>
 											<input
 												class="form-control"
 												id={`${modalId}-${todo.id}`}
-												name={`deadline-${todo.id}`}
+												name={`scheduledDate-${todo.id}`}
 												type="date"
+												value={todo.scheduledDate ?? ''}
 											/>
 										</div>
 									</div>
@@ -43,14 +102,14 @@
 							{/each}
 						</div>
 					{:else}
-						<p class="text-secondary mb-0">Aktuell gibt es keine offenen Aufgaben ohne Deadline.</p>
+						<p class="text-secondary mb-0">Aktuell gibt es keine offenen Aufgaben.</p>
 					{/if}
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Abbrechen</button>
-					<button type="submit" class="btn btn-primary" disabled={unscheduledTodos.length === 0}>
-						Termine speichern
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" disabled={isSaving}>Abbrechen</button>
+					<button type="submit" class="btn btn-primary" disabled={openTodos.length === 0 || isSaving}>
+						{isSaving ? 'Speichert...' : 'Termine speichern'}
 					</button>
 				</div>
 			</form>

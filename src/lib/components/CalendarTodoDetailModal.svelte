@@ -12,6 +12,7 @@
 			priority: 'Medium',
 			status: 'Open',
 			calendarDate: '',
+			scheduledDate: '',
 			deadline: '',
 			estimatedDuration: '',
 			recurring: false,
@@ -65,7 +66,10 @@
 					<dt class="col-sm-4">Kalenderdatum</dt>
 					<dd class="col-sm-8">{currentTodo.calendarDate || 'ohne Termin'}</dd>
 
-					<dt class="col-sm-4">Ursprüngliche Deadline</dt>
+					<dt class="col-sm-4">Geplant am</dt>
+					<dd class="col-sm-8">{currentTodo.scheduledDate || currentTodo.calendarDate || 'ohne Termin'}</dd>
+
+					<dt class="col-sm-4">Deadline</dt>
 					<dd class="col-sm-8">{currentTodo.deadline || 'ohne Termin'}</dd>
 
 					<dt class="col-sm-4">Dauer</dt>

@@ -15,7 +15,7 @@
 		todos.filter((todo) => todo.status === 'Open' && todo.deadline && todo.deadline < today)
 	);
 	const scheduledThisMonth = $derived(
-		todos.filter((todo) => todo.deadline?.startsWith(monthPrefix))
+		todos.filter((todo) => todo.scheduledDate?.startsWith(monthPrefix))
 	);
 	const completedThisMonth = $derived(
 		todos.filter((todo) => todo.status === 'Completed' && todo.completedAt?.startsWith(monthPrefix))
@@ -50,7 +50,7 @@
 	<div class="col-sm-6">
 		<a class="card dashboard-card stat-card stat-card-today stat-card-link h-100" href="/tasks?status=today">
 			<div class="card-body">
-				<p class="text-secondary small mb-1">Heute fällig</p>
+				<p class="text-secondary small mb-1">Heute terminiert</p>
 				<h2 class="h3 mb-0">{todaysOpenTodos.length}</h2>
 			</div>
 		</a>

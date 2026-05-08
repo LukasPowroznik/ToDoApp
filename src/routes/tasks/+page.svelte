@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/state';
 	import AddTodoModal from '$lib/components/AddTodoModal.svelte';
+	import ScheduleTodosModal from '$lib/components/ScheduleTodosModal.svelte';
 	import TodoList from '$lib/components/TodoList.svelte';
 
 	const categories = ['Privat', 'Arbeit', 'Sport', 'Sonstiges'];
@@ -18,7 +19,7 @@
 	const overdueTodos = $derived(
 		todos.filter((todo) => todo.status === 'Open' && todo.deadline && todo.deadline < data.today)
 	);
-	const unscheduledTodos = $derived(todos.filter((todo) => todo.status === 'Open' && !todo.deadline));
+	const unscheduledTodos = $derived(todos.filter((todo) => todo.status === 'Open' && !todo.scheduledDate));
 	const filteredTodos = $derived(
 		todos.filter((todo) => {
 			const matchesStatus =
@@ -29,9 +30,9 @@
 					todo.status === 'Open' &&
 					todo.deadline &&
 					todo.deadline < data.today) ||
-				(statusFilter === 'unscheduled' && todo.status === 'Open' && !todo.deadline) ||
-				(statusFilter === 'today' && todo.status === 'Open' && todo.deadline === data.today) ||
-				(statusFilter === 'scheduled' && todo.deadline?.startsWith(data.monthPrefix));
+				(statusFilter === 'unscheduled' && todo.status === 'Open' && !todo.scheduledDate) ||
+				(statusFilter === 'today' && todo.status === 'Open' && todo.scheduledDate === data.today) ||
+				(statusFilter === 'scheduled' && todo.scheduledDate?.startsWith(data.monthPrefix));
 			const matchesCategory = categoryFilter === 'all' || todo.category === categoryFilter;
 			const matchesPriority = priorityFilter === 'all' || todo.priority === priorityFilter;
 
@@ -134,7 +135,14 @@
 					>
 						Neues To-Do erfassen
 					</button>
-					<button class="btn btn-outline-primary" type="button">ToDo's terminieren</button>
+					<button
+						class="btn btn-outline-primary"
+						type="button"
+						data-bs-toggle="modal"
+						data-bs-target="#scheduleTodosModal"
+					>
+						ToDo's terminieren
+					</button>
 				</div>
 			</div>
 
@@ -147,7 +155,7 @@
 						<option value="completed">Erledigt</option>
 						<option value="overdue">Überfällig</option>
 						<option value="unscheduled">Nicht terminiert</option>
-						<option value="today">Heute fällig</option>
+						<option value="today">Heute terminiert</option>
 						<option value="scheduled">Terminiert diesen Monat</option>
 					</select>
 				</div>
@@ -178,4 +186,5 @@
 	</section>
 
 	<AddTodoModal />
+	<ScheduleTodosModal {todos} />
 </div>
