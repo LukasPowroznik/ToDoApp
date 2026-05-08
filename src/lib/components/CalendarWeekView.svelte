@@ -5,8 +5,58 @@
 	let { weekDays = [], todos = [], today = new Date().toISOString().slice(0, 10) } = $props();
 
 	const weekDates = $derived(weekDays.map((day) => day.date));
-	const scheduledTodos = $derived(todos.filter((todo) => todo.deadline && weekDates.includes(todo.deadline)));
-	const getTodosForDate = (date) => scheduledTodos.filter((todo) => todo.deadline === date);
+	const getWeekday = (dateString) => new Date(`${dateString}T12:00:00.000Z`).getUTCDay();
+	const getDayOfMonth = (dateString) => Number(dateString.slice(8, 10));
+	const scheduledTodos = $derived(
+		todos.flatMap((todo) => {
+			if (!todo.deadline) {
+				return [];
+			}
+
+			if (todo.recurring && todo.recurrence?.type === 'daily') {
+				return weekDates
+					.filter((date) => date >= todo.deadline)
+					.map((date) => ({
+						...todo,
+						calendarDate: date,
+						isRecurringOccurrence: date !== todo.deadline
+					}));
+			}
+
+			if (todo.recurring && todo.recurrence?.type === 'weekly') {
+				return weekDates
+					.filter((date) => date >= todo.deadline && getWeekday(date) === getWeekday(todo.deadline))
+					.map((date) => ({
+						...todo,
+						calendarDate: date,
+						isRecurringOccurrence: date !== todo.deadline
+					}));
+			}
+
+			if (todo.recurring && todo.recurrence?.type === 'monthly') {
+				return weekDates
+					.filter((date) => date >= todo.deadline && getDayOfMonth(date) === getDayOfMonth(todo.deadline))
+					.map((date) => ({
+						...todo,
+						calendarDate: date,
+						isRecurringOccurrence: date !== todo.deadline
+					}));
+			}
+
+			if (weekDates.includes(todo.deadline)) {
+				return [
+					{
+						...todo,
+						calendarDate: todo.deadline,
+						isRecurringOccurrence: false
+					}
+				];
+			}
+
+			return [];
+		})
+	);
+	const getTodosForDate = (date) => scheduledTodos.filter((todo) => todo.calendarDate === date);
 </script>
 
 {#if scheduledTodos.length > 0}
@@ -22,7 +72,7 @@
 							<div class="d-grid gap-2">
 								{#each getTodosForDate(day.date) as todo}
 									<article
-										class={`calendar-todo border rounded p-2 ${todo.status === 'Completed' ? 'todo-item-completed' : ''} ${todo.status === 'Open' && todo.deadline < today ? 'calendar-todo-overdue' : ''}`}
+										class={`calendar-todo border rounded p-2 ${todo.status === 'Completed' ? 'todo-item-completed' : ''} ${todo.status === 'Open' && todo.calendarDate < today ? 'calendar-todo-overdue' : ''}`}
 									>
 										<span class="d-block fw-semibold">{todo.title}</span>
 										<span class={`badge mt-2 ${categoryBadgeClasses[todo.category]}`}>
@@ -33,7 +83,10 @@
 												{recurrenceLabels[todo.recurrence.type]}
 											</span>
 										{/if}
-										{#if todo.status === 'Open' && todo.deadline < today}
+										{#if todo.isRecurringOccurrence}
+											<span class="badge text-bg-light mt-2 ms-1">Wiederholung</span>
+										{/if}
+										{#if todo.status === 'Open' && todo.calendarDate < today}
 											<span class="badge text-bg-danger mt-2 ms-1">Überfällig</span>
 										{/if}
 									</article>

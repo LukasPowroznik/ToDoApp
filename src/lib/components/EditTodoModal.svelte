@@ -212,9 +212,9 @@
 								value={currentTodo.recurrence?.type ?? ''}
 							>
 								<option value="">keine</option>
-								<option value="daily">daily</option>
-								<option value="weekly">weekly</option>
-								<option value="monthly">monthly</option>
+								<option value="daily">täglich</option>
+								<option value="weekly">wöchentlich</option>
+								<option value="monthly">monatlich</option>
 							</select>
 						</div>
 					</div>

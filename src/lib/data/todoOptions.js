@@ -12,7 +12,7 @@ export const priorityBadgeClasses = {
 };
 
 export const recurrenceLabels = {
-	daily: 'taeglich',
-	weekly: 'woechentlich',
+	daily: 'täglich',
+	weekly: 'wöchentlich',
 	monthly: 'monatlich'
 };

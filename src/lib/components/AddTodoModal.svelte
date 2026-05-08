@@ -145,9 +145,9 @@
 							<label class="form-label" for={`${modalId}-recurrence-type`}>Wiederholung</label>
 							<select class="form-select" id={`${modalId}-recurrence-type`} name="recurrenceType">
 								<option value="">keine</option>
-								<option value="daily">daily</option>
-								<option value="weekly">weekly</option>
-								<option value="monthly">monthly</option>
+								<option value="daily">täglich</option>
+								<option value="weekly">wöchentlich</option>
+								<option value="monthly">monatlich</option>
 							</select>
 						</div>
 					</div>
