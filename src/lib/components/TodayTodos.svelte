@@ -1,9 +1,27 @@
 <script>
+	import { tick } from 'svelte';
+	import CalendarTodoDetailModal from '$lib/components/CalendarTodoDetailModal.svelte';
 	import { categoryBadgeClasses } from '$lib/data/todoOptions.js';
+	import { buildTodoOccurrence, isTodoDueOnDate } from '$lib/todoSchedule.js';
 
 	let { todos = [], today = '2026-05-06', readableDate = '06.05.2026' } = $props();
+	let selectedTodo = $state(null);
 
-	const todaysTodos = $derived(todos.filter((todo) => todo.deadline === today));
+	const todaysTodos = $derived(
+		todos
+			.filter((todo) => isTodoDueOnDate(todo, today))
+			.map((todo) => buildTodoOccurrence(todo, today))
+			.filter((todo) => !todo.isOccurrenceCompleted)
+	);
+
+	async function openDetailModal(todo) {
+		selectedTodo = todo;
+		await tick();
+
+		const modalElement = document.getElementById('dashboardTodoDetailModal');
+		const modal = window.bootstrap?.Modal.getOrCreateInstance(modalElement);
+		modal?.show();
+	}
 </script>
 
 <div class="card dashboard-card h-100">
@@ -19,16 +37,19 @@
 		{#if todaysTodos.length > 0}
 			<div class="list-group list-group-flush">
 				{#each todaysTodos as todo}
-					<article class="list-group-item px-0">
+					<button class="list-group-item list-group-item-action px-0" type="button" onclick={() => openDetailModal(todo)}>
 						<div class="d-flex justify-content-between gap-3">
 							<div>
 								<h3 class="h6 mb-1">{todo.title}</h3>
 								<p class="text-secondary small mb-2">{todo.description}</p>
 								<span class={`badge ${categoryBadgeClasses[todo.category]}`}>{todo.category}</span>
+								{#if todo.isRecurringOccurrence}
+									<span class="badge text-bg-light ms-1">Wiederholung</span>
+								{/if}
 							</div>
 							<span class="badge text-bg-light align-self-start">{todo.priority}</span>
 						</div>
-					</article>
+					</button>
 				{/each}
 			</div>
 		{:else}
@@ -38,3 +59,5 @@
 		{/if}
 	</div>
 </div>
+
+<CalendarTodoDetailModal modalId="dashboardTodoDetailModal" todo={selectedTodo} />

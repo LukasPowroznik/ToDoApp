@@ -4,6 +4,7 @@
 	import CalendarTodoDetailModal from '$lib/components/CalendarTodoDetailModal.svelte';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import { categoryBadgeClasses, recurrenceLabels } from '$lib/data/todoOptions.js';
+	import { buildTodoOccurrence, isTodoDueOnDate } from '$lib/todoSchedule.js';
 
 	let { weekDays = [], todos = [], today = new Date().toISOString().slice(0, 10) } = $props();
 	let updatingOccurrence = $state('');
@@ -11,51 +12,15 @@
 	let selectedTodo = $state(null);
 
 	const weekDates = $derived(weekDays.map((day) => day.date));
-	const getWeekday = (dateString) => new Date(`${dateString}T12:00:00.000Z`).getUTCDay();
-	const getDayOfMonth = (dateString) => Number(dateString.slice(8, 10));
-	const buildOccurrence = (todo, date) => {
-		const completedOccurrences = todo.completedOccurrences ?? [];
-		const isRecurringOccurrence = todo.recurring && todo.recurrence && date !== todo.deadline;
-		const isOccurrenceCompleted = todo.recurring
-			? completedOccurrences.includes(date)
-			: todo.status === 'Completed';
-
-		return {
-			...todo,
-			calendarDate: date,
-			isRecurringOccurrence,
-			isOccurrenceCompleted
-		};
-	};
 	const scheduledTodos = $derived(
 		todos.flatMap((todo) => {
 			if (!todo.deadline) {
 				return [];
 			}
 
-			if (todo.recurring && todo.recurrence?.type === 'daily') {
-				return weekDates
-					.filter((date) => date >= todo.deadline)
-					.map((date) => buildOccurrence(todo, date));
-			}
-
-			if (todo.recurring && todo.recurrence?.type === 'weekly') {
-				return weekDates
-					.filter((date) => date >= todo.deadline && getWeekday(date) === getWeekday(todo.deadline))
-					.map((date) => buildOccurrence(todo, date));
-			}
-
-			if (todo.recurring && todo.recurrence?.type === 'monthly') {
-				return weekDates
-					.filter((date) => date >= todo.deadline && getDayOfMonth(date) === getDayOfMonth(todo.deadline))
-					.map((date) => buildOccurrence(todo, date));
-			}
-
-			if (weekDates.includes(todo.deadline)) {
-				return [buildOccurrence(todo, todo.deadline)];
-			}
-
-			return [];
+			return weekDates
+				.filter((date) => isTodoDueOnDate(todo, date))
+				.map((date) => buildTodoOccurrence(todo, date));
 		})
 	);
 	const getTodosForDate = (date) => scheduledTodos.filter((todo) => todo.calendarDate === date);

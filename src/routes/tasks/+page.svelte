@@ -29,7 +29,9 @@
 					todo.status === 'Open' &&
 					todo.deadline &&
 					todo.deadline < data.today) ||
-				(statusFilter === 'unscheduled' && todo.status === 'Open' && !todo.deadline);
+				(statusFilter === 'unscheduled' && todo.status === 'Open' && !todo.deadline) ||
+				(statusFilter === 'today' && todo.status === 'Open' && todo.deadline === data.today) ||
+				(statusFilter === 'scheduled' && todo.deadline?.startsWith(data.monthPrefix));
 			const matchesCategory = categoryFilter === 'all' || todo.category === categoryFilter;
 			const matchesPriority = priorityFilter === 'all' || todo.priority === priorityFilter;
 
@@ -40,6 +42,16 @@
 	function toggleStatusFilter(filter) {
 		statusFilter = statusFilter === filter ? 'all' : filter;
 	}
+
+	$effect(() => {
+		const status = page.url.searchParams.get('status');
+		const category = page.url.searchParams.get('category');
+		const priority = page.url.searchParams.get('priority');
+
+		statusFilter = status ?? 'all';
+		categoryFilter = category ?? 'all';
+		priorityFilter = priority ?? 'all';
+	});
 </script>
 
 <div class="container">
@@ -135,6 +147,8 @@
 						<option value="completed">Erledigt</option>
 						<option value="overdue">Überfällig</option>
 						<option value="unscheduled">Nicht terminiert</option>
+						<option value="today">Heute fällig</option>
+						<option value="scheduled">Terminiert diesen Monat</option>
 					</select>
 				</div>
 
