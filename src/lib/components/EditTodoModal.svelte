@@ -75,6 +75,8 @@
 			const modalElement = document.getElementById(modalId);
 			const modal = window.bootstrap?.Modal.getInstance(modalElement);
 			modal?.hide();
+			document.body.classList.remove('modal-open');
+			document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.remove());
 		} catch (error) {
 			errorMessage = error.message;
 		} finally {
@@ -105,6 +107,8 @@
 			const modalElement = document.getElementById(modalId);
 			const modal = window.bootstrap?.Modal.getInstance(modalElement);
 			modal?.hide();
+			document.body.classList.remove('modal-open');
+			document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.remove());
 		} catch (error) {
 			errorMessage = error.message;
 		} finally {
@@ -119,7 +123,7 @@
 			<form onsubmit={handleSubmit}>
 				<div class="modal-header">
 					<h2 class="modal-title fs-5" id={`${modalId}Label`}>To-Do bearbeiten</h2>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schliessen"></button>
 				</div>
 
 				<div class="modal-body">

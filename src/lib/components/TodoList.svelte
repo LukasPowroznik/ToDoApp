@@ -3,7 +3,7 @@
 	import EditTodoModal from '$lib/components/EditTodoModal.svelte';
 	import TodoItem from '$lib/components/TodoItem.svelte';
 
-	let { todos = [], today = new Date().toISOString().slice(0, 10) } = $props();
+	let { todos = [], today = new Date().toISOString().slice(0, 10), editTodoId = null } = $props();
 	let selectedTodo = $state(null);
 
 	async function openEditModal(todo) {
@@ -14,6 +14,18 @@
 		const modal = window.bootstrap?.Modal.getOrCreateInstance(modalElement);
 		modal?.show();
 	}
+
+	$effect(() => {
+		if (!editTodoId || selectedTodo?.id === editTodoId) {
+			return;
+		}
+
+		const todoToEdit = todos.find((todo) => todo.id === editTodoId);
+
+		if (todoToEdit) {
+			openEditModal(todoToEdit);
+		}
+	});
 </script>
 
 {#if todos.length > 0}

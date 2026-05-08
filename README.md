@@ -72,7 +72,7 @@ Der Prototyp verwendet Bootstrap für ein ruhiges, responsives Interface mit Kar
   - `src/routes/calendar/+page.svelte`: Kalender-Wochenansicht
   - `src/lib/components`: Wiederverwendbare UI-Komponenten
   - `src/lib/data/demoTodos.js`: Statische Demo-Daten
-- **Daten & Schnittstellen:** Der aktuelle Prototyp nutzt lokale Demo-Daten. Eine MongoDB-Integration ist als nächster größerer Schritt geplant.
+- **Daten & Schnittstellen:** Der aktuelle Prototyp nutzt lokale Demo-Daten. Eine MongoDB-Integration ist als nächster grösserer Schritt geplant.
 - **Deployment:** Noch nicht produktiv deployed. Netlify Deployment ist als eigenes Issue vorgesehen.
 - **Besondere Entscheidungen:** Die App trennt die UI bereits in Komponenten, obwohl die Datenlogik noch statisch ist. Dadurch kann später leichter auf echte Daten umgestellt werden.
 
@@ -83,7 +83,7 @@ npm install
 npm run dev
 ```
 
-Der Entwicklungsserver wird standardmäßig über Vite gestartet. Für einen Produktionsbuild:
+Der Entwicklungsserver wird standardmässig über Vite gestartet. Für einen Produktionsbuild:
 
 ```bash
 npm run build
@@ -113,7 +113,7 @@ Aktuell sind noch keine optionalen Erweiterungen abgeschlossen. Geplante Erweite
 - Funktionierende Modals zum Erfassen und Terminieren von Aufgaben
 - MongoDB-Integration für persistente Daten
 - Netlify Deployment
-- Abschließende Reflexion und Dokumentation
+- Abschliessende Reflexion und Dokumentation
 
 ## 5. Projektorganisation
 

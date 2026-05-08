@@ -33,7 +33,7 @@
 			</div>
 		{:else}
 			<p class="text-secondary mb-0">
-				Keine Aufgaben für heute. Du kannst vorausplanen oder den freien Tag genießen.
+				Keine Aufgaben für heute. Du kannst vorausplanen oder den freien Tag geniessen.
 			</p>
 		{/if}
 	</div>

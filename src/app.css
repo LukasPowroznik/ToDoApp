@@ -84,6 +84,19 @@ body {
 	background-color: #ffffff;
 }
 
+.calendar-todo-detail-button {
+	background: transparent;
+	border: 0;
+	color: inherit;
+	padding: 0;
+	width: 100%;
+}
+
+.calendar-todo-detail-button:focus-visible {
+	outline: 0.2rem solid rgba(13, 110, 253, 0.25);
+	outline-offset: 0.2rem;
+}
+
 .calendar-todo-overdue {
 	background-color: rgba(220, 53, 69, 0.08) !important;
 	border-color: rgba(220, 53, 69, 0.28) !important;

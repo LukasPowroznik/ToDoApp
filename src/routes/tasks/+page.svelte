@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/state';
 	import AddTodoModal from '$lib/components/AddTodoModal.svelte';
 	import TodoList from '$lib/components/TodoList.svelte';
 
@@ -11,6 +12,7 @@
 	let priorityFilter = $state('all');
 
 	const todos = $derived(data.todos);
+	const editTodoId = $derived(page.url.searchParams.get('edit'));
 	const openTodos = $derived(todos.filter((todo) => todo.status === 'Open'));
 	const completedTodos = $derived(todos.filter((todo) => todo.status === 'Completed'));
 	const overdueTodos = $derived(
@@ -157,7 +159,7 @@
 				</div>
 			</div>
 
-			<TodoList todos={filteredTodos} today={data.today} />
+			<TodoList todos={filteredTodos} today={data.today} {editTodoId} />
 		</div>
 	</section>
 

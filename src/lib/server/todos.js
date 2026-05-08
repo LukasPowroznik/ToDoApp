@@ -57,6 +57,24 @@ export async function completeTodo(id) {
 	return result ? serializeTodo(result) : null;
 }
 
+export async function completeTodoOccurrence(id, occurrenceDate) {
+	const collection = await getTodosCollection();
+	const result = await collection.findOneAndUpdate(
+		{ _id: new ObjectId(id) },
+		{
+			$addToSet: {
+				completedOccurrences: occurrenceDate
+			},
+			$set: {
+				updatedAt: new Date().toISOString()
+			}
+		},
+		{ returnDocument: 'after' }
+	);
+
+	return result ? serializeTodo(result) : null;
+}
+
 export async function updateTodo(id, todo) {
 	const collection = await getTodosCollection();
 	const recurrenceType = todo.recurrence?.type;
