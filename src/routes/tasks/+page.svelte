@@ -57,7 +57,6 @@
 
 <div class="container">
 	<header class="page-header">
-		<p class="page-kicker">Alle To-Dos</p>
 		<h1 class="h2 mb-2">Aufgaben verwalten</h1>
 		<p class="text-secondary mb-0">
 			To-Dos erfassen, filtern, bearbeiten und in MongoDB speichern.
@@ -141,7 +140,7 @@
 						data-bs-toggle="modal"
 						data-bs-target="#scheduleTodosModal"
 					>
-						ToDo's terminieren
+						To-Dos terminieren
 					</button>
 				</div>
 			</div>

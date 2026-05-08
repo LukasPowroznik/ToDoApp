@@ -10,7 +10,6 @@
 
 <div class="container">
 	<header class="page-header">
-		<p class="page-kicker">Dashboard</p>
 		<h1 class="h2 mb-2">Heute im Überblick</h1>
 		<p class="text-secondary mb-0">
 			Aktuelle Aufgaben, heutige Termine und Kennzahlen aus MongoDB.

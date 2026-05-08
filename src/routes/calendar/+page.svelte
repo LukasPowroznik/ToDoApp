@@ -8,7 +8,6 @@
 
 <div class="container">
 	<header class="page-header">
-		<p class="page-kicker">Kalender</p>
 		<h1 class="h2 mb-2">Woche vom {data.readableWeekStart} bis {data.readableWeekEnd}</h1>
 		<p class="text-secondary mb-0">Wochenansicht mit terminierten Aufgaben aus MongoDB.</p>
 	</header>

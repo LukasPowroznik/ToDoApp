@@ -160,11 +160,11 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" disabled={isSaving}>
-						Abbrechen
-					</button>
 					<button type="submit" class="btn btn-primary" disabled={isSaving}>
 						{isSaving ? 'Speichert...' : 'To-Do speichern'}
+					</button>
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" disabled={isSaving}>
+						Abbrechen
 					</button>
 				</div>
 			</form>

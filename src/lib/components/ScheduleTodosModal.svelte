@@ -64,7 +64,7 @@
 		<div class="modal-content">
 			<form onsubmit={handleSubmit}>
 				<div class="modal-header">
-					<h2 class="modal-title fs-5" id={`${modalId}Label`}>ToDo's terminieren</h2>
+					<h2 class="modal-title fs-5" id={`${modalId}Label`}>To-Dos terminieren</h2>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schliessen"></button>
 				</div>
 
@@ -107,10 +107,10 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" disabled={isSaving}>Abbrechen</button>
 					<button type="submit" class="btn btn-primary" disabled={openTodos.length === 0 || isSaving}>
 						{isSaving ? 'Speichert...' : 'Termine speichern'}
 					</button>
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" disabled={isSaving}>Abbrechen</button>
 				</div>
 			</form>
 		</div>
