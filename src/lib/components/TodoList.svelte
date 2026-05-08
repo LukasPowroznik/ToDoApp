@@ -3,7 +3,7 @@
 	import EditTodoModal from '$lib/components/EditTodoModal.svelte';
 	import TodoItem from '$lib/components/TodoItem.svelte';
 
-	let { todos = [] } = $props();
+	let { todos = [], today = new Date().toISOString().slice(0, 10) } = $props();
 	let selectedTodo = $state(null);
 
 	async function openEditModal(todo) {
@@ -20,7 +20,7 @@
 	<div class="row g-3">
 		{#each todos as todo}
 			<div class="col-lg-6">
-				<TodoItem {todo} onEdit={openEditModal} />
+				<TodoItem {todo} {today} onEdit={openEditModal} />
 			</div>
 		{/each}
 	</div>

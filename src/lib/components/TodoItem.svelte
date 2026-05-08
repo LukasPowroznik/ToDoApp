@@ -6,12 +6,13 @@
 		recurrenceLabels
 	} from '$lib/data/todoOptions.js';
 
-	let { todo, onEdit = () => {} } = $props();
+	let { todo, today = new Date().toISOString().slice(0, 10), onEdit = () => {} } = $props();
 	let isUpdating = $state(false);
 	let isDeleting = $state(false);
 	let errorMessage = $state('');
 
 	const isCompleted = $derived(todo.status === 'Completed');
+	const isOverdue = $derived(todo.status === 'Open' && todo.deadline && todo.deadline < today);
 
 	async function completeTodo() {
 		isUpdating = true;
@@ -60,8 +61,12 @@
 	}
 </script>
 
-<article class={`card h-100 ${isCompleted ? 'todo-item-completed' : ''}`}>
+<article class={`card h-100 ${isCompleted ? 'todo-item-completed' : ''} ${isOverdue ? 'todo-item-overdue' : ''}`}>
 	<button class="todo-item-edit-button card-body text-start" type="button" onclick={() => onEdit(todo)}>
+		{#if isOverdue}
+			<div class="badge text-bg-danger mb-3">Überfällig</div>
+		{/if}
+
 		<div class="d-flex justify-content-between gap-3 mb-2">
 			<h3 class={`h6 mb-0 ${isCompleted ? 'todo-title-completed' : ''}`}>
 				{todo.title}

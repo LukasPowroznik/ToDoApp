@@ -157,7 +157,7 @@
 				</div>
 			</div>
 
-			<TodoList todos={filteredTodos} />
+			<TodoList todos={filteredTodos} today={data.today} />
 		</div>
 	</section>
 
