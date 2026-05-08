@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
-import { completeTodo } from '$lib/server/todos.js';
+import { completeTodo, updateTodo } from '$lib/server/todos.js';
 
 export async function PATCH({ params, request }) {
 	const updates = await request.json();
@@ -9,11 +9,14 @@ export async function PATCH({ params, request }) {
 		return json({ message: 'invalid todo id' }, { status: 400 });
 	}
 
-	if (updates.status !== 'Completed') {
-		return json({ message: 'only status Completed is supported' }, { status: 400 });
+	if (!updates.title && updates.status !== 'Completed') {
+		return json({ message: 'title is required' }, { status: 400 });
 	}
 
-	const todo = await completeTodo(params.id);
+	const todo =
+		updates.status === 'Completed' && !updates.title
+			? await completeTodo(params.id)
+			: await updateTodo(params.id, updates);
 
 	if (!todo) {
 		return json({ message: 'todo not found' }, { status: 404 });

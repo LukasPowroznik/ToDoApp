@@ -6,7 +6,7 @@
 		recurrenceLabels
 	} from '$lib/data/todoOptions.js';
 
-	let { todo } = $props();
+	let { todo, onEdit = () => {} } = $props();
 	let isUpdating = $state(false);
 	let errorMessage = $state('');
 
@@ -39,7 +39,7 @@
 </script>
 
 <article class={`card h-100 ${isCompleted ? 'todo-item-completed' : ''}`}>
-	<div class="card-body">
+	<button class="todo-item-edit-button card-body text-start" type="button" onclick={() => onEdit(todo)}>
 		<div class="d-flex justify-content-between gap-3 mb-2">
 			<h3 class={`h6 mb-0 ${isCompleted ? 'todo-title-completed' : ''}`}>
 				{todo.title}
@@ -62,9 +62,16 @@
 		{#if errorMessage}
 			<p class="text-danger small mt-3 mb-0">{errorMessage}</p>
 		{/if}
+	</button>
 
+	<div class="card-footer bg-white border-0 pt-0">
 		{#if !isCompleted}
-			<button class="btn btn-sm btn-outline-success mt-3" type="button" onclick={completeTodo} disabled={isUpdating}>
+			<button
+				class="btn btn-sm btn-outline-success mt-3"
+				type="button"
+				onclick={completeTodo}
+				disabled={isUpdating}
+			>
 				{isUpdating ? 'Speichert...' : 'erledigt'}
 			</button>
 		{/if}
