@@ -1,4 +1,5 @@
 <script>
+	import AddTodoModal from '$lib/components/AddTodoModal.svelte';
 	import TodoList from '$lib/components/TodoList.svelte';
 
 	let { data } = $props();
@@ -64,7 +65,14 @@
 					<p class="text-secondary mb-0">Alle Demo-Aufgaben aus den vier festen Kategorien.</p>
 				</div>
 				<div class="d-flex flex-wrap gap-2">
-					<button class="btn btn-primary" type="button">Neues To-Do erfassen</button>
+					<button
+						class="btn btn-primary"
+						type="button"
+						data-bs-toggle="modal"
+						data-bs-target="#addTodoModal"
+					>
+						Neues To-Do erfassen
+					</button>
 					<button class="btn btn-outline-primary" type="button">ToDo's terminieren</button>
 				</div>
 			</div>
@@ -72,4 +80,6 @@
 			<TodoList {todos} />
 		</div>
 	</section>
+
+	<AddTodoModal />
 </div>
