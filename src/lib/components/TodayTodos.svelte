@@ -1,5 +1,5 @@
 <script>
-	import { categoryBadgeClasses } from '$lib/data/demoTodos.js';
+	import { categoryBadgeClasses } from '$lib/data/todoOptions.js';
 
 	let { todos = [], today = '2026-05-06', readableDate = '06.05.2026' } = $props();
 

@@ -1,7 +1,10 @@
 <script>
 	import DashboardStats from '$lib/components/DashboardStats.svelte';
 	import TodayTodos from '$lib/components/TodayTodos.svelte';
-	import { demoTodos } from '$lib/data/demoTodos.js';
+
+	let { data } = $props();
+
+	const todos = $derived(data.todos);
 </script>
 
 <div class="container">
@@ -15,11 +18,11 @@
 
 	<div class="row g-4">
 		<section class="col-lg-7">
-			<TodayTodos todos={demoTodos} />
+			<TodayTodos {todos} today={data.today} readableDate={data.readableDate} />
 		</section>
 
 		<section class="col-lg-5">
-			<DashboardStats todos={demoTodos} />
+			<DashboardStats {todos} today={data.today} monthPrefix={data.monthPrefix} />
 		</section>
 
 		<section class="col-12">

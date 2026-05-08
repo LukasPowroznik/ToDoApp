@@ -3,7 +3,7 @@
 		categoryBadgeClasses,
 		priorityBadgeClasses,
 		recurrenceLabels
-	} from '$lib/data/demoTodos.js';
+	} from '$lib/data/todoOptions.js';
 
 	let { todo } = $props();
 

@@ -1,13 +1,15 @@
 <script>
 	import TodoList from '$lib/components/TodoList.svelte';
-	import { demoTodos } from '$lib/data/demoTodos.js';
 
-	const openTodos = demoTodos.filter((todo) => todo.status === 'Open');
-	const completedTodos = demoTodos.filter((todo) => todo.status === 'Completed');
-	const overdueTodos = demoTodos.filter(
-		(todo) => todo.status === 'Open' && todo.deadline && todo.deadline < '2026-05-06'
-	);
-	const unscheduledTodos = demoTodos.filter((todo) => todo.status === 'Open' && !todo.deadline);
+	let { data } = $props();
+
+	const todos = $derived(data.todos);
+	const openTodos = $derived(todos.filter((todo) => todo.status === 'Open'));
+	const completedTodos = $derived(todos.filter((todo) => todo.status === 'Completed'));
+	const overdueTodos = $derived(todos.filter(
+		(todo) => todo.status === 'Open' && todo.deadline && todo.deadline < data.today
+	));
+	const unscheduledTodos = $derived(todos.filter((todo) => todo.status === 'Open' && !todo.deadline));
 </script>
 
 <div class="container">
@@ -67,7 +69,7 @@
 				</div>
 			</div>
 
-			<TodoList todos={demoTodos} />
+			<TodoList {todos} />
 		</div>
 	</section>
 </div>

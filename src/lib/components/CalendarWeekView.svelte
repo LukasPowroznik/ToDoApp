@@ -1,6 +1,6 @@
 <script>
 	import EmptyState from '$lib/components/EmptyState.svelte';
-	import { categoryBadgeClasses, recurrenceLabels } from '$lib/data/demoTodos.js';
+	import { categoryBadgeClasses, recurrenceLabels } from '$lib/data/todoOptions.js';
 
 	let { weekDays = [], todos = [] } = $props();
 
