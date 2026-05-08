@@ -2,9 +2,10 @@
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import { categoryBadgeClasses, recurrenceLabels } from '$lib/data/todoOptions.js';
 
-	let { weekDays = [], todos = [] } = $props();
+	let { weekDays = [], todos = [], today = new Date().toISOString().slice(0, 10) } = $props();
 
-	const scheduledTodos = $derived(todos.filter((todo) => todo.deadline));
+	const weekDates = $derived(weekDays.map((day) => day.date));
+	const scheduledTodos = $derived(todos.filter((todo) => todo.deadline && weekDates.includes(todo.deadline)));
 	const getTodosForDate = (date) => scheduledTodos.filter((todo) => todo.deadline === date);
 </script>
 
@@ -20,9 +21,8 @@
 						{#if getTodosForDate(day.date).length > 0}
 							<div class="d-grid gap-2">
 								{#each getTodosForDate(day.date) as todo}
-									<button
-										class={`btn text-start border bg-white ${todo.status === 'Completed' ? 'todo-item-completed' : ''}`}
-										type="button"
+									<article
+										class={`calendar-todo border rounded p-2 ${todo.status === 'Completed' ? 'todo-item-completed' : ''} ${todo.status === 'Open' && todo.deadline < today ? 'calendar-todo-overdue' : ''}`}
 									>
 										<span class="d-block fw-semibold">{todo.title}</span>
 										<span class={`badge mt-2 ${categoryBadgeClasses[todo.category]}`}>
@@ -33,7 +33,10 @@
 												{recurrenceLabels[todo.recurrence.type]}
 											</span>
 										{/if}
-									</button>
+										{#if todo.status === 'Open' && todo.deadline < today}
+											<span class="badge text-bg-danger mt-2 ms-1">Überfällig</span>
+										{/if}
+									</article>
 								{/each}
 							</div>
 						{:else}
