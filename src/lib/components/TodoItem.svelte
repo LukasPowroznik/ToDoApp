@@ -1,4 +1,5 @@
 <script>
+	import { invalidateAll } from '$app/navigation';
 	import {
 		categoryBadgeClasses,
 		priorityBadgeClasses,
@@ -6,8 +7,35 @@
 	} from '$lib/data/todoOptions.js';
 
 	let { todo } = $props();
+	let isUpdating = $state(false);
+	let errorMessage = $state('');
 
 	const isCompleted = $derived(todo.status === 'Completed');
+
+	async function completeTodo() {
+		isUpdating = true;
+		errorMessage = '';
+
+		try {
+			const response = await fetch(`/api/todos/${todo.id}`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ status: 'Completed' })
+			});
+
+			if (!response.ok) {
+				throw new Error('Status konnte nicht geaendert werden.');
+			}
+
+			await invalidateAll();
+		} catch (error) {
+			errorMessage = error.message;
+		} finally {
+			isUpdating = false;
+		}
+	}
 </script>
 
 <article class={`card h-100 ${isCompleted ? 'todo-item-completed' : ''}`}>
@@ -30,5 +58,15 @@
 				<span class="badge text-bg-dark">{recurrenceLabels[todo.recurrence.type]}</span>
 			{/if}
 		</div>
+
+		{#if errorMessage}
+			<p class="text-danger small mt-3 mb-0">{errorMessage}</p>
+		{/if}
+
+		{#if !isCompleted}
+			<button class="btn btn-sm btn-outline-success mt-3" type="button" onclick={completeTodo} disabled={isUpdating}>
+				{isUpdating ? 'Speichert...' : 'erledigt'}
+			</button>
+		{/if}
 	</div>
 </article>

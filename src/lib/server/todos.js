@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { getTodosCollection } from '$lib/server/db.js';
 
 function serializeTodo(todo) {
@@ -38,4 +39,20 @@ export async function createTodo(todo) {
 		...document,
 		_id: result.insertedId
 	});
+}
+
+export async function completeTodo(id) {
+	const collection = await getTodosCollection();
+	const result = await collection.findOneAndUpdate(
+		{ _id: new ObjectId(id) },
+		{
+			$set: {
+				status: 'Completed',
+				completedAt: new Date().toISOString()
+			}
+		},
+		{ returnDocument: 'after' }
+	);
+
+	return result ? serializeTodo(result) : null;
 }
