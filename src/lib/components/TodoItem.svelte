@@ -8,6 +8,7 @@
 
 	let { todo, onEdit = () => {} } = $props();
 	let isUpdating = $state(false);
+	let isDeleting = $state(false);
 	let errorMessage = $state('');
 
 	const isCompleted = $derived(todo.status === 'Completed');
@@ -34,6 +35,27 @@
 			errorMessage = error.message;
 		} finally {
 			isUpdating = false;
+		}
+	}
+
+	async function deleteTodo() {
+		isDeleting = true;
+		errorMessage = '';
+
+		try {
+			const response = await fetch(`/api/todos/${todo.id}`, {
+				method: 'DELETE'
+			});
+
+			if (!response.ok) {
+				throw new Error('To-Do konnte nicht geloescht werden.');
+			}
+
+			await invalidateAll();
+		} catch (error) {
+			errorMessage = error.message;
+		} finally {
+			isDeleting = false;
 		}
 	}
 </script>
@@ -64,16 +86,27 @@
 		{/if}
 	</button>
 
-	<div class="card-footer bg-white border-0 pt-0">
-		{#if !isCompleted}
-			<button
-				class="btn btn-sm btn-outline-success mt-3"
-				type="button"
-				onclick={completeTodo}
-				disabled={isUpdating}
-			>
-				{isUpdating ? 'Speichert...' : 'erledigt'}
-			</button>
-		{/if}
+	<div class="card-footer bg-white border-0 pt-0 d-flex justify-content-between gap-2">
+		<div>
+			{#if !isCompleted}
+				<button
+					class="btn btn-sm btn-outline-success mt-3"
+					type="button"
+					onclick={completeTodo}
+					disabled={isUpdating || isDeleting}
+				>
+					{isUpdating ? 'Speichert...' : 'erledigt'}
+				</button>
+			{/if}
+		</div>
+
+		<button
+			class="btn btn-sm btn-outline-danger mt-3"
+			type="button"
+			onclick={deleteTodo}
+			disabled={isUpdating || isDeleting}
+		>
+			{isDeleting ? 'Löscht...' : 'Löschen'}
+		</button>
 	</div>
 </article>

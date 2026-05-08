@@ -7,6 +7,7 @@
 
 	let { modalId = 'editTodoModal', todo = null } = $props();
 	let isSaving = $state(false);
+	let isDeleting = $state(false);
 	let errorMessage = $state('');
 
 	const currentTodo = $derived(
@@ -78,6 +79,36 @@
 			errorMessage = error.message;
 		} finally {
 			isSaving = false;
+		}
+	}
+
+	async function handleDelete() {
+		if (!todo?.id) {
+			errorMessage = 'Kein To-Do zum Loeschen ausgewaehlt.';
+			return;
+		}
+
+		isDeleting = true;
+		errorMessage = '';
+
+		try {
+			const response = await fetch(`/api/todos/${todo.id}`, {
+				method: 'DELETE'
+			});
+
+			if (!response.ok) {
+				throw new Error('Das To-Do konnte nicht geloescht werden.');
+			}
+
+			await invalidateAll();
+
+			const modalElement = document.getElementById(modalId);
+			const modal = window.bootstrap?.Modal.getInstance(modalElement);
+			modal?.hide();
+		} catch (error) {
+			errorMessage = error.message;
+		} finally {
+			isDeleting = false;
 		}
 	}
 </script>
@@ -189,13 +220,29 @@
 					</div>
 				</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" disabled={isSaving}>
-						Abbrechen
+				<div class="modal-footer justify-content-between">
+					<button
+						type="button"
+						class="btn btn-outline-danger"
+						onclick={handleDelete}
+						disabled={isSaving || isDeleting}
+					>
+						{isDeleting ? 'Löscht...' : 'Löschen'}
 					</button>
-					<button type="submit" class="btn btn-primary" disabled={isSaving}>
-						{isSaving ? 'Speichert...' : 'Speichern'}
-					</button>
+
+					<div class="d-flex gap-2">
+						<button type="submit" class="btn btn-primary" disabled={isSaving || isDeleting}>
+							{isSaving ? 'Speichert...' : 'Speichern'}
+						</button>
+						<button
+							type="button"
+							class="btn btn-outline-secondary"
+							data-bs-dismiss="modal"
+							disabled={isSaving || isDeleting}
+						>
+							Abbrechen
+						</button>
+					</div>
 				</div>
 			</form>
 		</div>

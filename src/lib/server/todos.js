@@ -104,3 +104,10 @@ export async function updateTodo(id, todo) {
 
 	return result ? serializeTodo(result) : null;
 }
+
+export async function deleteTodo(id) {
+	const collection = await getTodosCollection();
+	const result = await collection.deleteOne({ _id: new ObjectId(id) });
+
+	return result.deletedCount === 1;
+}
