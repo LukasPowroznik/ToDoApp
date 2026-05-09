@@ -24,9 +24,25 @@
 		})
 	);
 	const getTodosForDate = (date) => scheduledTodos.filter((todo) => todo.calendarDate === date);
+	const getDurationClass = (duration) =>
+		({
+			'30 min': 'calendar-todo-duration-30',
+			'1 h': 'calendar-todo-duration-60',
+			'2 h': 'calendar-todo-duration-120',
+			'4 h': 'calendar-todo-duration-240',
+			Ganztägig: 'calendar-todo-duration-day'
+		})[duration] ?? 'calendar-todo-duration-30';
 
-	async function completeOccurrence(todo) {
+	async function completeCalendarTodo(todo) {
 		const occurrenceKey = `${todo.id}-${todo.calendarDate}`;
+		const payload = todo.recurring
+			? {
+					status: 'Completed',
+					occurrenceDate: todo.calendarDate
+				}
+			: {
+					status: 'Completed'
+				};
 
 		updatingOccurrence = occurrenceKey;
 		errorMessage = '';
@@ -37,14 +53,11 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({
-					status: 'Completed',
-					occurrenceDate: todo.calendarDate
-				})
+				body: JSON.stringify(payload)
 			});
 
 			if (!response.ok) {
-				throw new Error('Wiederholung konnte nicht abgeschlossen werden.');
+				throw new Error('Aufgabe konnte nicht abgeschlossen werden.');
 			}
 
 			await invalidateAll();
@@ -84,7 +97,7 @@
 							<div class="d-grid gap-2">
 								{#each getTodosForDate(day.date) as todo}
 									<article
-										class={`calendar-todo border rounded p-2 ${todo.isOccurrenceCompleted ? 'todo-item-completed' : ''} ${!todo.isOccurrenceCompleted && todo.status === 'Open' && todo.calendarDate < today ? 'calendar-todo-overdue' : ''}`}
+										class={`calendar-todo border rounded p-2 ${getDurationClass(todo.estimatedDuration)} ${todo.isOccurrenceCompleted ? 'todo-item-completed' : ''} ${!todo.isOccurrenceCompleted && todo.status === 'Open' && todo.calendarDate < today ? 'calendar-todo-overdue' : ''}`}
 									>
 										<button
 											class="calendar-todo-detail-button text-start"
@@ -95,6 +108,9 @@
 											<span class={`badge mt-2 ${categoryBadgeClasses[todo.category]}`}>
 												{todo.category}
 											</span>
+											{#if todo.estimatedDuration}
+												<span class="badge text-bg-light mt-2 ms-1">{todo.estimatedDuration}</span>
+											{/if}
 											{#if todo.recurring && todo.recurrence}
 												<span class="badge text-bg-dark mt-2 ms-1">
 													{recurrenceLabels[todo.recurrence.type]}
@@ -111,11 +127,11 @@
 											{/if}
 										</button>
 
-										{#if todo.recurring && !todo.isOccurrenceCompleted}
+										{#if !todo.isOccurrenceCompleted}
 											<button
 												class="btn btn-sm btn-outline-success d-block mt-3"
 												type="button"
-												onclick={() => completeOccurrence(todo)}
+												onclick={() => completeCalendarTodo(todo)}
 												disabled={updatingOccurrence === `${todo.id}-${todo.calendarDate}`}
 											>
 												{updatingOccurrence === `${todo.id}-${todo.calendarDate}` ? 'Speichert...' : 'erledigt'}

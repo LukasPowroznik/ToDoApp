@@ -131,6 +131,32 @@ body {
 
 .calendar-todo {
 	background-color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	transition:
+		min-height 0.15s ease,
+		box-shadow 0.15s ease;
+}
+
+.calendar-todo-duration-30 {
+	min-height: 4rem;
+}
+
+.calendar-todo-duration-60 {
+	min-height: 6rem;
+}
+
+.calendar-todo-duration-120 {
+	min-height: 10rem;
+}
+
+.calendar-todo-duration-240 {
+	min-height: 16rem;
+}
+
+.calendar-todo-duration-day {
+	min-height: 24rem;
 }
 
 .calendar-todo-detail-button {
@@ -209,6 +235,26 @@ body {
 
 	.calendar-day {
 		min-height: auto;
+	}
+
+	.calendar-todo-duration-30 {
+		min-height: 4rem;
+	}
+
+	.calendar-todo-duration-60 {
+		min-height: 5rem;
+	}
+
+	.calendar-todo-duration-120 {
+		min-height: 7rem;
+	}
+
+	.calendar-todo-duration-240 {
+		min-height: 9rem;
+	}
+
+	.calendar-todo-duration-day {
+		min-height: 12rem;
 	}
 
 	.completion-line-chart-svg {
