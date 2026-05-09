@@ -152,7 +152,7 @@ todo-dashboard/
 │   │   │   ├── TodoDetailModal.svelte
 │   │   │   └── ScheduleTodosModal.svelte
 │   │   ├── data/
-│   │   │   └── demoTodos.js
+│   │   │   └── todoOptions.js
 │   │   ├── server/
 │   │   │   └── db.js
 │   │   └── stores/

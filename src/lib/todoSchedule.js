@@ -17,6 +17,10 @@ export function isTodoDueOnDate(todo, date) {
 		return startDate === date;
 	}
 
+	if (todo.deadline && date > todo.deadline) {
+		return false;
+	}
+
 	if (todo.recurrence.type === 'daily') {
 		return true;
 	}

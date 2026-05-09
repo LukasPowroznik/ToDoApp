@@ -65,7 +65,7 @@ Der aktuelle Prototyp ist eine funktionsfaehige SvelteKit-App mit MongoDB-Anbind
 - Sammelmodal zum Terminieren noch nicht geplanter Aufgaben.
 - Wochenkalender mit Navigation zur vorherigen und naechsten Woche.
 - Detailmodal fuer Aufgaben im Kalender.
-- Wiederkehrende Aufgaben mit taeglicher, woechentlicher oder monatlicher Wiederholung.
+- Wiederkehrende Aufgaben mit taeglicher, woechentlicher oder monatlicher Wiederholung bis zur gesetzten Deadline.
 - Einzelne Vorkommen wiederkehrender Aufgaben koennen im Kalender als erledigt markiert werden.
 
 ### 4.2 Technologie
@@ -90,7 +90,7 @@ Der aktuelle Prototyp ist eine funktionsfaehige SvelteKit-App mit MongoDB-Anbind
 - `src/lib/server/todos.js`: CRUD-Funktionen fuer To-Dos
 - `src/lib/todoSchedule.js`: Logik fuer Termine und Wiederholungen
 - `src/lib/components`: Wiederverwendbare UI-Komponenten
-- `src/lib/data/demoTodos.js`: Alte Demo-Daten als Referenzbestand
+- `src/lib/data/todoOptions.js`: UI-Optionen und Badge-Klassen fuer To-Dos
 
 ### 4.4 Datenmodell
 
@@ -167,7 +167,6 @@ Moegliche naechste Schritte:
 - Validierung mit Testpersonen dokumentieren.
 - Fehlermeldungen und Ladezustaende weiter verfeinern.
 - Deployment vorbereiten.
-- Alte Demo-Daten entfernen oder klar als Seed-/Referenzdaten kennzeichnen.
 - Dokumentation nach der Evaluation um Resultate und Reflexion ergaenzen.
 
 ## 8. KI-Deklaration
