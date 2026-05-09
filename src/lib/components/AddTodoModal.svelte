@@ -120,7 +120,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<label class="form-label" for={`${modalId}-scheduled-date`}>Geplant am</label>
+							<label class="form-label" for={`${modalId}-scheduled-date`}>Zu erledigen am</label>
 							<input class="form-control" id={`${modalId}-scheduled-date`} name="scheduledDate" type="date" />
 						</div>
 
