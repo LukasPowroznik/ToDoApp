@@ -1,6 +1,11 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { categoryBadgeClasses, priorityBadgeClasses, recurrenceLabels } from '$lib/data/todoOptions.js';
+	import {
+		categoryBadgeClasses,
+		priorityBadgeClasses,
+		recurrenceLabels,
+		statusLabels
+	} from '$lib/data/todoOptions.js';
 
 	let { modalId = 'calendarTodoDetailModal', todo = null } = $props();
 
@@ -52,7 +57,7 @@
 					<span class={`badge ${categoryBadgeClasses[currentTodo.category]}`}>{currentTodo.category}</span>
 					<span class={`badge ${priorityBadgeClasses[currentTodo.priority]}`}>{currentTodo.priority}</span>
 					<span class={`badge ${currentTodo.isOccurrenceCompleted ? 'text-bg-success' : 'text-bg-light'}`}>
-						{currentTodo.isOccurrenceCompleted ? 'Erledigt' : currentTodo.status}
+						{currentTodo.isOccurrenceCompleted ? statusLabels.Completed : statusLabels[currentTodo.status] ?? currentTodo.status}
 					</span>
 					{#if currentTodo.recurring && currentTodo.recurrence}
 						<span class="badge text-bg-dark">{recurrenceLabels[currentTodo.recurrence.type]}</span>
@@ -66,7 +71,7 @@
 					<dt class="col-sm-4">Kalenderdatum</dt>
 					<dd class="col-sm-8">{currentTodo.calendarDate || 'ohne Termin'}</dd>
 
-					<dt class="col-sm-4">Geplant am</dt>
+					<dt class="col-sm-4">Zu erledigen am</dt>
 					<dd class="col-sm-8">{currentTodo.scheduledDate || currentTodo.calendarDate || 'ohne Termin'}</dd>
 
 					<dt class="col-sm-4">Deadline</dt>

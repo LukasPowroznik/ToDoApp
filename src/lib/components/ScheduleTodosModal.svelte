@@ -5,13 +5,15 @@
 	let isSaving = $state(false);
 	let errorMessage = $state('');
 
-	const openTodos = $derived(todos.filter((todo) => todo.status === 'Open'));
+	const unscheduledOpenTodos = $derived(
+		todos.filter((todo) => todo.status === 'Open' && !todo.scheduledDate)
+	);
 
 	async function handleSubmit(event) {
 		event.preventDefault();
 
 		const formData = new FormData(event.currentTarget);
-		const updates = openTodos
+		const updates = unscheduledOpenTodos
 			.map((todo) => ({
 				todo,
 				scheduledDate: formData.get(`scheduledDate-${todo.id}`)?.toString() ?? ''
@@ -73,13 +75,13 @@
 						<div class="alert alert-danger" role="alert">{errorMessage}</div>
 					{/if}
 
-					{#if openTodos.length > 0}
+					{#if unscheduledOpenTodos.length > 0}
 						<p class="text-secondary">
-							Plane offene Aufgaben auf ein Bearbeitungsdatum. Die Deadline bleibt dabei unveraendert.
+							Plane offene Aufgaben ohne Bearbeitungsdatum. Die Deadline bleibt dabei unveraendert.
 						</p>
 
 						<div class="list-group">
-							{#each openTodos as todo}
+							{#each unscheduledOpenTodos as todo}
 								<div class="list-group-item">
 									<div class="row g-3 align-items-center">
 										<div class="col-md">
@@ -88,7 +90,7 @@
 											<p class="text-secondary small mb-0">Deadline: {todo.deadline ?? 'offen'}</p>
 										</div>
 										<div class="col-md-4">
-											<label class="form-label" for={`${modalId}-${todo.id}`}>Geplant am</label>
+											<label class="form-label" for={`${modalId}-${todo.id}`}>Zu erledigen am</label>
 											<input
 												class="form-control"
 												id={`${modalId}-${todo.id}`}
@@ -102,12 +104,12 @@
 							{/each}
 						</div>
 					{:else}
-						<p class="text-secondary mb-0">Aktuell gibt es keine offenen Aufgaben.</p>
+						<p class="text-secondary mb-0">Aktuell gibt es keine offenen Aufgaben ohne Bearbeitungsdatum.</p>
 					{/if}
 				</div>
 
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" disabled={openTodos.length === 0 || isSaving}>
+					<button type="submit" class="btn btn-primary" disabled={unscheduledOpenTodos.length === 0 || isSaving}>
 						{isSaving ? 'Speichert...' : 'Termine speichern'}
 					</button>
 					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" disabled={isSaving}>Abbrechen</button>

@@ -142,8 +142,8 @@
 						<div class="col-md-6">
 							<label class="form-label" for={`${modalId}-status`}>Status</label>
 							<select class="form-select" id={`${modalId}-status`} name="status">
-								<option value="Open">Open</option>
-								<option value="Completed">Completed</option>
+								<option value="Open">offen</option>
+								<option value="Completed">erledigt</option>
 							</select>
 						</div>
 

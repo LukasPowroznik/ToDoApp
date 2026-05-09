@@ -3,7 +3,8 @@
 	import {
 		categoryBadgeClasses,
 		priorityBadgeClasses,
-		recurrenceLabels
+		recurrenceLabels,
+		statusLabels
 	} from '$lib/data/todoOptions.js';
 
 	let { todo, today = new Date().toISOString().slice(0, 10), onEdit = () => {} } = $props();
@@ -72,7 +73,7 @@
 				{todo.title}
 			</h3>
 			<span class={`badge ${isCompleted ? 'text-bg-success' : 'text-bg-light'}`}>
-				{todo.status}
+				{statusLabels[todo.status] ?? todo.status}
 			</span>
 		</div>
 		<p class="text-secondary small">{todo.description}</p>

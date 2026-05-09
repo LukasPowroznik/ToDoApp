@@ -11,6 +11,11 @@ export const priorityBadgeClasses = {
 	Low: 'text-bg-light'
 };
 
+export const statusLabels = {
+	Open: 'offen',
+	Completed: 'erledigt'
+};
+
 export const recurrenceLabels = {
 	daily: 'täglich',
 	weekly: 'wöchentlich',
