@@ -8,6 +8,7 @@
 	let { modalId = 'editTodoModal', todo = null } = $props();
 	let isSaving = $state(false);
 	let isDeleting = $state(false);
+	let isConfirmingDelete = $state(false);
 	let errorMessage = $state('');
 
 	const currentTodo = $derived(
@@ -116,6 +117,15 @@
 		} finally {
 			isDeleting = false;
 		}
+	}
+
+	function requestDeleteConfirmation() {
+		isConfirmingDelete = true;
+		errorMessage = '';
+	}
+
+	function cancelDeleteConfirmation() {
+		isConfirmingDelete = false;
 	}
 </script>
 
@@ -238,14 +248,42 @@
 				</div>
 
 				<div class="modal-footer justify-content-between">
-					<button
-						type="button"
-						class="btn btn-outline-danger"
-						onclick={handleDelete}
-						disabled={isSaving || isDeleting}
-					>
-						{isDeleting ? 'Löscht...' : 'Löschen'}
-					</button>
+					<div>
+						{#if isConfirmingDelete}
+							<div class="delete-confirm-box">
+								<p class="small mb-2">
+									Dieses To-Do wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
+								</p>
+								<div class="d-flex flex-wrap gap-2">
+									<button
+										type="button"
+										class="btn btn-sm btn-danger"
+										onclick={handleDelete}
+										disabled={isSaving || isDeleting}
+									>
+										{isDeleting ? 'Löscht...' : 'Endgültig löschen'}
+									</button>
+									<button
+										type="button"
+										class="btn btn-sm btn-outline-secondary"
+										onclick={cancelDeleteConfirmation}
+										disabled={isSaving || isDeleting}
+									>
+										Abbrechen
+									</button>
+								</div>
+							</div>
+						{:else}
+							<button
+								type="button"
+								class="btn btn-outline-danger"
+								onclick={requestDeleteConfirmation}
+								disabled={isSaving || isDeleting}
+							>
+								Löschen
+							</button>
+						{/if}
+					</div>
 
 					<div class="d-flex gap-2">
 						<button type="submit" class="btn btn-primary" disabled={isSaving || isDeleting}>

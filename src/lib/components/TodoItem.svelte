@@ -10,6 +10,7 @@
 	let { todo, today = new Date().toISOString().slice(0, 10), onEdit = () => {} } = $props();
 	let isUpdating = $state(false);
 	let isDeleting = $state(false);
+	let isConfirmingDelete = $state(false);
 	let errorMessage = $state('');
 
 	const isCompleted = $derived(todo.status === 'Completed');
@@ -60,6 +61,15 @@
 			isDeleting = false;
 		}
 	}
+
+	function requestDeleteConfirmation() {
+		isConfirmingDelete = true;
+		errorMessage = '';
+	}
+
+	function cancelDeleteConfirmation() {
+		isConfirmingDelete = false;
+	}
 </script>
 
 <article class={`card h-100 ${isCompleted ? 'todo-item-completed' : ''} ${isOverdue ? 'todo-item-overdue' : ''}`}>
@@ -93,27 +103,55 @@
 		{/if}
 	</button>
 
-	<div class="card-footer bg-white border-0 pt-0 d-flex justify-content-between gap-2">
-		<div>
-			{#if !isCompleted}
+	<div class="card-footer bg-white border-0 pt-0">
+		{#if isConfirmingDelete}
+			<div class="delete-confirm-box mt-3">
+				<p class="small mb-2">
+					Dieses To-Do wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
+				</p>
+				<div class="d-flex flex-wrap gap-2">
+					<button
+						class="btn btn-sm btn-danger"
+						type="button"
+						onclick={deleteTodo}
+						disabled={isDeleting}
+					>
+						{isDeleting ? 'Löscht...' : 'Endgültig löschen'}
+					</button>
+					<button
+						class="btn btn-sm btn-outline-secondary"
+						type="button"
+						onclick={cancelDeleteConfirmation}
+						disabled={isDeleting}
+					>
+						Abbrechen
+					</button>
+				</div>
+			</div>
+		{:else}
+			<div class="d-flex justify-content-between gap-2">
+				<div>
+					{#if !isCompleted}
+						<button
+							class="btn btn-sm btn-outline-success mt-3"
+							type="button"
+							onclick={completeTodo}
+							disabled={isUpdating || isDeleting}
+						>
+							{isUpdating ? 'Speichert...' : 'erledigt'}
+						</button>
+					{/if}
+				</div>
+
 				<button
-					class="btn btn-sm btn-outline-success mt-3"
+					class="btn btn-sm btn-outline-danger mt-3"
 					type="button"
-					onclick={completeTodo}
+					onclick={requestDeleteConfirmation}
 					disabled={isUpdating || isDeleting}
 				>
-					{isUpdating ? 'Speichert...' : 'erledigt'}
+					Löschen
 				</button>
-			{/if}
-		</div>
-
-		<button
-			class="btn btn-sm btn-outline-danger mt-3"
-			type="button"
-			onclick={deleteTodo}
-			disabled={isUpdating || isDeleting}
-		>
-			{isDeleting ? 'Löscht...' : 'Löschen'}
-		</button>
+			</div>
+		{/if}
 	</div>
 </article>
