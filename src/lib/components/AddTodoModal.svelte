@@ -1,5 +1,6 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
+	import StatusMessage from '$lib/components/StatusMessage.svelte';
 
 	const categories = ['Privat', 'Arbeit', 'Sport', 'Sonstiges'];
 	const priorities = ['Low', 'Medium', 'High'];
@@ -73,9 +74,7 @@
 				</div>
 
 				<div class="modal-body">
-					{#if errorMessage}
-						<div class="alert alert-danger" role="alert">{errorMessage}</div>
-					{/if}
+					<StatusMessage message={errorMessage} />
 
 					<div class="row g-3">
 						<div class="col-12">
@@ -161,7 +160,12 @@
 
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" disabled={isSaving}>
-						{isSaving ? 'Speichert...' : 'To-Do speichern'}
+						{#if isSaving}
+							<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+							Speichert...
+						{:else}
+							To-Do speichern
+						{/if}
 					</button>
 					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" disabled={isSaving}>
 						Abbrechen

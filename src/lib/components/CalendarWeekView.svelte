@@ -3,6 +3,7 @@
 	import { tick } from 'svelte';
 	import CalendarTodoDetailModal from '$lib/components/CalendarTodoDetailModal.svelte';
 	import EmptyState from '$lib/components/EmptyState.svelte';
+	import StatusMessage from '$lib/components/StatusMessage.svelte';
 	import { categoryBadgeClasses, recurrenceLabels } from '$lib/data/todoOptions.js';
 	import { buildTodoOccurrence, isTodoDueOnDate } from '$lib/todoSchedule.js';
 
@@ -82,7 +83,7 @@
 	<div class="row g-3">
 		{#if errorMessage}
 			<div class="col-12">
-				<div class="alert alert-danger" role="alert">{errorMessage}</div>
+				<StatusMessage message={errorMessage} />
 			</div>
 		{/if}
 
@@ -134,7 +135,12 @@
 												onclick={() => completeCalendarTodo(todo)}
 												disabled={updatingOccurrence === `${todo.id}-${todo.calendarDate}`}
 											>
-												{updatingOccurrence === `${todo.id}-${todo.calendarDate}` ? 'Speichert...' : 'erledigt'}
+												{#if updatingOccurrence === `${todo.id}-${todo.calendarDate}`}
+													<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+													Speichert...
+												{:else}
+													erledigt
+												{/if}
 											</button>
 										{/if}
 									</article>

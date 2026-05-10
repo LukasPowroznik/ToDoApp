@@ -1,5 +1,6 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
+	import StatusMessage from '$lib/components/StatusMessage.svelte';
 
 	const categories = ['Privat', 'Arbeit', 'Sport', 'Sonstiges'];
 	const priorities = ['Low', 'Medium', 'High'];
@@ -139,9 +140,7 @@
 				</div>
 
 				<div class="modal-body">
-					{#if errorMessage}
-						<div class="alert alert-danger" role="alert">{errorMessage}</div>
-					{/if}
+					<StatusMessage message={errorMessage} />
 
 					<div class="row g-3">
 						<div class="col-12">
@@ -261,7 +260,12 @@
 										onclick={handleDelete}
 										disabled={isSaving || isDeleting}
 									>
-										{isDeleting ? 'Löscht...' : 'Endgültig löschen'}
+										{#if isDeleting}
+											<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+											Löscht...
+										{:else}
+											Endgültig löschen
+										{/if}
 									</button>
 									<button
 										type="button"
@@ -287,7 +291,12 @@
 
 					<div class="d-flex gap-2">
 						<button type="submit" class="btn btn-primary" disabled={isSaving || isDeleting}>
-							{isSaving ? 'Speichert...' : 'Speichern'}
+							{#if isSaving}
+								<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+								Speichert...
+							{:else}
+								Speichern
+							{/if}
 						</button>
 						<button
 							type="button"

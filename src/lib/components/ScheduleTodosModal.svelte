@@ -1,5 +1,6 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
+	import StatusMessage from '$lib/components/StatusMessage.svelte';
 
 	let { modalId = 'scheduleTodosModal', todos = [] } = $props();
 	let isSaving = $state(false);
@@ -71,9 +72,7 @@
 				</div>
 
 				<div class="modal-body">
-					{#if errorMessage}
-						<div class="alert alert-danger" role="alert">{errorMessage}</div>
-					{/if}
+					<StatusMessage message={errorMessage} />
 
 					{#if unscheduledOpenTodos.length > 0}
 						<p class="text-secondary">
@@ -110,7 +109,12 @@
 
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" disabled={unscheduledOpenTodos.length === 0 || isSaving}>
-						{isSaving ? 'Speichert...' : 'Termine speichern'}
+						{#if isSaving}
+							<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+							Speichert...
+						{:else}
+							Termine speichern
+						{/if}
 					</button>
 					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" disabled={isSaving}>Abbrechen</button>
 				</div>

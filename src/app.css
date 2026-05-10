@@ -221,6 +221,47 @@ html[data-bs-theme='dark'] .delete-confirm-box {
 	border-color: rgba(248, 113, 113, 0.34);
 }
 
+.status-message {
+	align-items: flex-start;
+	background: rgba(220, 53, 69, 0.08);
+	border: 1px solid rgba(220, 53, 69, 0.28);
+	border-radius: 0.5rem;
+	color: inherit;
+	display: flex;
+	gap: 0.7rem;
+	margin-bottom: 1rem;
+	padding: 0.9rem 1rem;
+}
+
+.status-message-compact {
+	font-size: 0.9rem;
+	margin-bottom: 0;
+	padding: 0.7rem 0.8rem;
+}
+
+.status-message-marker {
+	background: #dc3545;
+	border-radius: 999px;
+	flex: 0 0 0.65rem;
+	height: 0.65rem;
+	margin-top: 0.35rem;
+}
+
+.error-state-card {
+	background: var(--app-surface);
+	border: 1px solid var(--app-border);
+	border-radius: 0.5rem;
+	box-shadow: var(--app-shadow);
+	margin-inline: auto;
+	max-width: 42rem;
+	padding: 2rem;
+}
+
+html[data-bs-theme='dark'] .status-message {
+	background: rgba(220, 38, 38, 0.18);
+	border-color: rgba(248, 113, 113, 0.34);
+}
+
 .dashboard-todo-list {
 	display: grid;
 	gap: 0.85rem;

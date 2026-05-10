@@ -6,6 +6,7 @@
 		recurrenceLabels,
 		statusLabels
 	} from '$lib/data/todoOptions.js';
+	import StatusMessage from '$lib/components/StatusMessage.svelte';
 
 	let { todo, today = new Date().toISOString().slice(0, 10), onEdit = () => {} } = $props();
 	let isUpdating = $state(false);
@@ -99,7 +100,9 @@
 		</div>
 
 		{#if errorMessage}
-			<p class="text-danger small mt-3 mb-0">{errorMessage}</p>
+			<div class="mt-3">
+				<StatusMessage message={errorMessage} compact />
+			</div>
 		{/if}
 	</button>
 
@@ -116,7 +119,12 @@
 						onclick={deleteTodo}
 						disabled={isDeleting}
 					>
-						{isDeleting ? 'Löscht...' : 'Endgültig löschen'}
+						{#if isDeleting}
+							<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+							Löscht...
+						{:else}
+							Endgültig löschen
+						{/if}
 					</button>
 					<button
 						class="btn btn-sm btn-outline-secondary"
@@ -138,7 +146,12 @@
 							onclick={completeTodo}
 							disabled={isUpdating || isDeleting}
 						>
-							{isUpdating ? 'Speichert...' : 'erledigt'}
+							{#if isUpdating}
+								<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+								Speichert...
+							{:else}
+								erledigt
+							{/if}
 						</button>
 					{/if}
 				</div>
