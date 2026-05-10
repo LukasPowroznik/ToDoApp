@@ -48,11 +48,13 @@
 	);
 </script>
 
-<div class="card dashboard-card">
-	<div class="card-body">
+<div class="card dashboard-card dashboard-section-card dashboard-chart-card">
+	<div class="dashboard-section-header">
 		<h2 class="h5 mb-1">Erledigte Aufgaben pro Monat</h2>
-		<p class="text-secondary mb-4">Abgeschlossene To-Dos der letzten sechs Monate.</p>
+		<p class="text-secondary mb-0">Abgeschlossene To-Dos der letzten sechs Monate.</p>
+	</div>
 
+	<div class="card-body dashboard-section-body">
 		<div class="completion-line-chart" aria-label="Erledigte Aufgaben pro Monat">
 			<svg class="completion-line-chart-svg" viewBox="0 0 600 230" role="img">
 				<line class="completion-line-chart-grid" x1="48" y1="56" x2="552" y2="56" />

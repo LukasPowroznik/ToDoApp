@@ -24,30 +24,44 @@
 	}
 </script>
 
-<div class="card dashboard-card h-100">
-	<div class="card-body">
-		<div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+<div class="card dashboard-card dashboard-section-card h-100">
+	<div class="dashboard-section-header">
+		<div class="d-flex justify-content-between align-items-start gap-3">
 			<div>
 				<h2 class="h5 mb-1">Heute terminierte To-Dos</h2>
 				<p class="text-secondary mb-0">Aufgaben mit geplantem Termin {readableDate}.</p>
 			</div>
 			<span class="badge text-bg-primary">{todaysTodos.length}</span>
 		</div>
+	</div>
 
+	<div class="card-body dashboard-section-body">
 		{#if todaysTodos.length > 0}
-			<div class="list-group list-group-flush">
+			<div class="dashboard-todo-list">
 				{#each todaysTodos as todo}
-					<button class="list-group-item list-group-item-action px-0" type="button" onclick={() => openDetailModal(todo)}>
-						<div class="d-flex justify-content-between gap-3">
-							<div>
+					<button class="dashboard-todo-item" type="button" onclick={() => openDetailModal(todo)}>
+						<div class="dashboard-todo-item-main">
+							<div class="dashboard-todo-item-content">
+								<div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+									<span class={`badge ${categoryBadgeClasses[todo.category]}`}>{todo.category}</span>
+									<span class="badge text-bg-light">{todo.priority}</span>
+									{#if todo.estimatedDuration}
+										<span class="badge text-bg-light">{todo.estimatedDuration}</span>
+									{/if}
+								</div>
+
 								<h3 class="h6 mb-1">{todo.title}</h3>
-								<p class="text-secondary small mb-2">{todo.description}</p>
-								<span class={`badge ${categoryBadgeClasses[todo.category]}`}>{todo.category}</span>
-								{#if todo.isRecurringOccurrence}
-									<span class="badge text-bg-light ms-1">Wiederholung</span>
+
+								{#if todo.description}
+									<p class="text-secondary small mb-0">{todo.description}</p>
 								{/if}
 							</div>
-							<span class="badge text-bg-light align-self-start">{todo.priority}</span>
+
+							<div class="dashboard-todo-item-meta">
+								{#if todo.isRecurringOccurrence}
+									<span class="badge text-bg-dark">Wiederholung</span>
+								{/if}
+							</div>
 						</div>
 					</button>
 				{/each}

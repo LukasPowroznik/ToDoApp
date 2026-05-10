@@ -1,11 +1,14 @@
 <script>
 	import { page } from '$app/state';
+	import { onMount } from 'svelte';
 
 	const navigationItems = [
 		{ href: '/', label: 'Dashboard' },
 		{ href: '/tasks', label: 'Alle To-Dos' },
 		{ href: '/calendar', label: 'Kalender' }
 	];
+
+	let theme = $state('light');
 
 	const isActive = (href) => {
 		if (href === '/') {
@@ -14,9 +17,23 @@
 
 		return page.url.pathname.startsWith(href);
 	};
+
+	function setTheme(nextTheme) {
+		theme = nextTheme;
+		document.documentElement.dataset.bsTheme = nextTheme;
+		localStorage.setItem('todoapp-theme', nextTheme);
+	}
+
+	function toggleTheme() {
+		setTheme(theme === 'dark' ? 'light' : 'dark');
+	}
+
+	onMount(() => {
+		theme = document.documentElement.dataset.bsTheme ?? 'light';
+	});
 </script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+<nav class="navbar navbar-expand-lg app-navbar border-bottom sticky-top">
 	<div class="container">
 		<a class="navbar-brand fw-semibold" href="/">To-Do Dashboard</a>
 		<button
@@ -45,6 +62,16 @@
 					</li>
 				{/each}
 			</ul>
+
+			<button
+				class="btn btn-sm btn-outline-secondary ms-lg-3 mt-3 mt-lg-0 theme-toggle-button"
+				type="button"
+				aria-label={theme === 'dark' ? 'Hellen Modus aktivieren' : 'Dunklen Modus aktivieren'}
+				aria-pressed={theme === 'dark'}
+				onclick={toggleTheme}
+			>
+				<span>{theme === 'dark' ? 'Hell' : 'Dunkel'}</span>
+			</button>
 		</div>
 	</div>
 </nav>
