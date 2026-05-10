@@ -70,7 +70,7 @@
 				aria-pressed={theme === 'dark'}
 				onclick={toggleTheme}
 			>
-				<span>{theme === 'dark' ? 'Hell' : 'Dunkel'}</span>
+				<span aria-hidden="true">{theme === 'dark' ? '☀️' : '🌙'}</span>
 			</button>
 		</div>
 	</div>
