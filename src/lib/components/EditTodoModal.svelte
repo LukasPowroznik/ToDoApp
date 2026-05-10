@@ -30,7 +30,7 @@
 		event.preventDefault();
 
 		if (!todo?.id) {
-			errorMessage = 'Kein To-Do zum Bearbeiten ausgewaehlt.';
+			errorMessage = 'Kein To-Do zum Bearbeiten ausgewählt.';
 			return;
 		}
 
@@ -88,7 +88,7 @@
 
 	async function handleDelete() {
 		if (!todo?.id) {
-			errorMessage = 'Kein To-Do zum Loeschen ausgewaehlt.';
+			errorMessage = 'Kein To-Do zum Löschen ausgewählt.';
 			return;
 		}
 
@@ -101,7 +101,7 @@
 			});
 
 			if (!response.ok) {
-				throw new Error('Das To-Do konnte nicht geloescht werden.');
+				throw new Error('Das To-Do konnte nicht gelöscht werden.');
 			}
 
 			await invalidateAll();

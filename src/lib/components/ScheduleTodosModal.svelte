@@ -21,7 +21,7 @@
 			.filter(({ todo, scheduledDate }) => scheduledDate !== (todo.scheduledDate ?? ''));
 
 		if (updates.length === 0) {
-			errorMessage = 'Bitte waehle mindestens einen neuen Termin aus.';
+			errorMessage = 'Bitte wähle mindestens einen neuen Termin aus.';
 			return;
 		}
 
@@ -77,7 +77,7 @@
 
 					{#if unscheduledOpenTodos.length > 0}
 						<p class="text-secondary">
-							Plane offene Aufgaben ohne Bearbeitungsdatum. Die Deadline bleibt dabei unveraendert.
+							Plane offene Aufgaben ohne Bearbeitungsdatum. Die Deadline bleibt dabei unverändert.
 						</p>
 
 						<div class="list-group">

@@ -29,7 +29,7 @@
 			});
 
 			if (!response.ok) {
-				throw new Error('Status konnte nicht geaendert werden.');
+				throw new Error('Status konnte nicht geändert werden.');
 			}
 
 			await invalidateAll();
@@ -50,7 +50,7 @@
 			});
 
 			if (!response.ok) {
-				throw new Error('To-Do konnte nicht geloescht werden.');
+				throw new Error('To-Do konnte nicht gelöscht werden.');
 			}
 
 			await invalidateAll();

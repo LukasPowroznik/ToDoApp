@@ -157,7 +157,7 @@
 		<div class="card-body">
 			<EmptyState
 				title="Keine terminierten Aufgaben"
-				description="Aufgaben mit geplantem Termin erscheinen spaeter automatisch in der Wochenansicht."
+				description="Aufgaben mit geplantem Termin erscheinen später automatisch in der Wochenansicht."
 			/>
 		</div>
 	</div>
