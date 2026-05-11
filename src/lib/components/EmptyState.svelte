@@ -6,7 +6,8 @@
 	} = $props();
 </script>
 
-<div class={`text-center text-secondary ${compact ? 'py-2' : 'py-5'}`}>
-	<p class={`fw-semibold mb-1 ${compact ? 'small' : ''}`}>{title}</p>
-	<p class={`mb-0 ${compact ? 'small' : ''}`}>{description}</p>
+<div class={`empty-state ${compact ? 'empty-state-compact' : ''}`}>
+	<div class="empty-state-icon" aria-hidden="true"></div>
+	<p class={`empty-state-title ${compact ? 'small' : ''}`}>{title}</p>
+	<p class={`empty-state-description ${compact ? 'small' : ''}`}>{description}</p>
 </div>

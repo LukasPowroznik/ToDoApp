@@ -1,5 +1,6 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
+	import { hideModal } from '$lib/bootstrapModal.js';
 	import StatusMessage from '$lib/components/StatusMessage.svelte';
 
 	const categories = ['Privat', 'Arbeit', 'Sport', 'Sonstiges'];
@@ -76,9 +77,7 @@
 
 			await invalidateAll();
 
-			const modalElement = document.getElementById(modalId);
-			const modal = window.bootstrap?.Modal.getInstance(modalElement);
-			modal?.hide();
+			await hideModal(modalId);
 			document.body.classList.remove('modal-open');
 			document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.remove());
 		} catch (error) {
@@ -108,9 +107,7 @@
 
 			await invalidateAll();
 
-			const modalElement = document.getElementById(modalId);
-			const modal = window.bootstrap?.Modal.getInstance(modalElement);
-			modal?.hide();
+			await hideModal(modalId);
 			document.body.classList.remove('modal-open');
 			document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.remove());
 		} catch (error) {

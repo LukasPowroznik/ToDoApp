@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/state';
+	import { showModal } from '$lib/bootstrapModal.js';
 	import AddTodoModal from '$lib/components/AddTodoModal.svelte';
 	import ScheduleTodosModal from '$lib/components/ScheduleTodosModal.svelte';
 	import TodoList from '$lib/components/TodoList.svelte';
@@ -129,16 +130,14 @@
 					<button
 						class="btn btn-primary"
 						type="button"
-						data-bs-toggle="modal"
-						data-bs-target="#addTodoModal"
+						onclick={() => showModal('addTodoModal')}
 					>
 						Neues To-Do erfassen
 					</button>
 					<button
 						class="btn btn-outline-primary"
 						type="button"
-						data-bs-toggle="modal"
-						data-bs-target="#scheduleTodosModal"
+						onclick={() => showModal('scheduleTodosModal')}
 					>
 						To-Dos terminieren
 					</button>

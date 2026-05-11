@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 
+	import { loadBootstrap } from '$lib/bootstrapModal.js';
 	import favicon from '$lib/assets/favicon.svg';
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import '../app.css';
@@ -9,7 +10,7 @@
 	let { children } = $props();
 
 	onMount(async () => {
-		window.bootstrap = await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+		await loadBootstrap();
 	});
 </script>
 

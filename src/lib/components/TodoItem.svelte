@@ -17,7 +17,8 @@
 	const isCompleted = $derived(todo.status === 'Completed');
 	const isOverdue = $derived(todo.status === 'Open' && todo.deadline && todo.deadline < today);
 
-	async function completeTodo() {
+	async function completeTodo(event) {
+		event.stopPropagation();
 		isUpdating = true;
 		errorMessage = '';
 
@@ -42,7 +43,8 @@
 		}
 	}
 
-	async function deleteTodo() {
+	async function deleteTodo(event) {
+		event.stopPropagation();
 		isDeleting = true;
 		errorMessage = '';
 
@@ -63,18 +65,35 @@
 		}
 	}
 
-	function requestDeleteConfirmation() {
+	function requestDeleteConfirmation(event) {
+		event.stopPropagation();
 		isConfirmingDelete = true;
 		errorMessage = '';
 	}
 
-	function cancelDeleteConfirmation() {
+	function cancelDeleteConfirmation(event) {
+		event.stopPropagation();
 		isConfirmingDelete = false;
+	}
+
+	function handleEditKeydown(event) {
+		if (event.key !== 'Enter' && event.key !== ' ') {
+			return;
+		}
+
+		event.preventDefault();
+		onEdit(todo);
 	}
 </script>
 
 <article class={`card h-100 ${isCompleted ? 'todo-item-completed' : ''} ${isOverdue ? 'todo-item-overdue' : ''}`}>
-	<button class="todo-item-edit-button card-body text-start" type="button" onclick={() => onEdit(todo)}>
+	<div
+		class="todo-item-edit-button card-body text-start"
+		role="button"
+		tabindex="0"
+		onclick={() => onEdit(todo)}
+		onkeydown={handleEditKeydown}
+	>
 		{#if isOverdue}
 			<div class="badge text-bg-danger mb-3">Überfällig</div>
 		{/if}
@@ -104,7 +123,7 @@
 				<StatusMessage message={errorMessage} compact />
 			</div>
 		{/if}
-	</button>
+	</div>
 
 	<div class="card-footer bg-white border-0 pt-0">
 		{#if isConfirmingDelete}

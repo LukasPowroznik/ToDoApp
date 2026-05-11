@@ -1,6 +1,7 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
 	import { tick } from 'svelte';
+	import { showModal } from '$lib/bootstrapModal.js';
 	import CalendarTodoDetailModal from '$lib/components/CalendarTodoDetailModal.svelte';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import StatusMessage from '$lib/components/StatusMessage.svelte';
@@ -73,9 +74,7 @@
 		selectedTodo = todo;
 		await tick();
 
-		const modalElement = document.getElementById('calendarTodoDetailModal');
-		const modal = window.bootstrap?.Modal.getOrCreateInstance(modalElement);
-		modal?.show();
+		await showModal('calendarTodoDetailModal');
 	}
 </script>
 

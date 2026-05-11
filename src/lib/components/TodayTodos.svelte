@@ -1,6 +1,8 @@
 <script>
 	import { tick } from 'svelte';
+	import { showModal } from '$lib/bootstrapModal.js';
 	import CalendarTodoDetailModal from '$lib/components/CalendarTodoDetailModal.svelte';
+	import EmptyState from '$lib/components/EmptyState.svelte';
 	import { categoryBadgeClasses } from '$lib/data/todoOptions.js';
 	import { buildTodoOccurrence, isTodoDueOnDate } from '$lib/todoSchedule.js';
 
@@ -18,9 +20,7 @@
 		selectedTodo = todo;
 		await tick();
 
-		const modalElement = document.getElementById('dashboardTodoDetailModal');
-		const modal = window.bootstrap?.Modal.getOrCreateInstance(modalElement);
-		modal?.show();
+		await showModal('dashboardTodoDetailModal');
 	}
 </script>
 
@@ -67,9 +67,10 @@
 				{/each}
 			</div>
 		{:else}
-			<p class="text-secondary mb-0">
-				Keine Aufgaben für heute. Du kannst vorausplanen oder den freien Tag geniessen.
-			</p>
+			<EmptyState
+				title="Keine Aufgaben für heute"
+				description="Du kannst vorausplanen oder den freien Tag geniessen."
+			/>
 		{/if}
 	</div>
 </div>

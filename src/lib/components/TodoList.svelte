@@ -1,5 +1,7 @@
 <script>
 	import { tick } from 'svelte';
+	import { showModal } from '$lib/bootstrapModal.js';
+	import EmptyState from '$lib/components/EmptyState.svelte';
 	import EditTodoModal from '$lib/components/EditTodoModal.svelte';
 	import TodoItem from '$lib/components/TodoItem.svelte';
 
@@ -10,9 +12,7 @@
 		selectedTodo = todo;
 		await tick();
 
-		const modalElement = document.getElementById('editTodoModal');
-		const modal = window.bootstrap?.Modal.getOrCreateInstance(modalElement);
-		modal?.show();
+		await showModal('editTodoModal');
 	}
 
 	$effect(() => {
@@ -37,7 +37,10 @@
 		{/each}
 	</div>
 {:else}
-	<p class="text-secondary mb-0">Keine Aufgaben für diese Ansicht vorhanden.</p>
+	<EmptyState
+		title="Keine Aufgaben für diese Ansicht"
+		description="Passe die Filter an oder erfasse ein neues To-Do."
+	/>
 {/if}
 
 <EditTodoModal todo={selectedTodo} />

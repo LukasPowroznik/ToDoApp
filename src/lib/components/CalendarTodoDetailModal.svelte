@@ -1,5 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
+	import { hideModal } from '$lib/bootstrapModal.js';
 	import {
 		categoryBadgeClasses,
 		priorityBadgeClasses,
@@ -27,20 +28,19 @@
 		}
 	);
 
-	function handleEditClick(event) {
+	async function handleEditClick(event) {
 		event.preventDefault();
 
 		const targetUrl = `/tasks?edit=${currentTodo.id}`;
 		const modalElement = document.getElementById(modalId);
-		const modal = window.bootstrap?.Modal.getInstance(modalElement);
 
-		if (!modal || !modalElement) {
+		if (!modalElement) {
 			goto(targetUrl);
 			return;
 		}
 
 		modalElement.addEventListener('hidden.bs.modal', () => goto(targetUrl), { once: true });
-		modal.hide();
+		await hideModal(modalId);
 	}
 </script>
 

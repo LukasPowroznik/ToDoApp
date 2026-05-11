@@ -37,11 +37,13 @@ html[data-bs-theme='dark'] {
 body {
 	background: var(--app-bg);
 	color: var(--app-text);
+	min-height: 100vh;
 }
 
 .app-navbar {
 	background: var(--app-surface);
 	border-color: var(--app-border) !important;
+	box-shadow: 0 0.35rem 1.1rem rgba(15, 23, 42, 0.045);
 }
 
 .theme-toggle-button {
@@ -55,7 +57,9 @@ body {
 }
 
 .page-header {
+	border-left: 0.28rem solid #0d6efd;
 	margin-bottom: 1.5rem;
+	padding-left: 1rem;
 }
 
 .page-kicker {
@@ -70,6 +74,67 @@ body {
 	border-radius: 0.5rem;
 	box-shadow: var(--app-shadow);
 	color: var(--app-text);
+}
+
+.empty-state {
+	background: linear-gradient(180deg, var(--app-surface) 0%, var(--app-surface-muted) 100%);
+	border: 1px dashed var(--app-border);
+	border-radius: 0.5rem;
+	color: var(--app-muted-text);
+	padding: 2.5rem 1.25rem;
+	text-align: center;
+}
+
+.empty-state-compact {
+	background: transparent;
+	padding: 1rem;
+}
+
+.empty-state-icon {
+	background: rgba(13, 110, 253, 0.08);
+	border: 1px solid rgba(13, 110, 253, 0.2);
+	border-radius: 999px;
+	display: inline-grid;
+	height: 2.6rem;
+	margin-bottom: 0.85rem;
+	place-items: center;
+	position: relative;
+	width: 2.6rem;
+}
+
+.empty-state-compact .empty-state-icon {
+	height: 2rem;
+	margin-bottom: 0.55rem;
+	width: 2rem;
+}
+
+.empty-state-icon::before {
+	border: 2px solid #0d6efd;
+	border-radius: 0.25rem;
+	content: '';
+	height: 1.05rem;
+	transform: rotate(-6deg);
+	width: 0.9rem;
+}
+
+.empty-state-icon::after {
+	background: #0d6efd;
+	border-radius: 999px;
+	content: '';
+	height: 2px;
+	position: absolute;
+	transform: translateY(-0.05rem) rotate(-6deg);
+	width: 0.65rem;
+}
+
+.empty-state-title {
+	color: var(--app-text);
+	font-weight: 700;
+	margin-bottom: 0.25rem;
+}
+
+.empty-state-description {
+	margin-bottom: 0;
 }
 
 .dashboard-section-card {
