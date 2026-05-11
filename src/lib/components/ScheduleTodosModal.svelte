@@ -107,7 +107,7 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" disabled={unscheduledOpenTodos.length === 0 || isSaving}>
+					<button type="submit" class="btn btn-action-schedule" disabled={unscheduledOpenTodos.length === 0 || isSaving}>
 						{#if isSaving}
 							<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
 							Speichert...

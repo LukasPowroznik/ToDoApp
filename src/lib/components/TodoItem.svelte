@@ -86,7 +86,9 @@
 	}
 </script>
 
-<article class={`card h-100 ${isCompleted ? 'todo-item-completed' : ''} ${isOverdue ? 'todo-item-overdue' : ''}`}>
+<article
+	class={`card dashboard-card todo-card h-100 todo-card-priority-${todo.priority?.toLowerCase()} ${isCompleted ? 'todo-item-completed' : ''} ${isOverdue ? 'todo-item-overdue' : ''}`}
+>
 	<div
 		class="todo-item-edit-button card-body text-start"
 		role="button"
@@ -95,26 +97,33 @@
 		onkeydown={handleEditKeydown}
 	>
 		{#if isOverdue}
-			<div class="badge text-bg-danger mb-3">Überfällig</div>
+			<div class="badge badge-status badge-status-overdue mb-3">Überfällig</div>
 		{/if}
 
-		<div class="d-flex justify-content-between gap-3 mb-2">
-			<h3 class={`h6 mb-0 ${isCompleted ? 'todo-title-completed' : ''}`}>
-				{todo.title}
-			</h3>
-			<span class={`badge ${isCompleted ? 'text-bg-success' : 'text-bg-light'}`}>
+		<div class="todo-card-header">
+			<div class="todo-card-title-group">
+				<h3 class={`todo-card-title ${isCompleted ? 'todo-title-completed' : ''}`}>
+					{todo.title}
+				</h3>
+				{#if todo.description}
+					<p class="todo-card-description">{todo.description}</p>
+				{/if}
+			</div>
+			<span class={`badge todo-card-status badge-status ${isCompleted ? 'badge-status-completed' : 'badge-status-open'}`}>
 				{statusLabels[todo.status] ?? todo.status}
 			</span>
 		</div>
-		<p class="text-secondary small">{todo.description}</p>
-		<div class="d-flex flex-wrap gap-2">
+
+		<div class="todo-card-meta">
 			<span class={`badge ${categoryBadgeClasses[todo.category]}`}>{todo.category}</span>
 			<span class={`badge ${priorityBadgeClasses[todo.priority]}`}>{todo.priority}</span>
-			<span class="badge text-bg-light">Termin: {todo.scheduledDate ?? 'offen'}</span>
-			<span class="badge text-bg-light">Deadline: {todo.deadline ?? 'offen'}</span>
-			<span class="badge text-bg-light">{todo.estimatedDuration}</span>
+			<span class="badge badge-meta">Termin {todo.scheduledDate ?? 'offen'}</span>
+			<span class="badge badge-meta">Deadline {todo.deadline ?? 'offen'}</span>
+			{#if todo.estimatedDuration}
+				<span class="badge badge-meta">{todo.estimatedDuration}</span>
+			{/if}
 			{#if todo.recurring && todo.recurrence}
-				<span class="badge text-bg-dark">{recurrenceLabels[todo.recurrence.type]}</span>
+				<span class="badge badge-meta-strong">{recurrenceLabels[todo.recurrence.type]}</span>
 			{/if}
 		</div>
 
@@ -125,7 +134,7 @@
 		{/if}
 	</div>
 
-	<div class="card-footer bg-white border-0 pt-0">
+	<div class="card-footer todo-card-footer">
 		{#if isConfirmingDelete}
 			<div class="delete-confirm-box mt-3">
 				<p class="small mb-2">
@@ -160,7 +169,7 @@
 				<div>
 					{#if !isCompleted}
 						<button
-							class="btn btn-sm btn-outline-success mt-3"
+							class="btn btn-sm btn-outline-success"
 							type="button"
 							onclick={completeTodo}
 							disabled={isUpdating || isDeleting}
@@ -176,7 +185,7 @@
 				</div>
 
 				<button
-					class="btn btn-sm btn-outline-danger mt-3"
+					class="btn btn-sm btn-outline-danger"
 					type="button"
 					onclick={requestDeleteConfirmation}
 					disabled={isUpdating || isDeleting}

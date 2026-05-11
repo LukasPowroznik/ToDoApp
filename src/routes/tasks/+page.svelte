@@ -21,24 +21,46 @@
 		todos.filter((todo) => todo.status === 'Open' && todo.deadline && todo.deadline < data.today)
 	);
 	const unscheduledTodos = $derived(todos.filter((todo) => todo.status === 'Open' && !todo.scheduledDate));
+	const priorityOrder = {
+		High: 0,
+		Medium: 1,
+		Low: 2
+	};
 	const filteredTodos = $derived(
-		todos.filter((todo) => {
-			const matchesStatus =
-				statusFilter === 'all' ||
-				(statusFilter === 'open' && todo.status === 'Open') ||
-				(statusFilter === 'completed' && todo.status === 'Completed') ||
-				(statusFilter === 'overdue' &&
-					todo.status === 'Open' &&
-					todo.deadline &&
-					todo.deadline < data.today) ||
-				(statusFilter === 'unscheduled' && todo.status === 'Open' && !todo.scheduledDate) ||
-				(statusFilter === 'today' && todo.status === 'Open' && todo.scheduledDate === data.today) ||
-				(statusFilter === 'scheduled' && todo.scheduledDate?.startsWith(data.monthPrefix));
-			const matchesCategory = categoryFilter === 'all' || todo.category === categoryFilter;
-			const matchesPriority = priorityFilter === 'all' || todo.priority === priorityFilter;
+		todos
+			.filter((todo) => {
+				const matchesStatus =
+					statusFilter === 'all' ||
+					(statusFilter === 'open' && todo.status === 'Open') ||
+					(statusFilter === 'completed' && todo.status === 'Completed') ||
+					(statusFilter === 'overdue' &&
+						todo.status === 'Open' &&
+						todo.deadline &&
+						todo.deadline < data.today) ||
+					(statusFilter === 'unscheduled' && todo.status === 'Open' && !todo.scheduledDate) ||
+					(statusFilter === 'today' && todo.status === 'Open' && todo.scheduledDate === data.today) ||
+					(statusFilter === 'scheduled' && todo.scheduledDate?.startsWith(data.monthPrefix));
+				const matchesCategory = categoryFilter === 'all' || todo.category === categoryFilter;
+				const matchesPriority = priorityFilter === 'all' || todo.priority === priorityFilter;
 
-			return matchesStatus && matchesCategory && matchesPriority;
-		})
+				return matchesStatus && matchesCategory && matchesPriority;
+			})
+			.toSorted((firstTodo, secondTodo) => {
+				const shouldGroupCompletedLast = statusFilter === 'all' || statusFilter === 'scheduled';
+
+				if (shouldGroupCompletedLast && firstTodo.status !== secondTodo.status) {
+					return firstTodo.status === 'Completed' ? 1 : -1;
+				}
+
+				const firstDeadline = firstTodo.deadline ?? '9999-12-31';
+				const secondDeadline = secondTodo.deadline ?? '9999-12-31';
+
+				if (firstDeadline !== secondDeadline) {
+					return firstDeadline.localeCompare(secondDeadline);
+				}
+
+				return (priorityOrder[firstTodo.priority] ?? 99) - (priorityOrder[secondTodo.priority] ?? 99);
+			})
 	);
 
 	function toggleStatusFilter(filter) {
@@ -67,7 +89,7 @@
 	<div class="row g-3 mb-4">
 		<div class="col-sm-6 col-lg-3">
 			<button
-				class={`card dashboard-card stat-filter-card h-100 w-100 text-start ${statusFilter === 'open' ? 'stat-filter-card-active' : ''}`}
+				class={`card dashboard-card stat-filter-card stat-card-open h-100 w-100 text-start ${statusFilter === 'open' ? 'stat-filter-card-active' : ''}`}
 				type="button"
 				aria-pressed={statusFilter === 'open'}
 				onclick={() => toggleStatusFilter('open')}
@@ -80,7 +102,7 @@
 		</div>
 		<div class="col-sm-6 col-lg-3">
 			<button
-				class={`card dashboard-card stat-filter-card h-100 w-100 text-start ${statusFilter === 'completed' ? 'stat-filter-card-active' : ''}`}
+				class={`card dashboard-card stat-filter-card stat-card-completed h-100 w-100 text-start ${statusFilter === 'completed' ? 'stat-filter-card-active' : ''}`}
 				type="button"
 				aria-pressed={statusFilter === 'completed'}
 				onclick={() => toggleStatusFilter('completed')}
@@ -93,7 +115,7 @@
 		</div>
 		<div class="col-sm-6 col-lg-3">
 			<button
-				class={`card dashboard-card stat-filter-card h-100 w-100 text-start ${statusFilter === 'overdue' ? 'stat-filter-card-active' : ''}`}
+				class={`card dashboard-card stat-filter-card stat-card-overdue h-100 w-100 text-start ${statusFilter === 'overdue' ? 'stat-filter-card-active' : ''}`}
 				type="button"
 				aria-pressed={statusFilter === 'overdue'}
 				onclick={() => toggleStatusFilter('overdue')}
@@ -106,7 +128,7 @@
 		</div>
 		<div class="col-sm-6 col-lg-3">
 			<button
-				class={`card dashboard-card stat-filter-card h-100 w-100 text-start ${statusFilter === 'unscheduled' ? 'stat-filter-card-active' : ''}`}
+				class={`card dashboard-card stat-filter-card stat-card-scheduled h-100 w-100 text-start ${statusFilter === 'unscheduled' ? 'stat-filter-card-active' : ''}`}
 				type="button"
 				aria-pressed={statusFilter === 'unscheduled'}
 				onclick={() => toggleStatusFilter('unscheduled')}
@@ -128,14 +150,14 @@
 				</div>
 				<div class="d-flex flex-wrap gap-2">
 					<button
-						class="btn btn-primary"
+						class="btn btn-action-primary"
 						type="button"
 						onclick={() => showModal('addTodoModal')}
 					>
 						Neues To-Do erfassen
 					</button>
 					<button
-						class="btn btn-outline-primary"
+						class="btn btn-action-schedule"
 						type="button"
 						onclick={() => showModal('scheduleTodosModal')}
 					>

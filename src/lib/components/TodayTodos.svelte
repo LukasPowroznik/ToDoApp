@@ -3,7 +3,7 @@
 	import { showModal } from '$lib/bootstrapModal.js';
 	import CalendarTodoDetailModal from '$lib/components/CalendarTodoDetailModal.svelte';
 	import EmptyState from '$lib/components/EmptyState.svelte';
-	import { categoryBadgeClasses } from '$lib/data/todoOptions.js';
+	import { categoryBadgeClasses, priorityBadgeClasses } from '$lib/data/todoOptions.js';
 	import { buildTodoOccurrence, isTodoDueOnDate } from '$lib/todoSchedule.js';
 
 	let { todos = [], today = '2026-05-06', readableDate = '06.05.2026' } = $props();
@@ -44,9 +44,9 @@
 							<div class="dashboard-todo-item-content">
 								<div class="d-flex flex-wrap align-items-center gap-2 mb-2">
 									<span class={`badge ${categoryBadgeClasses[todo.category]}`}>{todo.category}</span>
-									<span class="badge text-bg-light">{todo.priority}</span>
+									<span class={`badge ${priorityBadgeClasses[todo.priority]}`}>{todo.priority}</span>
 									{#if todo.estimatedDuration}
-										<span class="badge text-bg-light">{todo.estimatedDuration}</span>
+										<span class="badge badge-meta">{todo.estimatedDuration}</span>
 									{/if}
 								</div>
 
@@ -59,7 +59,7 @@
 
 							<div class="dashboard-todo-item-meta">
 								{#if todo.isRecurringOccurrence}
-									<span class="badge text-bg-dark">Wiederholung</span>
+									<span class="badge badge-meta-strong">Wiederholung</span>
 								{/if}
 							</div>
 						</div>

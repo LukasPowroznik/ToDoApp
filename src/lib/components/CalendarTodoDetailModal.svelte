@@ -56,14 +56,14 @@
 				<div class="d-flex flex-wrap gap-2 mb-3">
 					<span class={`badge ${categoryBadgeClasses[currentTodo.category]}`}>{currentTodo.category}</span>
 					<span class={`badge ${priorityBadgeClasses[currentTodo.priority]}`}>{currentTodo.priority}</span>
-					<span class={`badge ${currentTodo.isOccurrenceCompleted ? 'text-bg-success' : 'text-bg-light'}`}>
+					<span class={`badge badge-status ${currentTodo.isOccurrenceCompleted ? 'badge-status-completed' : 'badge-status-open'}`}>
 						{currentTodo.isOccurrenceCompleted ? statusLabels.Completed : statusLabels[currentTodo.status] ?? currentTodo.status}
 					</span>
 					{#if currentTodo.recurring && currentTodo.recurrence}
-						<span class="badge text-bg-dark">{recurrenceLabels[currentTodo.recurrence.type]}</span>
+						<span class="badge badge-meta-strong">{recurrenceLabels[currentTodo.recurrence.type]}</span>
 					{/if}
 					{#if currentTodo.isRecurringOccurrence}
-						<span class="badge text-bg-light">Wiederholung</span>
+						<span class="badge badge-meta">Wiederholung</span>
 					{/if}
 				</div>
 

@@ -158,7 +158,7 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" disabled={isSaving}>
+					<button type="submit" class="btn btn-action-primary" disabled={isSaving}>
 						{#if isSaving}
 							<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
 							Speichert...

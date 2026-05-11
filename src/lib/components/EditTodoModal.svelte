@@ -287,7 +287,7 @@
 					</div>
 
 					<div class="d-flex gap-2">
-						<button type="submit" class="btn btn-primary" disabled={isSaving || isDeleting}>
+						<button type="submit" class="btn btn-action-primary" disabled={isSaving || isDeleting}>
 							{#if isSaving}
 								<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
 								Speichert...

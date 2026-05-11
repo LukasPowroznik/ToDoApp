@@ -109,21 +109,21 @@
 												{todo.category}
 											</span>
 											{#if todo.estimatedDuration}
-												<span class="badge text-bg-light mt-2 ms-1">{todo.estimatedDuration}</span>
+												<span class="badge badge-meta mt-2 ms-1">{todo.estimatedDuration}</span>
 											{/if}
 											{#if todo.recurring && todo.recurrence}
-												<span class="badge text-bg-dark mt-2 ms-1">
+												<span class="badge badge-meta-strong mt-2 ms-1">
 													{recurrenceLabels[todo.recurrence.type]}
 												</span>
 											{/if}
 											{#if todo.isRecurringOccurrence}
-												<span class="badge text-bg-light mt-2 ms-1">Wiederholung</span>
+												<span class="badge badge-meta mt-2 ms-1">Wiederholung</span>
 											{/if}
 											{#if todo.isOccurrenceCompleted}
-												<span class="badge text-bg-success mt-2 ms-1">Erledigt</span>
+												<span class="badge badge-status badge-status-completed mt-2 ms-1">Erledigt</span>
 											{/if}
 											{#if !todo.isOccurrenceCompleted && todo.status === 'Open' && todo.calendarDate < today}
-												<span class="badge text-bg-danger mt-2 ms-1">Überfällig</span>
+												<span class="badge badge-status badge-status-overdue mt-2 ms-1">Überfällig</span>
 											{/if}
 										</button>
 

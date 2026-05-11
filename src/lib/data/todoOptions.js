@@ -1,14 +1,14 @@
 export const categoryBadgeClasses = {
-	Privat: 'text-bg-info',
-	Arbeit: 'text-bg-primary',
-	Sport: 'text-bg-success',
-	Sonstiges: 'text-bg-secondary'
+	Privat: 'badge-category badge-category-private',
+	Arbeit: 'badge-category badge-category-work',
+	Sport: 'badge-category badge-category-sport',
+	Sonstiges: 'badge-category badge-category-other'
 };
 
 export const priorityBadgeClasses = {
-	High: 'text-bg-danger',
-	Medium: 'text-bg-warning',
-	Low: 'text-bg-light'
+	High: 'badge-priority badge-priority-high',
+	Medium: 'badge-priority badge-priority-medium',
+	Low: 'badge-priority badge-priority-low'
 };
 
 export const statusLabels = {
