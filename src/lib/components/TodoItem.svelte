@@ -87,7 +87,7 @@
 </script>
 
 <article
-	class={`card dashboard-card todo-card h-100 todo-card-priority-${todo.priority?.toLowerCase()} ${isCompleted ? 'todo-item-completed' : ''} ${isOverdue ? 'todo-item-overdue' : ''}`}
+	class={`card dashboard-card todo-card h-100 ${isCompleted ? 'todo-card-completed todo-item-completed' : ''} ${isOverdue ? 'todo-card-overdue todo-item-overdue' : ''}`}
 >
 	<div
 		class="todo-item-edit-button card-body text-start"

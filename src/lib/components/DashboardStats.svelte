@@ -43,7 +43,7 @@
 		<a class="card dashboard-card stat-card stat-card-completed stat-card-link h-100" href="/tasks?status=completed">
 			<div class="card-body">
 				<p class="text-secondary small mb-1">Erledigt</p>
-				<h2 class="h3 mb-0">{completedTodos.length}</h2>
+				<h2 class="h3 text-success mb-0">{completedTodos.length}</h2>
 			</div>
 		</a>
 	</div>

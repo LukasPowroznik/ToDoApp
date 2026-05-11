@@ -109,7 +109,7 @@
 			>
 				<div class="card-body">
 					<p class="text-secondary small mb-1">Erledigt</p>
-					<h2 class="h3 mb-0">{completedTodos.length}</h2>
+					<h2 class="h3 text-success mb-0">{completedTodos.length}</h2>
 				</div>
 			</button>
 		</div>
@@ -141,7 +141,7 @@
 		</div>
 	</div>
 
-	<section class="card dashboard-card">
+	<section class="card dashboard-card tasks-list-card">
 		<div class="card-body">
 			<div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
 				<div>
