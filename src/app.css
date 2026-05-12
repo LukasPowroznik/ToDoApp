@@ -981,6 +981,17 @@ html[data-bs-theme='dark'] .btn-outline-secondary:focus-visible {
 	color: #ffffff;
 }
 
+html[data-bs-theme='dark'] .theme-toggle-button,
+html[data-bs-theme='dark'] .theme-toggle-button:hover,
+html[data-bs-theme='dark'] .theme-toggle-button:focus-visible {
+	border-color: #6366f1;
+}
+
+html[data-bs-theme='dark'] .theme-toggle-button:hover,
+html[data-bs-theme='dark'] .theme-toggle-button:focus-visible {
+	background-color: rgba(99, 102, 241, 0.16);
+}
+
 html[data-bs-theme='dark'] .btn-primary {
 	background: #7c3aed;
 	border-color: #7c3aed;
