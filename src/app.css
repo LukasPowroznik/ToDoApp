@@ -632,6 +632,62 @@ html[data-bs-theme='dark'] .stat-filter-card-active {
 	box-shadow: 0 0 0 0.18rem rgba(167, 139, 250, 0.18);
 }
 
+html[data-bs-theme='dark'] .tasks-page .page-header {
+	border-left-color: #a78bfa;
+}
+
+html[data-bs-theme='dark'] .tasks-page .tasks-list-card {
+	background:
+		linear-gradient(180deg, rgba(49, 46, 129, 0.18) 0%, rgba(24, 34, 53, 0.98) 18rem),
+		var(--app-surface);
+	border-color: rgba(165, 180, 252, 0.28);
+	box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.3);
+}
+
+html[data-bs-theme='dark'] .tasks-page .tasks-list-card > .card-body {
+	color: #e0e7ff;
+}
+
+html[data-bs-theme='dark'] .tasks-page .todo-card {
+	background:
+		linear-gradient(180deg, rgba(49, 46, 129, 0.16) 0%, rgba(24, 34, 53, 0.98) 62%),
+		var(--app-surface);
+	border-color: rgba(165, 180, 252, 0.22);
+	border-left-color: #8b5cf6;
+	box-shadow: 0 0.75rem 1.5rem rgba(15, 23, 42, 0.2);
+}
+
+html[data-bs-theme='dark'] .tasks-page .todo-card:hover,
+html[data-bs-theme='dark'] .tasks-page .todo-card:focus-within {
+	border-color: rgba(196, 181, 253, 0.48);
+	border-left-color: #a78bfa;
+	box-shadow: 0 1rem 1.9rem rgba(15, 23, 42, 0.28);
+}
+
+html[data-bs-theme='dark'] .tasks-page .todo-item-edit-button {
+	background: transparent;
+}
+
+html[data-bs-theme='dark'] .tasks-page .todo-card-footer {
+	background: rgba(49, 46, 129, 0.18) !important;
+	border-color: rgba(196, 181, 253, 0.18);
+}
+
+html[data-bs-theme='dark'] .tasks-page .todo-card-completed {
+	border-left-color: #4ade80;
+}
+
+html[data-bs-theme='dark'] .tasks-page .todo-card-overdue {
+	border-left-color: #fb7185;
+}
+
+html[data-bs-theme='dark'] .tasks-page .empty-state {
+	background:
+		linear-gradient(180deg, rgba(49, 46, 129, 0.16) 0%, rgba(17, 24, 39, 0.3) 100%),
+		var(--app-surface);
+	border-color: rgba(196, 181, 253, 0.26);
+}
+
 html[data-bs-theme='dark'] .dashboard-page .page-header {
 	border-left-color: #a78bfa;
 }

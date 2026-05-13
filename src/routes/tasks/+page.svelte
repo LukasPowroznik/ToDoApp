@@ -9,7 +9,7 @@
 	const priorities = ['Low', 'Medium', 'High'];
 
 	let { data } = $props();
-	let statusFilter = $state('all');
+	let statusFilter = $state('open');
 	let categoryFilter = $state('all');
 	let priorityFilter = $state('all');
 
@@ -72,13 +72,13 @@
 		const category = page.url.searchParams.get('category');
 		const priority = page.url.searchParams.get('priority');
 
-		statusFilter = status ?? 'all';
+		statusFilter = status ?? 'open';
 		categoryFilter = category ?? 'all';
 		priorityFilter = priority ?? 'all';
 	});
 </script>
 
-<div class="container">
+<div class="container tasks-page">
 	<header class="page-header">
 		<h1 class="h2 mb-2">Aufgaben verwalten</h1>
 		<p class="text-secondary mb-0">
