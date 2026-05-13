@@ -841,8 +841,157 @@ html[data-bs-theme='dark'] .status-message {
 	outline-offset: 0.2rem;
 }
 
+.calendar-toolbar {
+	align-items: flex-start;
+	background: var(--app-bg);
+	border-bottom: 1px solid transparent;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.85rem;
+	justify-content: space-between;
+	padding-block: 0.25rem 0.85rem;
+	position: relative;
+	top: 0;
+	z-index: 10;
+}
+
+@supports (position: sticky) {
+	.calendar-toolbar {
+		position: sticky;
+		top: 4.25rem;
+	}
+}
+
+.calendar-view-button {
+	align-items: center;
+	display: inline-flex;
+	gap: 0.45rem;
+}
+
+.calendar-view-icon {
+	border: 1.8px solid currentColor;
+	border-radius: 0.22rem;
+	display: inline-block;
+	height: 1rem;
+	position: relative;
+	width: 1rem;
+}
+
+.calendar-view-icon::before {
+	background: currentColor;
+	content: '';
+	height: 1.8px;
+	left: 0.16rem;
+	position: absolute;
+	right: 0.16rem;
+	top: 0.28rem;
+}
+
+.calendar-view-icon::after {
+	border-left: 1.8px solid currentColor;
+	border-right: 1.8px solid currentColor;
+	content: '';
+	height: 0.22rem;
+	left: 0.22rem;
+	position: absolute;
+	right: 0.22rem;
+	top: -0.18rem;
+}
+
 .calendar-day {
 	min-height: 12rem;
+}
+
+.calendar-month-grid {
+	background: var(--app-surface);
+	border: 1px solid var(--app-border);
+	border-radius: 0.5rem;
+	box-shadow: var(--app-shadow);
+	display: grid;
+	grid-template-columns: repeat(7, minmax(0, 1fr));
+	overflow: hidden;
+}
+
+.calendar-month-weekday {
+	background: var(--app-surface-muted);
+	border-bottom: 1px solid var(--app-border);
+	color: var(--app-muted-text);
+	font-size: 0.8rem;
+	font-weight: 700;
+	padding: 0.65rem 0.5rem;
+	text-align: center;
+}
+
+.calendar-month-day {
+	background: var(--app-surface);
+	border-bottom: 1px solid var(--app-border);
+	border-right: 1px solid var(--app-border);
+	min-height: 8.5rem;
+	padding: 0.55rem;
+}
+
+.calendar-month-day:nth-child(7n) {
+	border-right: 0;
+}
+
+.calendar-month-day-muted {
+	background: var(--app-surface-soft);
+	color: var(--app-muted-text);
+}
+
+.calendar-month-day-today {
+	box-shadow: inset 0 0 0 0.15rem rgba(124, 58, 237, 0.28);
+}
+
+.calendar-month-day-number {
+	font-size: 0.85rem;
+	font-weight: 700;
+	margin-bottom: 0.45rem;
+}
+
+.calendar-month-todos {
+	display: grid;
+	gap: 0.35rem;
+}
+
+.calendar-month-todo {
+	align-items: center;
+	background: var(--app-surface-muted);
+	border: 1px solid var(--app-border);
+	border-radius: 0.4rem;
+	color: inherit;
+	display: flex;
+	gap: 0.4rem;
+	min-height: 2rem;
+	padding: 0.35rem 0.45rem;
+	text-align: left;
+	width: 100%;
+}
+
+.calendar-month-todo:hover,
+.calendar-month-todo:focus-visible {
+	border-color: var(--app-hover-border);
+}
+
+.calendar-month-todo:focus-visible {
+	outline: 0.2rem solid rgba(13, 110, 253, 0.25);
+	outline-offset: 0.12rem;
+}
+
+.calendar-month-todo-marker {
+	border-radius: 999px;
+	flex: 0 0 0.55rem;
+	height: 0.55rem;
+	width: 0.55rem;
+}
+
+.calendar-month-todo-title {
+	font-size: 0.82rem;
+	line-height: 1.2;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .calendar-todo {
@@ -1037,6 +1186,31 @@ html[data-bs-theme='dark'] .app-navbar .nav-link.active:focus-visible {
 
 	.calendar-day {
 		min-height: auto;
+	}
+
+	.calendar-toolbar {
+		display: grid;
+	}
+
+	.calendar-month-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.calendar-month-weekday {
+		display: none;
+	}
+
+	.calendar-month-day {
+		border-right: 0;
+		min-height: 5.5rem;
+	}
+
+	.calendar-month-day-muted {
+		display: none;
+	}
+
+	.calendar-month-day-number {
+		font-size: 0.95rem;
 	}
 
 	.calendar-todo-duration-30 {

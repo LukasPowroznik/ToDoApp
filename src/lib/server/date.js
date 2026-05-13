@@ -57,3 +57,48 @@ export function getWeekMeta(weekDateString) {
 		today: getTodayMeta().today
 	};
 }
+
+export function getMonthMeta(monthDateString) {
+	const fallbackDate = new Date();
+	const normalizedMonthDate =
+		monthDateString && monthDateString.length === 7 ? `${monthDateString}-01` : monthDateString;
+	const parsedDate = normalizedMonthDate ? new Date(`${normalizedMonthDate}T12:00:00.000Z`) : fallbackDate;
+	const selectedDate = Number.isNaN(parsedDate.getTime()) ? fallbackDate : parsedDate;
+	const firstOfMonth = new Date(Date.UTC(selectedDate.getUTCFullYear(), selectedDate.getUTCMonth(), 1, 12));
+	const lastOfMonth = new Date(Date.UTC(selectedDate.getUTCFullYear(), selectedDate.getUTCMonth() + 1, 0, 12));
+	const firstDayOfGrid = new Date(firstOfMonth);
+	const dayOfWeek = firstOfMonth.getUTCDay() || 7;
+	const today = getTodayMeta().today;
+
+	firstDayOfGrid.setUTCDate(firstOfMonth.getUTCDate() - dayOfWeek + 1);
+
+	const monthDays = Array.from({ length: 42 }, (_, index) => {
+		const date = new Date(firstDayOfGrid);
+		date.setUTCDate(firstDayOfGrid.getUTCDate() + index);
+		const dateString = toDateOnly(date);
+
+		return {
+			date: dateString,
+			day: date.getUTCDate(),
+			isCurrentMonth: date.getUTCMonth() === firstOfMonth.getUTCMonth(),
+			isToday: dateString === today
+		};
+	});
+	const previousMonth = new Date(firstOfMonth);
+	const nextMonth = new Date(firstOfMonth);
+	const month = String(firstOfMonth.getUTCMonth() + 1).padStart(2, '0');
+	const year = firstOfMonth.getUTCFullYear();
+
+	previousMonth.setUTCMonth(firstOfMonth.getUTCMonth() - 1);
+	nextMonth.setUTCMonth(firstOfMonth.getUTCMonth() + 1);
+
+	return {
+		monthDays,
+		monthStart: toDateOnly(firstOfMonth),
+		monthEnd: toDateOnly(lastOfMonth),
+		monthValue: `${year}-${month}`,
+		readableMonth: `${month}.${year}`,
+		previousMonth: toDateOnly(previousMonth),
+		nextMonth: toDateOnly(nextMonth)
+	};
+}
