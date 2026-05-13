@@ -8,7 +8,7 @@
 	const todos = $derived(data.todos);
 </script>
 
-<div class="container">
+<div class="container dashboard-page">
 	<header class="page-header">
 		<h1 class="h2 mb-2">Heute im Überblick</h1>
 		<p class="text-secondary mb-0">

@@ -572,8 +572,12 @@ html[data-bs-theme='dark'] .badge-status-overdue {
 }
 
 .stat-card-on-time {
-	background: rgba(25, 135, 84, 0.06);
-	border-color: rgba(25, 135, 84, 0.2);
+	background: rgba(79, 70, 229, 0.08);
+	border-color: rgba(129, 140, 248, 0.24);
+}
+
+.stat-card-on-time .progress-bar {
+	background-color: #4f46e5;
 }
 
 html[data-bs-theme='dark'] .stat-card-open {
@@ -581,10 +585,22 @@ html[data-bs-theme='dark'] .stat-card-open {
 	border-color: rgba(165, 180, 252, 0.34);
 }
 
-html[data-bs-theme='dark'] .stat-card-completed,
-html[data-bs-theme='dark'] .stat-card-on-time {
+html[data-bs-theme='dark'] .stat-card-completed {
 	background: rgba(22, 163, 74, 0.16);
 	border-color: rgba(74, 222, 128, 0.3);
+}
+
+html[data-bs-theme='dark'] .stat-card-on-time {
+	background: rgba(67, 56, 202, 0.22);
+	border-color: rgba(196, 181, 253, 0.34);
+}
+
+html[data-bs-theme='dark'] .stat-card-on-time .progress {
+	background-color: rgba(15, 23, 42, 0.38);
+}
+
+html[data-bs-theme='dark'] .stat-card-on-time .progress-bar {
+	background-color: #a78bfa;
 }
 
 html[data-bs-theme='dark'] .stat-card-today {
@@ -614,6 +630,60 @@ html[data-bs-theme='dark'] .stat-filter-card:focus-visible {
 html[data-bs-theme='dark'] .stat-filter-card-active {
 	border-color: #a78bfa;
 	box-shadow: 0 0 0 0.18rem rgba(167, 139, 250, 0.18);
+}
+
+html[data-bs-theme='dark'] .dashboard-page .page-header {
+	border-left-color: #a78bfa;
+}
+
+html[data-bs-theme='dark'] .dashboard-page .dashboard-section-card {
+	background:
+		linear-gradient(180deg, rgba(49, 46, 129, 0.18) 0%, rgba(24, 34, 53, 0.98) 48%),
+		var(--app-surface);
+	border-color: rgba(165, 180, 252, 0.24);
+	box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.32);
+}
+
+html[data-bs-theme='dark'] .dashboard-page .dashboard-section-header {
+	background: linear-gradient(180deg, rgba(67, 56, 202, 0.28) 0%, rgba(30, 41, 59, 0.74) 100%);
+	border-bottom-color: rgba(196, 181, 253, 0.22);
+	color: #e0e7ff;
+}
+
+html[data-bs-theme='dark'] .dashboard-page .dashboard-section-body {
+	background: rgba(17, 24, 39, 0.18);
+}
+
+html[data-bs-theme='dark'] .dashboard-page .dashboard-todo-item {
+	background: rgba(49, 46, 129, 0.2);
+	border-color: rgba(196, 181, 253, 0.28);
+	border-left-color: #8b5cf6;
+	color: #e0e7ff;
+}
+
+html[data-bs-theme='dark'] .dashboard-page .dashboard-todo-item:hover,
+html[data-bs-theme='dark'] .dashboard-page .dashboard-todo-item:focus-visible {
+	border-color: rgba(196, 181, 253, 0.48);
+	border-left-color: #a78bfa;
+	box-shadow: 0 0.85rem 1.55rem rgba(15, 23, 42, 0.24);
+}
+
+html[data-bs-theme='dark'] .dashboard-page .completion-line-chart {
+	background: rgba(17, 24, 39, 0.32);
+	border-color: rgba(165, 180, 252, 0.24);
+}
+
+html[data-bs-theme='dark'] .dashboard-page .completion-line-chart-area {
+	fill: rgba(124, 58, 237, 0.18);
+}
+
+html[data-bs-theme='dark'] .dashboard-page .completion-line-chart-line {
+	stroke: #a78bfa;
+}
+
+html[data-bs-theme='dark'] .dashboard-page .completion-line-chart-point {
+	fill: #1e1b4b;
+	stroke: #c4b5fd;
 }
 
 html[data-bs-theme='dark'] .todo-card {
