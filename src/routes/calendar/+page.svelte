@@ -48,10 +48,10 @@
 			<a
 				class={`btn ${isMonthView ? 'btn-primary' : 'btn-outline-primary'} calendar-view-button`}
 				href={`/calendar?view=month&month=${data.monthValue}`}
+				aria-label="Monatsübersicht"
 				aria-current={isMonthView ? 'page' : undefined}
 			>
 				<span class="calendar-view-icon" aria-hidden="true"></span>
-				Monat
 			</a>
 			<a
 				class={`btn ${!isMonthView && isWorkWeek ? 'btn-primary' : 'btn-outline-primary'}`}
