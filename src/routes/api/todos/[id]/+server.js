@@ -1,6 +1,13 @@
 import { json } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
-import { completeTodo, completeTodoOccurrence, deleteTodo, updateTodo } from '$lib/server/todos.js';
+import { validateScheduleCapacity } from '$lib/scheduleCapacity.js';
+import {
+	completeTodo,
+	completeTodoOccurrence,
+	deleteTodo,
+	listTodos,
+	updateTodo
+} from '$lib/server/todos.js';
 
 export async function PATCH({ params, request }) {
 	const updates = await request.json();
@@ -20,6 +27,25 @@ export async function PATCH({ params, request }) {
 	} else if (updates.status === 'Completed' && !updates.title) {
 		todo = await completeTodo(params.id);
 	} else {
+		const todos = await listTodos();
+		const currentTodo = todos.find((item) => item.id === params.id);
+
+		if (!currentTodo) {
+			return json({ message: 'todo not found' }, { status: 404 });
+		}
+
+		const scheduleError = validateScheduleCapacity(todos, [
+			{
+				...currentTodo,
+				...updates,
+				id: params.id
+			}
+		]);
+
+		if (scheduleError) {
+			return json({ message: scheduleError.message }, { status: 400 });
+		}
+
 		todo = await updateTodo(params.id, updates);
 	}
 

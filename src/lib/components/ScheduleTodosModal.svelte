@@ -2,6 +2,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { hideModal } from '$lib/bootstrapModal.js';
 	import StatusMessage from '$lib/components/StatusMessage.svelte';
+	import { validateScheduleCapacity } from '$lib/scheduleCapacity.js';
 
 	let { modalId = 'scheduleTodosModal', todos = [] } = $props();
 	let isSaving = $state(false);
@@ -27,6 +28,17 @@
 			return;
 		}
 
+		const scheduledTodos = updates.map(({ todo, scheduledDate }) => ({
+			...todo,
+			scheduledDate
+		}));
+		const scheduleError = validateScheduleCapacity(todos, scheduledTodos);
+
+		if (scheduleError) {
+			errorMessage = scheduleError.message;
+			return;
+		}
+
 		isSaving = true;
 		errorMessage = '';
 
@@ -44,7 +56,9 @@
 						})
 					}).then((response) => {
 						if (!response.ok) {
-							throw new Error('Termine konnten nicht gespeichert werden.');
+							return response.json().then((body) => {
+								throw new Error(body.message ?? 'Termine konnten nicht gespeichert werden.');
+							});
 						}
 					})
 				)

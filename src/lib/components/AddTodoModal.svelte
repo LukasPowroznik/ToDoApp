@@ -48,7 +48,8 @@
 			});
 
 			if (!response.ok) {
-				throw new Error('Das To-Do konnte nicht gespeichert werden.');
+				const body = await response.json();
+				throw new Error(body.message ?? 'Das To-Do konnte nicht gespeichert werden.');
 			}
 
 			form.reset();
