@@ -148,6 +148,11 @@
 
 		await showModal('calendarTodoDetailModal');
 	}
+
+	function handleCompleteClick(event, todo) {
+		event.stopPropagation();
+		completeCalendarTodo(todo);
+	}
 </script>
 
 {#if scheduledTodos.length > 0}
@@ -177,17 +182,23 @@
 						{#if getTodosForDate(day.date).length > 0}
 							<div class="d-grid gap-2">
 								{#each getTodosForDate(day.date) as todo}
-									<article
+									<div
 										class={`calendar-todo border rounded p-2 ${getDurationClass(todo.estimatedDuration)} ${todo.isOccurrenceCompleted ? 'todo-item-completed' : ''} ${!todo.isOccurrenceCompleted && todo.status === 'Open' && todo.calendarDate < today ? 'calendar-todo-overdue' : ''}`}
+										role="button"
+										tabindex="0"
+										aria-label={`Details zu ${todo.title} öffnen`}
 										draggable={!todo.isOccurrenceCompleted}
 										ondragstart={(event) => handleDragStart(event, todo)}
 										ondragend={handleDragEnd}
+										onclick={() => openDetailModal(todo)}
+										onkeydown={(event) => {
+											if (event.key === 'Enter' || event.key === ' ') {
+												event.preventDefault();
+												openDetailModal(todo);
+											}
+										}}
 									>
-										<button
-											class="calendar-todo-detail-button text-start"
-											type="button"
-											onclick={() => openDetailModal(todo)}
-										>
+										<div class="calendar-todo-detail-button text-start">
 											<span class="d-block fw-semibold">{todo.title}</span>
 											<span class={`badge mt-2 ${categoryBadgeClasses[todo.category]}`}>
 												{todo.category}
@@ -209,13 +220,13 @@
 											{#if !todo.isOccurrenceCompleted && todo.status === 'Open' && todo.calendarDate < today}
 												<span class="badge badge-status badge-status-overdue mt-2 ms-1">Überfällig</span>
 											{/if}
-										</button>
+										</div>
 
 										{#if !todo.isOccurrenceCompleted}
 											<button
 												class="btn btn-sm btn-outline-success d-block mt-3"
 												type="button"
-												onclick={() => completeCalendarTodo(todo)}
+												onclick={(event) => handleCompleteClick(event, todo)}
 												disabled={updatingOccurrence === `${todo.id}-${todo.calendarDate}`}
 											>
 												{#if updatingOccurrence === `${todo.id}-${todo.calendarDate}`}
@@ -226,7 +237,7 @@
 												{/if}
 											</button>
 										{/if}
-									</article>
+									</div>
 								{/each}
 							</div>
 						{:else}
