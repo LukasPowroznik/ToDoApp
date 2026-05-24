@@ -12,6 +12,8 @@
 	let updatingOccurrence = $state('');
 	let errorMessage = $state('');
 	let selectedTodo = $state(null);
+	let draggedTodo = $state(null);
+	let dragOverDate = $state('');
 
 	const weekDates = $derived(weekDays.map((day) => day.date));
 	const scheduledTodos = $derived(
@@ -34,6 +36,76 @@
 			'4 h': 'calendar-todo-duration-240',
 			Ganztägig: 'calendar-todo-duration-day'
 		})[duration] ?? 'calendar-todo-duration-30';
+
+	const buildUpdatePayload = (todo, scheduledDate) => ({
+		title: todo.title,
+		description: todo.description ?? '',
+		category: todo.category ?? 'Privat',
+		priority: todo.priority ?? 'Medium',
+		scheduledDate,
+		deadline: todo.deadline ?? '',
+		estimatedDuration: todo.estimatedDuration ?? '',
+		status: todo.status ?? 'Open',
+		recurring: Boolean(todo.recurring),
+		recurrence: todo.recurrence,
+		completedAt: todo.completedAt
+	});
+
+	function handleDragStart(event, todo) {
+		if (todo.isOccurrenceCompleted) {
+			event.preventDefault();
+			return;
+		}
+
+		draggedTodo = todo;
+		event.dataTransfer.effectAllowed = 'move';
+		event.dataTransfer.setData('text/plain', todo.id);
+	}
+
+	function handleDragOver(event, date) {
+		if (!draggedTodo || draggedTodo.calendarDate === date) {
+			return;
+		}
+
+		event.preventDefault();
+		event.dataTransfer.dropEffect = 'move';
+		dragOverDate = date;
+	}
+
+	function handleDragEnd() {
+		draggedTodo = null;
+		dragOverDate = '';
+	}
+
+	async function moveTodoToDate(date) {
+		if (!draggedTodo || draggedTodo.calendarDate === date) {
+			handleDragEnd();
+			return;
+		}
+
+		const todoToMove = draggedTodo;
+		handleDragEnd();
+		errorMessage = '';
+
+		try {
+			const response = await fetch(`/api/todos/${todoToMove.id}`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(buildUpdatePayload(todoToMove, date))
+			});
+
+			if (!response.ok) {
+				const body = await response.json();
+				throw new Error(body.message ?? 'Aufgabe konnte nicht verschoben werden.');
+			}
+
+			await invalidateAll();
+		} catch (error) {
+			errorMessage = error.message;
+		}
+	}
 
 	async function completeCalendarTodo(todo) {
 		const occurrenceKey = `${todo.id}-${todo.calendarDate}`;
@@ -88,7 +160,16 @@
 
 		{#each weekDays as day}
 			<section class="col-md-6 col-xl">
-				<div class="card dashboard-card calendar-day h-100">
+				<div
+					class={`card dashboard-card calendar-day h-100 ${dragOverDate === day.date ? 'calendar-drop-target-active' : ''}`}
+					role="list"
+					aria-label={`Aufgaben am ${day.date}`}
+					ondragover={(event) => handleDragOver(event, day.date)}
+					ondragleave={() => {
+						if (dragOverDate === day.date) dragOverDate = '';
+					}}
+					ondrop={() => moveTodoToDate(day.date)}
+				>
 					<div class="card-body">
 						<h2 class="h6 mb-1">{day.label}</h2>
 						<p class="text-secondary small mb-3">{day.date}</p>
@@ -98,6 +179,9 @@
 								{#each getTodosForDate(day.date) as todo}
 									<article
 										class={`calendar-todo border rounded p-2 ${getDurationClass(todo.estimatedDuration)} ${todo.isOccurrenceCompleted ? 'todo-item-completed' : ''} ${!todo.isOccurrenceCompleted && todo.status === 'Open' && todo.calendarDate < today ? 'calendar-todo-overdue' : ''}`}
+										draggable={!todo.isOccurrenceCompleted}
+										ondragstart={(event) => handleDragStart(event, todo)}
+										ondragend={handleDragEnd}
 									>
 										<button
 											class="calendar-todo-detail-button text-start"

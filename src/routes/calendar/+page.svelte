@@ -1,4 +1,6 @@
 <script>
+	import { showModal } from '$lib/bootstrapModal.js';
+	import AddTodoModal from '$lib/components/AddTodoModal.svelte';
 	import CalendarMonthView from '$lib/components/CalendarMonthView.svelte';
 	import CalendarWeekView from '$lib/components/CalendarWeekView.svelte';
 
@@ -45,6 +47,9 @@
 		</div>
 
 		<div class="d-flex flex-wrap gap-2">
+			<button class="btn btn-action-primary calendar-add-button" type="button" aria-label="Neues To-Do erfassen" onclick={() => showModal('calendarAddTodoModal')}>
+				<span aria-hidden="true">+</span>
+			</button>
 			<a
 				class={`btn ${isMonthView ? 'btn-primary' : 'btn-outline-primary'} calendar-view-button`}
 				href={`/calendar?view=month&month=${data.monthValue}`}
@@ -75,4 +80,6 @@
 	{:else}
 		<CalendarWeekView weekDays={data.weekDays} {todos} today={data.today} />
 	{/if}
+
+	<AddTodoModal modalId="calendarAddTodoModal" />
 </div>
