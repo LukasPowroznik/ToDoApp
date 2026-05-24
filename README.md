@@ -70,12 +70,12 @@ Die folgenden User Stories leiten sich aus den Personas und den zentralen Nutzun
 
 ## 2. Lösungsidee
 
-Die ToDoApp ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt Kennzahlen und heutige To-Dos. Die To-Do-Ansicht erlaubt das Erfassen, Filtern, Bearbeiten, Löschen, Terminieren und Abschliessen von To-Dos. Die Kalenderansicht zeigt terminierte To-Dos in einer Wochenansicht und berücksichtigt wiederkehrende To-Dos.
+Die ToDoApp ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt Kennzahlen und heutige To-Dos. Die To-Do-Ansicht erlaubt das Erfassen, Filtern, Bearbeiten, Löschen, Terminieren und Abschliessen von To-Dos. Die Kalenderansicht zeigt terminierte To-Dos in Wochen-, Arbeitswochen- und Monatsansicht, unterstützt Drag-and-Drop zum Verschieben von Terminen und berücksichtigt wiederkehrende To-Dos. In den Einstellungen können Planungs-Limits und die Standardansicht des Kalenders angepasst werden.
 
 Die App kombiniert damit zwei Perspektiven:
 
 - **Listenperspektive:** To-Dos lassen sich nach Status, Kategorie, Priorität und Terminierung filtern.
-- **Zeitperspektive:** Geplante To-Dos erscheinen im Wochenkalender und können dort im Kontext ihres Datums betrachtet werden.
+- **Zeitperspektive:** Geplante To-Dos erscheinen im Kalender und können dort im Kontext ihres Datums betrachtet, verschoben und geöffnet werden.
 
 ## 3. Vorgehen und Artefakte
 
@@ -98,7 +98,7 @@ Die Umsetzung erfolgte schrittweise von einem statischen SvelteKit-Prototyp zu e
 
 ### 3.4 Prototype
 
-Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbindung und vorbereiteter Netlify-Konfiguration.
+Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbindung und Netlify-Deployment.
 
 ## 4. Aktueller Prototyp
 
@@ -110,10 +110,12 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 - To-Dos erstellen, bearbeiten, löschen und als erledigt markieren.
 - Felder für Titel, Beschreibung, Kategorie, Priorität, Status, Deadline, geschätzte Dauer, Wiederholung und "Zu erledigen am".
 - Sammelmodal zum Terminieren noch nicht geplanter To-Dos.
-- Wochenkalender mit Navigation zur vorherigen und nächsten Woche.
-- Detailmodal für To-Dos im Kalender.
+- Kalender mit Wochenansicht, Arbeitswoche und Monatsansicht.
+- Drag-and-Drop zum Verschieben terminierter To-Dos im Kalender.
+- Detailmodal für To-Dos im Kalender, das über die ganze To-Do-Karte geöffnet werden kann.
 - Wiederkehrende To-Dos mit täglicher, wöchentlicher oder monatlicher Wiederholung bis zur gesetzten Deadline.
 - Einzelne Vorkommen wiederkehrender To-Dos können im Kalender als erledigt markiert werden.
+- Einstellungen für Tageslimit, Kategorie-Limits und Standard-Kalenderansicht.
 
 ### 4.2 Technologie
 
@@ -130,12 +132,17 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 - `src/routes/+page.server.js`: Lädt To-Dos und Datumsmetadaten für das Dashboard
 - `src/routes/tasks/+page.svelte`: To-Do-Verwaltung mit Filtern und Modals
 - `src/routes/tasks/+page.server.js`: Lädt To-Dos für die To-Do-Ansicht
-- `src/routes/calendar/+page.svelte`: Wochenkalender
-- `src/routes/calendar/+page.server.js`: Lädt To-Dos und Wochenmetadaten
+- `src/routes/calendar/+page.svelte`: Kalender mit Wochen-, Arbeitswochen- und Monatsansicht
+- `src/routes/calendar/+page.server.js`: Lädt To-Dos, Kalender-Metadaten und Standardansicht
+- `src/routes/settings/+page.svelte`: Einstellungsseite für Planungs-Limits und Kalenderstandard
+- `src/routes/settings/+page.server.js`: Lädt gespeicherte Einstellungen
 - `src/routes/api/todos/+server.js`: API für To-Do-Liste und Erstellung
 - `src/routes/api/todos/[id]/+server.js`: API für Aktualisieren, Abschliessen und Löschen
+- `src/routes/api/settings/+server.js`: API zum Lesen und Speichern der Einstellungen
 - `src/lib/server/db.js`: MongoDB-Verbindung
 - `src/lib/server/todos.js`: CRUD-Funktionen für To-Dos
+- `src/lib/server/settings.js`: Standardwerte und Speicherung der App-Einstellungen
+- `src/lib/scheduleCapacity.js`: Validierung von Tages- und Kategorie-Limits
 - `src/lib/todoSchedule.js`: Logik für Termine und Wiederholungen
 - `src/lib/components`: Wiederverwendbare UI-Komponenten
 - `src/lib/data/todoOptions.js`: UI-Optionen und Badge-Klassen für To-Dos
@@ -176,7 +183,7 @@ MONGODB_URI=mongodb+srv://...
 
 Als Vorlage kann `.env.example` verwendet werden. Die lokale `.env`-Datei wird durch `.gitignore` ausgeschlossen und darf nicht ins Repository übernommen werden.
 
-Die Datenbank heisst `todoapp`, die Collection heisst `todos`.
+Die Datenbank heisst `todoapp`. Die App verwendet die Collections `todos` für To-Dos und `settings` für App-Einstellungen.
 
 ### 5.3 Installation und Entwicklung
 
@@ -198,7 +205,7 @@ Der Produktionsbuild wurde lokal mit `npm.cmd run build` geprüft und erfolgreic
 
 ## 6. Deployment auf Netlify
 
-Das Projekt ist für Netlify vorbereitet.
+Das Projekt ist auf Netlify deployt.
 
 ### 6.1 Konfiguration
 
@@ -220,7 +227,10 @@ Der Wert darf nicht im Repository gespeichert werden.
 
 ### 6.3 Deployment-Status
 
-Der lokale Produktionsbuild funktioniert. Das eigentliche Netlify-Deployment und die finale Deployment-URL sind noch offen.
+Der lokale Produktionsbuild funktioniert und das Projekt ist auf Netlify deployt.
+
+- **Deployment-Plattform:** Netlify
+- **Deployment-URL:** https://prototypingtodoapp.netlify.app/
 
 ## 7. Projektorganisation
 
@@ -231,7 +241,7 @@ Der lokale Produktionsbuild funktioniert. Das eigentliche Netlify-Deployment und
 
 ## 8. Testing, Validierung und nächste Schritte
 
-Eine formale Evaluation ist noch offen. Der aktuelle Prototyp kann lokal getestet werden.
+Der aktuelle Prototyp wurde lokal getestet und mit einem Mitstudierenden in einem kurzen Usability-Test validiert.
 
 ### 8.1 Bereits geprüft
 
@@ -249,7 +259,10 @@ Eine formale Evaluation ist noch offen. Der aktuelle Prototyp kann lokal geteste
 - To-Do löschen und prüfen, ob es aus MongoDB entfernt wird.
 - Wiederkehrendes To-Do im Kalender prüfen.
 - Einzelnes Kalender-Vorkommen als erledigt markieren.
-- Wochenansicht auf Desktop prüfen.
+- Kalenderansichten Woche, Arbeitswoche und Monat auf Desktop prüfen.
+- To-Do im Kalender per Drag-and-Drop verschieben.
+- Einstellungen für Limits und Standard-Kalenderansicht speichern.
+- White Mode und Dark Mode prüfen.
 
 ### 8.3 Screenshot-Dokumentation für Testing
 
@@ -270,11 +283,11 @@ Damit spätere Änderungen nach dem Testing nachvollziehbar bleiben, wird der ak
 | Kalender Monat Dark Mode | ![Vorher: Kalender Monat Dark Mode](docs/testing/screenshots/vorher/calendar-month-dark.png) | ![Nachher: Kalender Monat Dark Mode](docs/testing/screenshots/nachher/calendar-month-dark.png) |
 | Kalender Monat White Mode | ![Vorher: Kalender Monat White Mode](docs/testing/screenshots/vorher/calendar-month-white.png) | ![Nachher: Kalender Monat White Mode](docs/testing/screenshots/nachher/calendar-month-white.png) |
 
-Die Vorher-Screenshots wurden vor den Testing-Änderungen erstellt. Nach den Anpassungen werden die Nachher-Screenshots mit denselben Dateinamen im Ordner `nachher/` ergänzt, damit der Vergleich direkt sichtbar ist.
+Die Vorher-Screenshots wurden vor den Testing-Änderungen erstellt. Die Nachher-Screenshots wurden nach den Anpassungen mit denselben Dateinamen im Ordner `nachher/` ergänzt, damit der Vergleich direkt sichtbar ist.
 
 ### 8.4 Usability-Test mit Testperson
 
-Für einen kurzen Usability-Test wird die App auf dem Laptop bereitgestellt. Die Test-To-Dos kann die Testperson auf dem Smartphone lesen. Die Testperson soll laut denken und sagen, was sie erwartet, was sie verwirrt und warum sie eine bestimmte Aktion ausführt.
+Für den kurzen Usability-Test wurde die App auf dem Laptop bereitgestellt. Die Test-To-Dos konnte die Testperson auf dem Smartphone lesen. Die Testperson sollte laut denken und sagen, was sie erwartet, was sie verwirrt und warum sie eine bestimmte Aktion ausführt.
 
 Wichtiger Hinweis für die Testperson:
 
@@ -318,10 +331,32 @@ Während des Tests sollte festgehalten werden:
 - Findet die Testperson To-Dos im Kalender wieder?
 - Werden die 8h- und 16h-Regeln ohne zusätzliche Erklärung verstanden?
 
+#### Durchführung und Ergebnisse
+
+Der Usability-Test wurde mit einem Mitstudierenden durchgeführt. Die Testperson konnte die App grundsätzlich gut verstehen und die wichtigsten Abläufe nachvollziehen. Besonders positiv bewertet wurden die verständlichen Fehlermeldungen, die nachvollziehbaren Planungsregeln und der Dark Mode.
+
+Beobachtungen aus dem Test:
+
+- Die Testperson musste zunächst suchen, bis sie den Button zum Erstellen eines neuen To-Dos gefunden hatte.
+- Die vorhandenen Buttons waren verständlich und wurden nicht als unklar wahrgenommen.
+- Der Button `To-Dos terminieren` wurde während des Tests nicht verwendet.
+- Die Fehlermeldungen wurden gelesen, verstanden und als hilfreich eingeschätzt.
+- Die Planungsregeln mit Arbeitslimit und Tageslimit wurden verstanden.
+- Die Testperson würde die App grundsätzlich nutzen, wenn sie ihre To-Dos nicht bereits mit einem anderen System tracken würde.
+- Der Dark Mode wurde als besonders gelungen wahrgenommen.
+- Als Verbesserung wurde genannt, dass der White Mode farblich stärker an den Dark Mode angeglichen werden könnte.
+
+#### Abgeleitete Anpassungen
+
+Aus dem Usability-Test wurden mehrere Anpassungen am Prototyp vorgenommen:
+
+- Auf den wichtigsten Seiten wurde ein Button zum Erstellen neuer To-Dos ergänzt, damit der Einstieg schneller gefunden wird.
+- Beim Erstellen eines neuen To-Dos wurde die direkte Terminierung ausgeblendet, damit der Button `To-Dos terminieren` gezielter verwendet wird.
+- Der White Mode wurde farblich stärker an den Indigo-Stil des Dark Mode angeglichen.
+- Die Nachher-Screenshots dokumentieren den Stand nach diesen Anpassungen.
+
 ### 8.5 Mögliche nächste Schritte
 
-- Manuelles UI-Testprotokoll ergänzen.
-- Netlify-Deployment durchführen und URL dokumentieren.
 - Terminierungsmodal final gegen Issue `#6` prüfen.
 - Abschlussdokumentation und Reflexion ergänzen.
 - Fehlermeldungen und Ladezustände weiter verfeinern.
@@ -345,5 +380,5 @@ KI beschleunigt organisatorische, technische und dokumentarische Arbeit, ersetzt
 ## 10. Anhang
 
 - **Quellen:** SvelteKit-Dokumentation, Bootstrap-Dokumentation, MongoDB-Dokumentation, Netlify-Dokumentation und Projektdateien im Repository.
-- **Testskript und Materialien:** Noch offen.
-- **Rohdaten und Auswertung:** Noch offen.
+- **Testskript und Materialien:** Usability-Test-Aufgaben, Fragen und Beobachtungsnotizen sind in Abschnitt 8.4 dokumentiert.
+- **Rohdaten und Auswertung:** Die zusammengefassten Beobachtungen und abgeleiteten Anpassungen sind in Abschnitt 8.4 dokumentiert.
