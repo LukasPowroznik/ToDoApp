@@ -157,7 +157,7 @@
 						Neues To-Do erfassen
 					</button>
 					<button
-						class="btn btn-action-schedule"
+						class="btn btn-action-primary"
 						type="button"
 						onclick={() => showModal('scheduleTodosModal')}
 					>

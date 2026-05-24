@@ -7,7 +7,7 @@
 	const priorities = ['Low', 'Medium', 'High'];
 	const durations = ['30 min', '1 h', '2 h', '4 h', 'Ganztägig'];
 
-	let { modalId = 'addTodoModal' } = $props();
+	let { modalId = 'addTodoModal', defaultScheduledDate = '' } = $props();
 	let isSaving = $state(false);
 	let errorMessage = $state('');
 
@@ -28,6 +28,10 @@
 			recurring: Boolean(recurrenceType),
 			recurrence: recurrenceType ? { type: recurrenceType } : undefined
 		};
+
+		if (defaultScheduledDate) {
+			todo.scheduledDate = defaultScheduledDate;
+		}
 
 		if (!todo.title) {
 			errorMessage = 'Bitte gib einen Titel ein.';

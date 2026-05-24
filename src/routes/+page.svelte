@@ -1,4 +1,5 @@
 <script>
+	import AddTodoModal from '$lib/components/AddTodoModal.svelte';
 	import DashboardStats from '$lib/components/DashboardStats.svelte';
 	import MonthlyCompletionChart from '$lib/components/MonthlyCompletionChart.svelte';
 	import TodayTodos from '$lib/components/TodayTodos.svelte';
@@ -29,4 +30,6 @@
 			<MonthlyCompletionChart {todos} />
 		</section>
 	</div>
+
+	<AddTodoModal modalId="dashboardAddTodoModal" defaultScheduledDate={data.today} />
 </div>

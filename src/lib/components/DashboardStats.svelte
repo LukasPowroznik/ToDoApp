@@ -1,4 +1,5 @@
 <script>
+	import { showModal } from '$lib/bootstrapModal.js';
 	import { buildTodoOccurrence, isTodoDueOnDate } from '$lib/todoSchedule.js';
 
 	let { todos = [], monthPrefix = '2026-05', today = '2026-05-06' } = $props();
@@ -14,6 +15,7 @@
 	const overdueTodos = $derived(
 		todos.filter((todo) => todo.status === 'Open' && todo.deadline && todo.deadline < today)
 	);
+	const createdTodayTodos = $derived(todos.filter((todo) => todo.createdAt?.startsWith(today)));
 	const scheduledThisMonth = $derived(
 		todos.filter((todo) => todo.scheduledDate?.startsWith(monthPrefix))
 	);
@@ -32,6 +34,14 @@
 
 <div class="row g-3">
 	<div class="col-sm-6">
+		<button class="card dashboard-card stat-card stat-card-create h-100 w-100 text-start" type="button" onclick={() => showModal('dashboardAddTodoModal')}>
+			<span class="card-body">
+				<span class="text-secondary small d-block mb-1">Neues To-Do erfassen</span>
+				<span class="h3 mb-0 d-block">{createdTodayTodos.length}</span>
+			</span>
+		</button>
+	</div>
+	<div class="col-sm-6">
 		<a class="card dashboard-card stat-card stat-card-open stat-card-link h-100" href="/tasks?status=open">
 			<div class="card-body">
 				<p class="text-secondary small mb-1">Offen</p>
@@ -48,6 +58,14 @@
 		</a>
 	</div>
 	<div class="col-sm-6">
+		<a class="card dashboard-card stat-card stat-card-overdue stat-card-link h-100" href="/tasks?status=overdue">
+			<div class="card-body">
+				<p class="text-secondary small mb-1">Überfällig</p>
+				<h2 class="h3 text-danger mb-0">{overdueTodos.length}</h2>
+			</div>
+		</a>
+	</div>
+	<div class="col-sm-6">
 		<a class="card dashboard-card stat-card stat-card-today stat-card-link h-100" href="/tasks?status=today">
 			<div class="card-body">
 				<p class="text-secondary small mb-1">Heute terminiert</p>
@@ -56,14 +74,6 @@
 		</a>
 	</div>
 	<div class="col-sm-6">
-		<a class="card dashboard-card stat-card stat-card-overdue stat-card-link h-100" href="/tasks?status=overdue">
-			<div class="card-body">
-				<p class="text-secondary small mb-1">Überfällig</p>
-				<h2 class="h3 text-danger mb-0">{overdueTodos.length}</h2>
-			</div>
-		</a>
-	</div>
-	<div class="col-12">
 		<a class="card dashboard-card stat-card stat-card-scheduled stat-card-link h-100" href="/tasks?status=scheduled">
 			<div class="card-body">
 				<p class="text-secondary small mb-1">Terminiert diesen Monat</p>
