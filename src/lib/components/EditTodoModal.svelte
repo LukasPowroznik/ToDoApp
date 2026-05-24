@@ -73,7 +73,7 @@
 
 			if (!response.ok) {
 				const body = await response.json();
-				throw new Error(body.message ?? 'Die Aenderungen konnten nicht gespeichert werden.');
+				throw new Error(body.message ?? 'Die Änderungen konnten nicht gespeichert werden.');
 			}
 
 			await invalidateAll();

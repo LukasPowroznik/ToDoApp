@@ -57,7 +57,7 @@ export function validateScheduleCapacity(todos, candidates, settings) {
 	for (const candidate of scheduledCandidates) {
 		if (candidate.category === WORK_CATEGORY && isWeekend(candidate.scheduledDate)) {
 			return {
-				message: 'To-Dos der Kategorie Arbeit duerfen nicht auf Samstag oder Sonntag terminiert werden.'
+				message: 'To-Dos der Kategorie Arbeit dürfen nicht auf Samstag oder Sonntag terminiert werden.'
 			};
 		}
 	}

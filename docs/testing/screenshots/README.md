@@ -1,11 +1,11 @@
 # Screenshot-Dokumentation
 
-Diese Ablage dient dazu, den Desktop-Stand der App vor und nach weiteren Testing-Aenderungen festzuhalten.
+Diese Ablage dient dazu, den Desktop-Stand der App vor und nach weiteren Testing-Änderungen festzuhalten.
 
 ## Struktur
 
-- `vorher/`: Screenshots des aktuellen Stands vor den neuen Aenderungen.
-- `nachher/`: Screenshots nach den anschliessenden Aenderungen.
+- `vorher/`: Screenshots des aktuellen Stands vor den neuen Änderungen.
+- `nachher/`: Screenshots nach den anschliessenden Änderungen.
 
 ## Empfohlene Dateinamen
 
