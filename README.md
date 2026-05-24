@@ -9,7 +9,7 @@
 5. [Lokales Setup](#5-lokales-setup)
 6. [Deployment auf Netlify](#6-deployment-auf-netlify)
 7. [Projektorganisation](#7-projektorganisation)
-8. [Validierung und nächste Schritte](#8-validierung-und-nächste-schritte)
+8. [Testing, Validierung und nächste Schritte](#8-testing-validierung-und-nächste-schritte)
 9. [KI-Deklaration](#9-ki-deklaration)
 10. [Anhang](#10-anhang)
 
@@ -183,7 +183,7 @@ Der lokale Produktionsbuild funktioniert. Das eigentliche Netlify-Deployment und
 - **Issue-Management:** Umsetzung und Erweiterungen werden über GitHub Issues organisiert.
 - **Commit-Praxis:** Änderungen werden thematisch und nachvollziehbar versioniert.
 
-## 8. Validierung und nächste Schritte
+## 8. Testing, Validierung und nächste Schritte
 
 Eine formale Evaluation ist noch offen. Der aktuelle Prototyp kann lokal getestet werden.
 
@@ -203,9 +203,30 @@ Eine formale Evaluation ist noch offen. Der aktuelle Prototyp kann lokal geteste
 - Aufgabe löschen und prüfen, ob sie aus MongoDB entfernt wird.
 - Wiederkehrende Aufgabe im Kalender prüfen.
 - Einzelnes Kalender-Vorkommen als erledigt markieren.
-- Wochenansicht auf Desktop und Mobile prüfen.
+- Wochenansicht auf Desktop prüfen.
 
-### 8.3 Mögliche nächste Schritte
+### 8.3 Screenshot-Dokumentation für Testing
+
+Damit spätere Änderungen nach dem Testing nachvollziehbar bleiben, wird der aktuelle Desktop-Stand vor den Anpassungen mit Screenshots festgehalten. Die Screenshots liegen unter `docs/testing/screenshots/`.
+
+**Aktueller Vorher-Stand:** Commit `6824014` vom 24.05.2026.
+
+| Ansicht | Vorher | Nachher |
+| --- | --- | --- |
+| Dashboard Dark Mode | ![Vorher: Dashboard Dark Mode](docs/testing/screenshots/vorher/dashboard-dark.png) | ![Nachher: Dashboard Dark Mode](docs/testing/screenshots/nachher/dashboard-dark.png) |
+| Dashboard White Mode | ![Vorher: Dashboard White Mode](docs/testing/screenshots/vorher/dashboard-white.png) | ![Nachher: Dashboard White Mode](docs/testing/screenshots/nachher/dashboard-white.png) |
+| Aufgaben Dark Mode | ![Vorher: Aufgaben Dark Mode](docs/testing/screenshots/vorher/tasks-dark.png) | ![Nachher: Aufgaben Dark Mode](docs/testing/screenshots/nachher/tasks-dark.png) |
+| Aufgaben White Mode | ![Vorher: Aufgaben White Mode](docs/testing/screenshots/vorher/tasks-white.png) | ![Nachher: Aufgaben White Mode](docs/testing/screenshots/nachher/tasks-white.png) |
+| To-Do erstellen Dark Mode | ![Vorher: To-Do erstellen Dark Mode](docs/testing/screenshots/vorher/create-to-do-dark.png) | ![Nachher: To-Do erstellen Dark Mode](docs/testing/screenshots/nachher/create-to-do-dark.png) |
+| To-Do erstellen White Mode | ![Vorher: To-Do erstellen White Mode](docs/testing/screenshots/vorher/create-to-do-white.png) | ![Nachher: To-Do erstellen White Mode](docs/testing/screenshots/nachher/create-to-do-white.png) |
+| Kalender Woche Dark Mode | ![Vorher: Kalender Woche Dark Mode](docs/testing/screenshots/vorher/calendar-week-dark.png) | ![Nachher: Kalender Woche Dark Mode](docs/testing/screenshots/nachher/calendar-week-dark.png) |
+| Kalender Woche White Mode | ![Vorher: Kalender Woche White Mode](docs/testing/screenshots/vorher/calendar-week-white.png) | ![Nachher: Kalender Woche White Mode](docs/testing/screenshots/nachher/calendar-week-white.png) |
+| Kalender Monat Dark Mode | ![Vorher: Kalender Monat Dark Mode](docs/testing/screenshots/vorher/calendar-month-dark.png) | ![Nachher: Kalender Monat Dark Mode](docs/testing/screenshots/nachher/calendar-month-dark.png) |
+| Kalender Monat White Mode | ![Vorher: Kalender Monat White Mode](docs/testing/screenshots/vorher/calendar-month-white.png) | ![Nachher: Kalender Monat White Mode](docs/testing/screenshots/nachher/calendar-month-white.png) |
+
+Die Vorher-Screenshots wurden vor den Testing-Änderungen erstellt. Nach den Anpassungen werden die Nachher-Screenshots mit denselben Dateinamen im Ordner `nachher/` ergänzt, damit der Vergleich direkt sichtbar ist.
+
+### 8.4 Mögliche nächste Schritte
 
 - Manuelles UI-Testprotokoll ergänzen.
 - Netlify-Deployment durchführen und URL dokumentieren.
