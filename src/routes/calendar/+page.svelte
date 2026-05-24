@@ -22,7 +22,7 @@
 				Woche vom {data.readableWeekStart} bis {data.readableWeekEnd}
 			{/if}
 		</h1>
-		<p class="text-secondary mb-0">Kalenderansicht mit terminierten Aufgaben aus MongoDB.</p>
+		<p class="text-secondary mb-0">Kalenderansicht mit terminierten To-Dos aus MongoDB.</p>
 	</header>
 
 	<div class="calendar-toolbar mb-4">

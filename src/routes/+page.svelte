@@ -13,7 +13,7 @@
 	<header class="page-header">
 		<h1 class="h2 mb-2">Heute im Überblick</h1>
 		<p class="text-secondary mb-0">
-			Aktuelle Aufgaben, heutige Termine und Kennzahlen aus MongoDB.
+			Aktuelle To-Dos, heutige Termine und Kennzahlen aus MongoDB.
 		</p>
 	</header>
 

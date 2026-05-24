@@ -68,6 +68,20 @@ body {
 	gap: 0.35rem;
 }
 
+.navbar-icon-button {
+	align-items: center;
+	aspect-ratio: 1;
+	display: inline-flex;
+	justify-content: center;
+	min-width: 2rem;
+	padding-inline: 0;
+}
+
+.settings-icon {
+	height: 1rem;
+	width: 1rem;
+}
+
 html:not([data-bs-theme='dark']) .app-navbar .nav-link.active {
 	background-color: #eef2ff !important;
 	color: #3730a3 !important;
@@ -1402,12 +1416,17 @@ html[data-bs-theme='dark'] .btn-outline-secondary:focus-visible {
 
 html[data-bs-theme='dark'] .theme-toggle-button,
 html[data-bs-theme='dark'] .theme-toggle-button:hover,
-html[data-bs-theme='dark'] .theme-toggle-button:focus-visible {
+html[data-bs-theme='dark'] .theme-toggle-button:focus-visible,
+html[data-bs-theme='dark'] .navbar-icon-button,
+html[data-bs-theme='dark'] .navbar-icon-button:hover,
+html[data-bs-theme='dark'] .navbar-icon-button:focus-visible {
 	border-color: #6366f1;
 }
 
 html[data-bs-theme='dark'] .theme-toggle-button:hover,
-html[data-bs-theme='dark'] .theme-toggle-button:focus-visible {
+html[data-bs-theme='dark'] .theme-toggle-button:focus-visible,
+html[data-bs-theme='dark'] .navbar-icon-button:hover,
+html[data-bs-theme='dark'] .navbar-icon-button:focus-visible {
 	background-color: rgba(99, 102, 241, 0.16);
 }
 

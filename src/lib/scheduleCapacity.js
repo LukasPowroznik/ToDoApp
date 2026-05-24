@@ -26,6 +26,12 @@ export function isWeekend(date) {
 	return weekday === 0 || weekday === 6;
 }
 
+function formatDate(date) {
+	const [year, month, day] = date.split('-');
+
+	return `${day}.${month}.${year}`;
+}
+
 export function validateScheduleCapacity(todos, candidates) {
 	const scheduledCandidates = candidates.filter(
 		(todo) => todo.status !== 'Completed' && todo.scheduledDate
@@ -34,7 +40,7 @@ export function validateScheduleCapacity(todos, candidates) {
 	for (const candidate of scheduledCandidates) {
 		if (candidate.category === WORK_CATEGORY && isWeekend(candidate.scheduledDate)) {
 			return {
-				message: 'Aufgaben der Kategorie Arbeit duerfen nicht auf Samstag oder Sonntag terminiert werden.'
+				message: 'To-Dos der Kategorie Arbeit duerfen nicht auf Samstag oder Sonntag terminiert werden.'
 			};
 		}
 	}
@@ -64,13 +70,13 @@ export function validateScheduleCapacity(todos, candidates) {
 
 		if (totalHours > DAILY_HOUR_LIMIT) {
 			return {
-				message: `Am ${date} sind maximal ${DAILY_HOUR_LIMIT} Stunden geplante Aufgaben erlaubt.`
+				message: `Am ${formatDate(date)} sind maximal ${DAILY_HOUR_LIMIT} Stunden geplante To-Dos erlaubt.`
 			};
 		}
 
 		if (workHours > WORK_DAILY_HOUR_LIMIT) {
 			return {
-				message: `Am ${date} sind maximal ${WORK_DAILY_HOUR_LIMIT} Stunden Arbeit erlaubt.`
+				message: `Am ${formatDate(date)} sind maximal ${WORK_DAILY_HOUR_LIMIT} Stunden Arbeit erlaubt.`
 			};
 		}
 	}

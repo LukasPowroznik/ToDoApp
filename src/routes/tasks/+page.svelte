@@ -80,7 +80,7 @@
 
 <div class="container tasks-page">
 	<header class="page-header">
-		<h1 class="h2 mb-2">Aufgaben verwalten</h1>
+		<h1 class="h2 mb-2">To-Dos verwalten</h1>
 		<p class="text-secondary mb-0">
 			To-Dos erfassen, filtern, bearbeiten und in MongoDB speichern.
 		</p>
@@ -145,8 +145,8 @@
 		<div class="card-body">
 			<div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
 				<div>
-					<h2 class="h5 mb-1">Aufgabenliste</h2>
-					<p class="text-secondary mb-0">{filteredTodos.length} von {todos.length} Aufgaben angezeigt.</p>
+					<h2 class="h5 mb-1">To-Do-Liste</h2>
+					<p class="text-secondary mb-0">{filteredTodos.length} von {todos.length} To-Dos angezeigt.</p>
 				</div>
 				<div class="d-flex flex-wrap gap-2">
 					<button

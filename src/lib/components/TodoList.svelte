@@ -38,7 +38,7 @@
 	</div>
 {:else}
 	<EmptyState
-		title="Keine Aufgaben für diese Ansicht"
+		title="Keine To-Dos für diese Ansicht"
 		description="Passe die Filter an oder erfasse ein neues To-Do."
 	/>
 {/if}

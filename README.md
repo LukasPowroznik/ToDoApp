@@ -15,21 +15,21 @@
 
 ## 1. Ausgangslage
 
-Viele To-Do-Listen sammeln Aufgaben, zeigen aber nicht immer klar, was heute relevant ist, was bereits überfällig ist und welche Aufgaben noch terminiert werden müssen. Dieses Projekt untersucht als Prototyp, wie eine kleine To-Do-App Aufgaben übersichtlich strukturieren, planen und in einer Kalenderansicht sichtbar machen kann.
+Viele To-Do-Listen sammeln To-Dos, zeigen aber nicht immer klar, was heute relevant ist, was bereits überfällig ist und welche To-Dos noch terminiert werden müssen. Dieses Projekt untersucht als Prototyp, wie eine kleine To-Do-App To-Dos übersichtlich strukturieren, planen und in einer Kalenderansicht sichtbar machen kann.
 
-- **Problem:** Aufgaben sollen nicht nur gesammelt, sondern nach Status, Termin, Deadline, Kategorie und Priorität schnell erfassbar sein.
-- **Ziel:** Aufbau eines bedienbaren SvelteKit-Prototyps mit Dashboard, Aufgabenverwaltung, MongoDB-Speicherung und Kalenderansicht.
-- **Primäre Zielgruppe:** Einzelpersonen, die private, schulische oder berufliche Aufgaben kompakt planen möchten.
+- **Problem:** To-Dos sollen nicht nur gesammelt, sondern nach Status, Termin, Deadline, Kategorie und Priorität schnell erfassbar sein.
+- **Ziel:** Aufbau eines bedienbaren SvelteKit-Prototyps mit Dashboard, To-Do-Verwaltung, MongoDB-Speicherung und Kalenderansicht.
+- **Primäre Zielgruppe:** Einzelpersonen, die private, schulische oder berufliche To-Dos kompakt planen möchten.
 - **Weitere Stakeholder:** Lehrperson und Mitstudierende im Modul Prototyping.
 
 ## 2. Lösungsidee
 
-Die ToDoApp ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt Kennzahlen und heutige Aufgaben. Die Aufgabenansicht erlaubt das Erfassen, Filtern, Bearbeiten, Löschen, Terminieren und Abschliessen von To-Dos. Die Kalenderansicht zeigt terminierte Aufgaben in einer Wochenansicht und berücksichtigt wiederkehrende Aufgaben.
+Die ToDoApp ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt Kennzahlen und heutige To-Dos. Die To-Do-Ansicht erlaubt das Erfassen, Filtern, Bearbeiten, Löschen, Terminieren und Abschliessen von To-Dos. Die Kalenderansicht zeigt terminierte To-Dos in einer Wochenansicht und berücksichtigt wiederkehrende To-Dos.
 
 Die App kombiniert damit zwei Perspektiven:
 
-- **Listenperspektive:** Aufgaben lassen sich nach Status, Kategorie, Priorität und Terminierung filtern.
-- **Zeitperspektive:** Geplante Aufgaben erscheinen im Wochenkalender und können dort im Kontext ihres Datums betrachtet werden.
+- **Listenperspektive:** To-Dos lassen sich nach Status, Kategorie, Priorität und Terminierung filtern.
+- **Zeitperspektive:** Geplante To-Dos erscheinen im Wochenkalender und können dort im Kontext ihres Datums betrachtet werden.
 
 ## 3. Vorgehen und Artefakte
 
@@ -37,18 +37,18 @@ Die Umsetzung erfolgte schrittweise von einem statischen SvelteKit-Prototyp zu e
 
 ### 3.1 Understand und Define
 
-- Die App richtet sich an Personen, die einfache Aufgabenverwaltung ohne komplexes Projektmanagement brauchen.
+- Die App richtet sich an Personen, die einfache To-Do-Verwaltung ohne komplexes Projektmanagement brauchen.
 - Wichtige Anforderungen sind schnelle Orientierung, klare Prioritäten, erkennbare Termine, Deadlines und einfache Navigation.
 
 ### 3.2 Sketch
 
 - Erste Layoutideen wurden direkt als SvelteKit-Prototyp umgesetzt.
-- Die Grundstruktur besteht aus Navigation, Dashboard, Aufgabenliste, Formular-Modals und Kalenderansicht.
+- Die Grundstruktur besteht aus Navigation, Dashboard, To-Do-Liste, Formular-Modals und Kalenderansicht.
 
 ### 3.3 Decide
 
-- Ein Dashboard als Startseite wurde gewählt, weil es den aktuellen Aufgabenstand schnell sichtbar macht.
-- Die getrennten Seiten `/tasks` und `/calendar` unterstützen zwei typische Arbeitsweisen: Aufgaben pflegen und Termine prüfen.
+- Ein Dashboard als Startseite wurde gewählt, weil es den aktuellen To-Do-Stand schnell sichtbar macht.
+- Die getrennten Seiten `/tasks` und `/calendar` unterstützen zwei typische Arbeitsweisen: To-Dos pflegen und Termine prüfen.
 
 ### 3.4 Prototype
 
@@ -58,16 +58,16 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 
 ### 4.1 Funktionen
 
-- Dashboard mit Kennzahlen für offene, erledigte, heutige, überfällige und im aktuellen Monat terminierte Aufgaben.
-- Monatsauswertung für erledigte Aufgaben der letzten sechs Monate.
-- Aufgabenliste mit Filterung nach Status, Kategorie und Priorität.
+- Dashboard mit Kennzahlen für offene, erledigte, heutige, überfällige und im aktuellen Monat terminierte To-Dos.
+- Monatsauswertung für erledigte To-Dos der letzten sechs Monate.
+- To-Do-Liste mit Filterung nach Status, Kategorie und Priorität.
 - To-Dos erstellen, bearbeiten, löschen und als erledigt markieren.
 - Felder für Titel, Beschreibung, Kategorie, Priorität, Status, Deadline, geschätzte Dauer, Wiederholung und "Zu erledigen am".
-- Sammelmodal zum Terminieren noch nicht geplanter Aufgaben.
+- Sammelmodal zum Terminieren noch nicht geplanter To-Dos.
 - Wochenkalender mit Navigation zur vorherigen und nächsten Woche.
-- Detailmodal für Aufgaben im Kalender.
-- Wiederkehrende Aufgaben mit täglicher, wöchentlicher oder monatlicher Wiederholung bis zur gesetzten Deadline.
-- Einzelne Vorkommen wiederkehrender Aufgaben können im Kalender als erledigt markiert werden.
+- Detailmodal für To-Dos im Kalender.
+- Wiederkehrende To-Dos mit täglicher, wöchentlicher oder monatlicher Wiederholung bis zur gesetzten Deadline.
+- Einzelne Vorkommen wiederkehrender To-Dos können im Kalender als erledigt markiert werden.
 
 ### 4.2 Technologie
 
@@ -82,8 +82,8 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 
 - `src/routes/+page.svelte`: Dashboard
 - `src/routes/+page.server.js`: Lädt To-Dos und Datumsmetadaten für das Dashboard
-- `src/routes/tasks/+page.svelte`: Aufgabenverwaltung mit Filtern und Modals
-- `src/routes/tasks/+page.server.js`: Lädt To-Dos für die Aufgabenansicht
+- `src/routes/tasks/+page.svelte`: To-Do-Verwaltung mit Filtern und Modals
+- `src/routes/tasks/+page.server.js`: Lädt To-Dos für die To-Do-Ansicht
 - `src/routes/calendar/+page.svelte`: Wochenkalender
 - `src/routes/calendar/+page.server.js`: Lädt To-Dos und Wochenmetadaten
 - `src/routes/api/todos/+server.js`: API für To-Do-Liste und Erstellung
@@ -100,7 +100,7 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 
 Ein To-Do kann unter anderem folgende Eigenschaften enthalten:
 
-- `title`: Titel der Aufgabe
+- `title`: Titel des To-Dos
 - `description`: Beschreibung
 - `category`: Kategorie, zum Beispiel Privat, Arbeit, Sport oder Sonstiges
 - `priority`: Low, Medium oder High
@@ -110,8 +110,8 @@ Ein To-Do kann unter anderem folgende Eigenschaften enthalten:
 - `estimatedDuration`: Geschätzte Dauer
 - `recurring`: Kennzeichen für Wiederholung
 - `recurrence.type`: daily, weekly oder monthly
-- `completedAt`: Abschlusszeitpunkt für normale Aufgaben
-- `completedOccurrences`: Abgeschlossene Einzeltermine bei wiederkehrenden Aufgaben
+- `completedAt`: Abschlusszeitpunkt für normale To-Dos
+- `completedOccurrences`: Abgeschlossene Einzeltermine bei wiederkehrenden To-Dos
 
 ## 5. Lokales Setup
 
@@ -196,12 +196,12 @@ Eine formale Evaluation ist noch offen. Der aktuelle Prototyp kann lokal geteste
 
 ### 8.2 Geplante Testszenarien
 
-- Neue Aufgabe erstellen und in MongoDB speichern.
-- Aufgabe bearbeiten und das Feld "Zu erledigen am" setzen.
-- Aufgabe nach Status, Kategorie und Priorität filtern.
-- Überfällige Aufgaben erkennen.
-- Aufgabe löschen und prüfen, ob sie aus MongoDB entfernt wird.
-- Wiederkehrende Aufgabe im Kalender prüfen.
+- Neues To-Do erstellen und in MongoDB speichern.
+- To-Do bearbeiten und das Feld "Zu erledigen am" setzen.
+- To-Do nach Status, Kategorie und Priorität filtern.
+- Überfällige To-Dos erkennen.
+- To-Do löschen und prüfen, ob es aus MongoDB entfernt wird.
+- Wiederkehrendes To-Do im Kalender prüfen.
 - Einzelnes Kalender-Vorkommen als erledigt markieren.
 - Wochenansicht auf Desktop prüfen.
 
@@ -216,8 +216,8 @@ Damit spätere Änderungen nach dem Testing nachvollziehbar bleiben, wird der ak
 | --- | --- | --- |
 | Dashboard Dark Mode | ![Vorher: Dashboard Dark Mode](docs/testing/screenshots/vorher/dashboard-dark.png) | ![Nachher: Dashboard Dark Mode](docs/testing/screenshots/nachher/dashboard-dark.png) |
 | Dashboard White Mode | ![Vorher: Dashboard White Mode](docs/testing/screenshots/vorher/dashboard-white.png) | ![Nachher: Dashboard White Mode](docs/testing/screenshots/nachher/dashboard-white.png) |
-| Aufgaben Dark Mode | ![Vorher: Aufgaben Dark Mode](docs/testing/screenshots/vorher/tasks-dark.png) | ![Nachher: Aufgaben Dark Mode](docs/testing/screenshots/nachher/tasks-dark.png) |
-| Aufgaben White Mode | ![Vorher: Aufgaben White Mode](docs/testing/screenshots/vorher/tasks-white.png) | ![Nachher: Aufgaben White Mode](docs/testing/screenshots/nachher/tasks-white.png) |
+| To-Dos Dark Mode | ![Vorher: To-Dos Dark Mode](docs/testing/screenshots/vorher/tasks-dark.png) | ![Nachher: To-Dos Dark Mode](docs/testing/screenshots/nachher/tasks-dark.png) |
+| To-Dos White Mode | ![Vorher: To-Dos White Mode](docs/testing/screenshots/vorher/tasks-white.png) | ![Nachher: To-Dos White Mode](docs/testing/screenshots/nachher/tasks-white.png) |
 | To-Do erstellen Dark Mode | ![Vorher: To-Do erstellen Dark Mode](docs/testing/screenshots/vorher/create-to-do-dark.png) | ![Nachher: To-Do erstellen Dark Mode](docs/testing/screenshots/nachher/create-to-do-dark.png) |
 | To-Do erstellen White Mode | ![Vorher: To-Do erstellen White Mode](docs/testing/screenshots/vorher/create-to-do-white.png) | ![Nachher: To-Do erstellen White Mode](docs/testing/screenshots/nachher/create-to-do-white.png) |
 | Kalender Woche Dark Mode | ![Vorher: Kalender Woche Dark Mode](docs/testing/screenshots/vorher/calendar-week-dark.png) | ![Nachher: Kalender Woche Dark Mode](docs/testing/screenshots/nachher/calendar-week-dark.png) |
@@ -229,26 +229,26 @@ Die Vorher-Screenshots wurden vor den Testing-Änderungen erstellt. Nach den Anp
 =======
 ### 8.3 Usability-Test mit Testperson
 
-Für einen kurzen Usability-Test wird die App auf dem Laptop bereitgestellt. Die Testaufgaben kann die Testperson auf dem Smartphone lesen. Die Testperson soll laut denken und sagen, was sie erwartet, was sie verwirrt und warum sie eine bestimmte Aktion ausführt.
+Für einen kurzen Usability-Test wird die App auf dem Laptop bereitgestellt. Die Test-To-Dos kann die Testperson auf dem Smartphone lesen. Die Testperson soll laut denken und sagen, was sie erwartet, was sie verwirrt und warum sie eine bestimmte Aktion ausführt.
 
 Wichtiger Hinweis für die Testperson:
 
 > Es wird nicht die Person getestet, sondern der Prototyp. Wenn etwas unklar ist, ist das ein wertvoller Hinweis für die Weiterentwicklung.
 
-#### Testaufgaben
+#### Test-To-Dos
 
-1. Öffne die App und verschaffe dir einen Überblick. Finde heraus, wie viele offene Aufgaben aktuell vorhanden sind und ob heute Aufgaben terminiert sind.
-2. Erstelle eine neue Aufgabe mit dem Titel `Präsentation vorbereiten`, Kategorie `Arbeit`, Priorität `High`, geschätzter Dauer `1 h` und einer Deadline in den nächsten sieben Tagen. Die Aufgabe soll noch nicht terminiert werden.
-3. Finde die eben erstellte Aufgabe in der Aufgabenliste wieder. Nutze dabei Filter oder die vorhandene Navigation so, wie es für dich sinnvoll wirkt.
-4. Terminiere die Aufgabe `Präsentation vorbereiten` auf einen Werktag. Achte darauf, ob klar ist, wo man Aufgaben terminieren kann.
-5. Versuche, mehrere Aufgaben der Kategorie `Arbeit` so auf denselben Tag zu terminieren, dass mehr als 8 Stunden Arbeit entstehen würden. Beobachte, was die App macht.
-6. Versuche, eine Aufgabe der Kategorie `Arbeit` auf einen Samstag oder Sonntag zu terminieren. Prüfe, ob die Rückmeldung verständlich ist.
-7. Plane Aufgaben unterschiedlicher Kategorien auf denselben Tag und versuche, mehr als 16 Stunden Gesamtaufwand zu erreichen. Prüfe, ob klar wird, warum die Terminierung nicht möglich ist.
-8. Öffne eine bestehende Aufgabe und ändere Priorität, geschätzte Dauer und Termin. Speichere die Änderung und kontrolliere, ob sie in Liste und Kalender sichtbar ist.
-9. Wechsle in den Kalender. Finde die Aufgabe `Präsentation vorbereiten` im Kalender und öffne ihre Details.
-10. Markiere eine offene Aufgabe als erledigt. Prüfe danach, ob sich die Kennzahlen auf dem Dashboard nachvollziehbar verändern.
-11. Wechsle zwischen White Mode und Dark Mode. Schaue Dashboard, Aufgabenliste und Kalender kurz an und achte auf Lesbarkeit und Farbkonsistenz.
-12. Erstelle zum Abschluss eine echte Aufgabe aus deinem Alltag und plane sie ein.
+1. Öffne die App und verschaffe dir einen Überblick. Finde heraus, wie viele offene To-Dos aktuell vorhanden sind und ob heute To-Dos terminiert sind.
+2. Erstelle ein neues To-Do mit dem Titel `Präsentation vorbereiten`, Kategorie `Arbeit`, Priorität `High`, geschätzter Dauer `1 h` und einer Deadline in den nächsten sieben Tagen. Das To-Do soll noch nicht terminiert werden.
+3. Finde das eben erstellte To-Do in der To-Do-Liste wieder. Nutze dabei Filter oder die vorhandene Navigation so, wie es für dich sinnvoll wirkt.
+4. Terminiere das To-Do `Präsentation vorbereiten` auf einen Werktag. Achte darauf, ob klar ist, wo man To-Dos terminieren kann.
+5. Versuche, mehrere To-Dos der Kategorie `Arbeit` so auf denselben Tag zu terminieren, dass mehr als 8 Stunden Arbeit entstehen würden. Beobachte, was die App macht.
+6. Versuche, ein To-Do der Kategorie `Arbeit` auf einen Samstag oder Sonntag zu terminieren. Prüfe, ob die Rückmeldung verständlich ist.
+7. Plane To-Dos unterschiedlicher Kategorien auf denselben Tag und versuche, mehr als 16 Stunden Gesamtaufwand zu erreichen. Prüfe, ob klar wird, warum die Terminierung nicht möglich ist.
+8. Öffne ein bestehendes To-Do und ändere Priorität, geschätzte Dauer und Termin. Speichere die Änderung und kontrolliere, ob sie in Liste und Kalender sichtbar ist.
+9. Wechsle in den Kalender. Finde das To-Do `Präsentation vorbereiten` im Kalender und öffne seine Details.
+10. Markiere ein offenes To-Do als erledigt. Prüfe danach, ob sich die Kennzahlen auf dem Dashboard nachvollziehbar verändern.
+11. Wechsle zwischen White Mode und Dark Mode. Schaue Dashboard, To-Do-Liste und Kalender kurz an und achte auf Lesbarkeit und Farbkonsistenz.
+12. Erstelle zum Abschluss ein echtes To-Do aus deinem Alltag und plane es ein.
 
 #### Fragen nach dem Test
 
@@ -270,7 +270,7 @@ Während des Tests sollte festgehalten werden:
 - Werden Fehlermeldungen gelesen und verstanden?
 - Ist der Button `To-Dos terminieren` eindeutig?
 - Wird der Unterschied zwischen Deadline und Termin verstanden?
-- Findet die Testperson Aufgaben im Kalender wieder?
+- Findet die Testperson To-Dos im Kalender wieder?
 - Werden die 8h- und 16h-Regeln ohne zusätzliche Erklärung verstanden?
 >>>>>>> b84c32abb415af902ecbdf4684f12d18172af927
 
@@ -292,7 +292,7 @@ Während des Tests sollte festgehalten werden:
 
 ### 9.2 Prompt-Vorgehen
 
-KI wurde gezielt für konkrete Aufgaben eingesetzt, zum Beispiel zur Analyse des Repository-Stands, zur Anpassung von Komponenten, zur Vorbereitung des Netlify-Deployments und zur Aktualisierung der README anhand des aktuellen Codes. Ergebnisse werden geprüft und bei Bedarf angepasst, bevor sie ins Projekt übernommen werden.
+KI wurde gezielt für konkrete To-Dos eingesetzt, zum Beispiel zur Analyse des Repository-Stands, zur Anpassung von Komponenten, zur Vorbereitung des Netlify-Deployments und zur Aktualisierung der README anhand des aktuellen Codes. Ergebnisse werden geprüft und bei Bedarf angepasst, bevor sie ins Projekt übernommen werden.
 
 ### 9.3 Reflexion
 

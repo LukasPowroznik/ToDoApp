@@ -97,7 +97,7 @@
 					<div class="progress-bar" style={`width: ${onTimeCompletionRate}%`}></div>
 				</div>
 				<p class="text-secondary small mb-0 mt-2">
-					{onTimeCompletedThisMonth.length} von {completedThisMonth.length} erledigten Aufgaben.
+					{onTimeCompletedThisMonth.length} von {completedThisMonth.length} erledigten To-Dos.
 				</p>
 			</div>
 		</div>

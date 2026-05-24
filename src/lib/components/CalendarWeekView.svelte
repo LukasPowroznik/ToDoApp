@@ -98,7 +98,7 @@
 
 			if (!response.ok) {
 				const body = await response.json();
-				throw new Error(body.message ?? 'Aufgabe konnte nicht verschoben werden.');
+				throw new Error(body.message ?? 'To-Do konnte nicht verschoben werden.');
 			}
 
 			await invalidateAll();
@@ -131,7 +131,7 @@
 			});
 
 			if (!response.ok) {
-				throw new Error('Aufgabe konnte nicht abgeschlossen werden.');
+				throw new Error('To-Do konnte nicht abgeschlossen werden.');
 			}
 
 			await invalidateAll();
@@ -163,7 +163,7 @@
 				<div
 					class={`card dashboard-card calendar-day h-100 ${dragOverDate === day.date ? 'calendar-drop-target-active' : ''}`}
 					role="list"
-					aria-label={`Aufgaben am ${day.date}`}
+					aria-label={`To-Dos am ${day.date}`}
 					ondragover={(event) => handleDragOver(event, day.date)}
 					ondragleave={() => {
 						if (dragOverDate === day.date) dragOverDate = '';
@@ -232,7 +232,7 @@
 						{:else}
 							<EmptyState
 								title="Keine Termine"
-								description="Für diesen Tag sind keine Aufgaben geplant."
+								description="Für diesen Tag sind keine To-Dos geplant."
 								compact
 							/>
 						{/if}
@@ -245,8 +245,8 @@
 	<div class="card dashboard-card">
 		<div class="card-body">
 			<EmptyState
-				title="Keine terminierten Aufgaben"
-				description="Aufgaben mit geplantem Termin erscheinen später automatisch in der Wochenansicht."
+				title="Keine terminierten To-Dos"
+				description="To-Dos mit geplantem Termin erscheinen später automatisch in der Wochenansicht."
 			/>
 		</div>
 	</div>

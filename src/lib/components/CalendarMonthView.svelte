@@ -89,7 +89,7 @@
 
 			if (!response.ok) {
 				const body = await response.json();
-				throw new Error(body.message ?? 'Aufgabe konnte nicht verschoben werden.');
+				throw new Error(body.message ?? 'To-Do konnte nicht verschoben werden.');
 			}
 
 			await invalidateAll();
@@ -120,7 +120,7 @@
 			<div
 				class={`calendar-month-day ${day.isCurrentMonth ? '' : 'calendar-month-day-muted'} ${day.isToday ? 'calendar-month-day-today' : ''} ${dragOverDate === day.date ? 'calendar-drop-target-active' : ''}`}
 				role="list"
-				aria-label={`Aufgaben am ${day.date}`}
+				aria-label={`To-Dos am ${day.date}`}
 				ondragover={(event) => handleDragOver(event, day.date)}
 				ondragleave={() => {
 					if (dragOverDate === day.date) dragOverDate = '';
@@ -153,8 +153,8 @@
 	<div class="card dashboard-card">
 		<div class="card-body">
 			<EmptyState
-				title="Keine terminierten Aufgaben"
-				description="Aufgaben mit geplantem Termin erscheinen später automatisch in der Monatsübersicht."
+				title="Keine terminierten To-Dos"
+				description="To-Dos mit geplantem Termin erscheinen später automatisch in der Monatsübersicht."
 			/>
 		</div>
 	</div>

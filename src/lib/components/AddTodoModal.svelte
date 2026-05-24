@@ -99,7 +99,7 @@
 								id={`${modalId}-description`}
 								name="description"
 								rows="3"
-								placeholder="Kurze Notiz zur Aufgabe"
+								placeholder="Kurze Notiz zum To-Do"
 							></textarea>
 						</div>
 

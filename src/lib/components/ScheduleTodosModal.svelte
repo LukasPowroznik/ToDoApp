@@ -89,7 +89,7 @@
 
 					{#if unscheduledOpenTodos.length > 0}
 						<p class="text-secondary">
-							Plane offene Aufgaben ohne Bearbeitungsdatum. Die Deadline bleibt dabei unverändert.
+							Plane offene To-Dos ohne Bearbeitungsdatum. Die Deadline bleibt dabei unverändert.
 						</p>
 
 						<div class="list-group">
@@ -116,7 +116,7 @@
 							{/each}
 						</div>
 					{:else}
-						<p class="text-secondary mb-0">Aktuell gibt es keine offenen Aufgaben ohne Bearbeitungsdatum.</p>
+						<p class="text-secondary mb-0">Aktuell gibt es keine offenen To-Dos ohne Bearbeitungsdatum.</p>
 					{/if}
 				</div>
 
