@@ -205,7 +205,53 @@ Eine formale Evaluation ist noch offen. Der aktuelle Prototyp kann lokal geteste
 - Einzelnes Kalender-Vorkommen als erledigt markieren.
 - Wochenansicht auf Desktop und Mobile prüfen.
 
-### 8.3 Mögliche nächste Schritte
+### 8.3 Usability-Test mit Testperson
+
+Für einen kurzen Usability-Test wird die App auf dem Laptop bereitgestellt. Die Testaufgaben kann die Testperson auf dem Smartphone lesen. Die Testperson soll laut denken und sagen, was sie erwartet, was sie verwirrt und warum sie eine bestimmte Aktion ausführt.
+
+Wichtiger Hinweis für die Testperson:
+
+> Es wird nicht die Person getestet, sondern der Prototyp. Wenn etwas unklar ist, ist das ein wertvoller Hinweis für die Weiterentwicklung.
+
+#### Testaufgaben
+
+1. Öffne die App und verschaffe dir einen Überblick. Finde heraus, wie viele offene Aufgaben aktuell vorhanden sind und ob heute Aufgaben terminiert sind.
+2. Erstelle eine neue Aufgabe mit dem Titel `Präsentation vorbereiten`, Kategorie `Arbeit`, Priorität `High`, geschätzter Dauer `1 h` und einer Deadline in den nächsten sieben Tagen. Die Aufgabe soll noch nicht terminiert werden.
+3. Finde die eben erstellte Aufgabe in der Aufgabenliste wieder. Nutze dabei Filter oder die vorhandene Navigation so, wie es für dich sinnvoll wirkt.
+4. Terminiere die Aufgabe `Präsentation vorbereiten` auf einen Werktag. Achte darauf, ob klar ist, wo man Aufgaben terminieren kann.
+5. Versuche, mehrere Aufgaben der Kategorie `Arbeit` so auf denselben Tag zu terminieren, dass mehr als 8 Stunden Arbeit entstehen würden. Beobachte, was die App macht.
+6. Versuche, eine Aufgabe der Kategorie `Arbeit` auf einen Samstag oder Sonntag zu terminieren. Prüfe, ob die Rückmeldung verständlich ist.
+7. Plane Aufgaben unterschiedlicher Kategorien auf denselben Tag und versuche, mehr als 16 Stunden Gesamtaufwand zu erreichen. Prüfe, ob klar wird, warum die Terminierung nicht möglich ist.
+8. Öffne eine bestehende Aufgabe und ändere Priorität, geschätzte Dauer und Termin. Speichere die Änderung und kontrolliere, ob sie in Liste und Kalender sichtbar ist.
+9. Wechsle in den Kalender. Finde die Aufgabe `Präsentation vorbereiten` im Kalender und öffne ihre Details.
+10. Markiere eine offene Aufgabe als erledigt. Prüfe danach, ob sich die Kennzahlen auf dem Dashboard nachvollziehbar verändern.
+11. Wechsle zwischen White Mode und Dark Mode. Schaue Dashboard, Aufgabenliste und Kalender kurz an und achte auf Lesbarkeit und Farbkonsistenz.
+12. Erstelle zum Abschluss eine echte Aufgabe aus deinem Alltag und plane sie ein.
+
+#### Fragen nach dem Test
+
+- Was war einfach verständlich?
+- Wo musstest du überlegen?
+- Gab es einen Button, Begriff oder Ablauf, der unklar war?
+- Waren die Fehlermeldungen hilfreich?
+- Hast du den Unterschied zwischen Deadline und "Zu erledigen am" verstanden?
+- Hast du die Planungsregeln mit 8 Stunden Arbeit und 16 Stunden Tageslimit verstanden?
+- Was würdest du als Erstes verbessern?
+- Würdest du die App für eigene To-Dos benutzen? Warum oder warum nicht?
+
+#### Beobachtungsnotizen
+
+Während des Tests sollte festgehalten werden:
+
+- Wo klickt die Testperson zuerst?
+- Wo zögert sie?
+- Werden Fehlermeldungen gelesen und verstanden?
+- Ist der Button `To-Dos terminieren` eindeutig?
+- Wird der Unterschied zwischen Deadline und Termin verstanden?
+- Findet die Testperson Aufgaben im Kalender wieder?
+- Werden die 8h- und 16h-Regeln ohne zusätzliche Erklärung verstanden?
+
+### 8.4 Mögliche nächste Schritte
 
 - Manuelles UI-Testprotokoll ergänzen.
 - Netlify-Deployment durchführen und URL dokumentieren.
