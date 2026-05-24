@@ -15,6 +15,7 @@
 		const formData = new FormData(event.currentTarget);
 		const settings = {
 			dailyHourLimit: Number(formData.get('dailyHourLimit')),
+			defaultCalendarView: formData.get('defaultCalendarView'),
 			categoryHourLimits: Object.fromEntries(
 				categories.map((category) => [category, Number(formData.get(`category-${category}`))])
 			)
@@ -73,6 +74,19 @@
 							value={data.settings.dailyHourLimit}
 							required
 						/>
+					</div>
+					<div class="col-md-6">
+						<label class="form-label" for="default-calendar-view">Standardansicht Kalender</label>
+						<select
+							class="form-select"
+							id="default-calendar-view"
+							name="defaultCalendarView"
+							value={data.settings.defaultCalendarView}
+						>
+							<option value="week">Woche</option>
+							<option value="workweek">Arbeitswoche</option>
+							<option value="month">Monat</option>
+						</select>
 					</div>
 				</div>
 
