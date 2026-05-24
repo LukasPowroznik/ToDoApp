@@ -22,7 +22,6 @@
 			description: formData.get('description')?.toString().trim(),
 			category: formData.get('category')?.toString(),
 			priority: formData.get('priority')?.toString(),
-			scheduledDate: formData.get('scheduledDate')?.toString(),
 			deadline: formData.get('deadline')?.toString(),
 			estimatedDuration: formData.get('estimatedDuration')?.toString(),
 			status: formData.get('status')?.toString(),
@@ -116,11 +115,6 @@
 									<option value={priority}>{priority}</option>
 								{/each}
 							</select>
-						</div>
-
-						<div class="col-md-6">
-							<label class="form-label" for={`${modalId}-scheduled-date`}>Zu erledigen am</label>
-							<input class="form-control" id={`${modalId}-scheduled-date`} name="scheduledDate" type="date" />
 						</div>
 
 						<div class="col-md-6">
