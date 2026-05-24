@@ -50,6 +50,24 @@ Die Personas helfen dabei, typische Nutzungssituationen des Prototyps einzuordne
 - **Nutzung der App:** Nadine legt wiederkehrende To-Dos an, kontrolliert sie im Kalender und markiert einzelne Vorkommen als erledigt.
 - **Relevante Funktionen:** Wiederholungen, Kalenderdetails, erledigte Vorkommen, White Mode und Dark Mode.
 
+### 1.2 User Stories
+
+Die folgenden User Stories leiten sich aus den Personas und den zentralen Nutzungssituationen der App ab.
+
+| ID | User Story | Akzeptanzkriterium |
+| --- | --- | --- |
+| US-01 | Als Nutzerin möchte ich auf dem Dashboard sofort sehen, wie viele To-Dos offen, erledigt, überfällig oder heute terminiert sind, damit ich meinen aktuellen Stand schnell einschätzen kann. | Das Dashboard zeigt die wichtigsten Kennzahlen und verlinkt auf passende gefilterte Ansichten. |
+| US-02 | Als Nutzer möchte ich ein neues To-Do mit Titel, Kategorie, Priorität, Deadline und geschätzter Dauer erfassen, damit ich meine To-Dos vollständig planen kann. | Ein neues To-Do kann gespeichert werden und erscheint danach in der To-Do-Liste. |
+| US-03 | Als Nutzerin möchte ich To-Dos nach Status, Kategorie und Priorität filtern, damit ich bei vielen Einträgen schneller relevante To-Dos finde. | Die To-Do-Liste reagiert auf die Filterauswahl und zeigt nur passende To-Dos an. |
+| US-04 | Als Nutzer möchte ich To-Dos terminieren können, damit klar ist, an welchem Tag ich sie erledigen will. | Ein To-Do kann ein Datum im Feld "Zu erledigen am" erhalten und erscheint danach im Kalender. |
+| US-05 | Als Nutzerin möchte ich offene, noch nicht terminierte To-Dos gesammelt terminieren, damit ich mehrere To-Dos effizient planen kann. | Das Terminierungsmodal zeigt offene To-Dos ohne Termin und speichert neue Termine. |
+| US-06 | Als Nutzer möchte ich im Kalender zwischen Woche, Arbeitswoche und Monat wechseln können, damit ich die Ansicht an meine Planungssituation anpassen kann. | Die Kalenderseite bietet die drei Ansichten und zeigt die jeweils passenden Tage. |
+| US-07 | Als Nutzerin möchte ich To-Dos im Kalender per Drag-and-Drop verschieben können, damit ich Termine schnell umplanen kann. | Ein verschobenes To-Do erhält das neue Datum und bleibt nach dem Speichern sichtbar. |
+| US-08 | Als Nutzer möchte ich gewarnt werden, wenn geplante To-Dos die Tages- oder Kategorie-Limits überschreiten, damit meine Planung realistisch bleibt. | Beim Speichern wird eine verständliche Fehlermeldung angezeigt, wenn ein Limit verletzt wird. |
+| US-09 | Als Nutzerin möchte ich wiederkehrende To-Dos anlegen und einzelne Vorkommen abschliessen können, damit regelmässige To-Dos nicht jedes Mal neu erstellt werden müssen. | Wiederkehrende To-Dos erscheinen bis zur Deadline im Kalender und einzelne Vorkommen können als erledigt markiert werden. |
+| US-10 | Als Nutzer möchte ich die Standardansicht des Kalenders und die Planungs-Limits in den Einstellungen anpassen können, damit die App zu meiner Arbeitsweise passt. | Die Einstellungen können gespeichert werden und beeinflussen Kalenderansicht sowie Terminierungsregeln. |
+| US-11 | Als Nutzerin möchte ich zwischen White Mode und Dark Mode wechseln können, damit die App in unterschiedlichen Lichtverhältnissen gut lesbar bleibt. | Der gewählte Modus ändert die Darstellung der App konsistent. |
+
 ## 2. Lösungsidee
 
 Die ToDoApp ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt Kennzahlen und heutige To-Dos. Die To-Do-Ansicht erlaubt das Erfassen, Filtern, Bearbeiten, Löschen, Terminieren und Abschliessen von To-Dos. Die Kalenderansicht zeigt terminierte To-Dos in einer Wochenansicht und berücksichtigt wiederkehrende To-Dos.
