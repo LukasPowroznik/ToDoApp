@@ -22,6 +22,34 @@ Viele To-Do-Listen sammeln To-Dos, zeigen aber nicht immer klar, was heute relev
 - **Primäre Zielgruppe:** Einzelpersonen, die private, schulische oder berufliche To-Dos kompakt planen möchten.
 - **Weitere Stakeholder:** Lehrperson und Mitstudierende im Modul Prototyping.
 
+### 1.1 Personas
+
+Die Personas helfen dabei, typische Nutzungssituationen des Prototyps einzuordnen und die wichtigsten Funktionen aus Sicht der Zielgruppe zu bewerten.
+
+#### Persona 1: Lea, Studentin
+
+- **Alter:** 22 Jahre
+- **Situation:** Lea studiert, arbeitet nebenbei und muss Abgaben, Lernzeiten und private Termine koordinieren.
+- **Bedürfnis:** Sie möchte schnell erkennen, welche To-Dos heute wichtig sind und welche Deadlines näher rücken.
+- **Nutzung der App:** Lea nutzt das Dashboard für den Überblick, erstellt neue To-Dos mit Priorität und plant grössere Aufgaben im Kalender ein.
+- **Relevante Funktionen:** Dashboard-Kennzahlen, Deadline, Priorität, Kalenderansicht und Filter nach Status.
+
+#### Persona 2: Marco, Berufstätiger
+
+- **Alter:** 31 Jahre
+- **Situation:** Marco arbeitet in einem Bürojob und möchte kleinere berufliche und private To-Dos getrennt planen.
+- **Bedürfnis:** Er will vermeiden, dass zu viele Arbeits-To-Dos auf denselben Tag fallen.
+- **Nutzung der App:** Marco erfasst To-Dos mit Kategorie und geschätzter Dauer und nutzt die Terminierungsregeln, um realistische Tage zu planen.
+- **Relevante Funktionen:** Kategorien, geschätzte Dauer, Tageslimit, Kategorie-Limits, Arbeitswoche und Drag-and-Drop im Kalender.
+
+#### Persona 3: Nadine, organisierte Privatnutzerin
+
+- **Alter:** 27 Jahre
+- **Situation:** Nadine organisiert Haushalt, Sport, private Termine und wiederkehrende To-Dos.
+- **Bedürfnis:** Sie möchte regelmässige To-Dos nicht jedes Mal neu erfassen müssen.
+- **Nutzung der App:** Nadine legt wiederkehrende To-Dos an, kontrolliert sie im Kalender und markiert einzelne Vorkommen als erledigt.
+- **Relevante Funktionen:** Wiederholungen, Kalenderdetails, erledigte Vorkommen, White Mode und Dark Mode.
+
 ## 2. Lösungsidee
 
 Die ToDoApp ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt Kennzahlen und heutige To-Dos. Die To-Do-Ansicht erlaubt das Erfassen, Filtern, Bearbeiten, Löschen, Terminieren und Abschliessen von To-Dos. Die Kalenderansicht zeigt terminierte To-Dos in einer Wochenansicht und berücksichtigt wiederkehrende To-Dos.
@@ -205,7 +233,6 @@ Eine formale Evaluation ist noch offen. Der aktuelle Prototyp kann lokal geteste
 - Einzelnes Kalender-Vorkommen als erledigt markieren.
 - Wochenansicht auf Desktop prüfen.
 
-<<<<<<< HEAD
 ### 8.3 Screenshot-Dokumentation für Testing
 
 Damit spätere Änderungen nach dem Testing nachvollziehbar bleiben, wird der aktuelle Desktop-Stand vor den Anpassungen mit Screenshots festgehalten. Die Screenshots liegen unter `docs/testing/screenshots/`.
@@ -226,8 +253,8 @@ Damit spätere Änderungen nach dem Testing nachvollziehbar bleiben, wird der ak
 | Kalender Monat White Mode | ![Vorher: Kalender Monat White Mode](docs/testing/screenshots/vorher/calendar-month-white.png) | ![Nachher: Kalender Monat White Mode](docs/testing/screenshots/nachher/calendar-month-white.png) |
 
 Die Vorher-Screenshots wurden vor den Testing-Änderungen erstellt. Nach den Anpassungen werden die Nachher-Screenshots mit denselben Dateinamen im Ordner `nachher/` ergänzt, damit der Vergleich direkt sichtbar ist.
-=======
-### 8.3 Usability-Test mit Testperson
+
+### 8.4 Usability-Test mit Testperson
 
 Für einen kurzen Usability-Test wird die App auf dem Laptop bereitgestellt. Die Test-To-Dos kann die Testperson auf dem Smartphone lesen. Die Testperson soll laut denken und sagen, was sie erwartet, was sie verwirrt und warum sie eine bestimmte Aktion ausführt.
 
@@ -272,9 +299,8 @@ Während des Tests sollte festgehalten werden:
 - Wird der Unterschied zwischen Deadline und Termin verstanden?
 - Findet die Testperson To-Dos im Kalender wieder?
 - Werden die 8h- und 16h-Regeln ohne zusätzliche Erklärung verstanden?
->>>>>>> b84c32abb415af902ecbdf4684f12d18172af927
 
-### 8.4 Mögliche nächste Schritte
+### 8.5 Mögliche nächste Schritte
 
 - Manuelles UI-Testprotokoll ergänzen.
 - Netlify-Deployment durchführen und URL dokumentieren.
