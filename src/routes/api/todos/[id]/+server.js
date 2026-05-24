@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 import { validateScheduleCapacity } from '$lib/scheduleCapacity.js';
+import { getCapacitySettings } from '$lib/server/settings.js';
 import {
 	completeTodo,
 	completeTodoOccurrence,
@@ -34,13 +35,14 @@ export async function PATCH({ params, request }) {
 			return json({ message: 'todo not found' }, { status: 404 });
 		}
 
+		const settings = await getCapacitySettings();
 		const scheduleError = validateScheduleCapacity(todos, [
 			{
 				...currentTodo,
 				...updates,
 				id: params.id
 			}
-		]);
+		], settings);
 
 		if (scheduleError) {
 			return json({ message: scheduleError.message }, { status: 400 });

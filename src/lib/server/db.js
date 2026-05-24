@@ -25,3 +25,9 @@ export async function getTodosCollection() {
 
 	return db.collection('todos');
 }
+
+export async function getSettingsCollection() {
+	const db = await getDb();
+
+	return db.collection('settings');
+}

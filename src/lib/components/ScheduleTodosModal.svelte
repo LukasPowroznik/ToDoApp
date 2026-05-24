@@ -4,7 +4,7 @@
 	import StatusMessage from '$lib/components/StatusMessage.svelte';
 	import { validateScheduleCapacity } from '$lib/scheduleCapacity.js';
 
-	let { modalId = 'scheduleTodosModal', todos = [] } = $props();
+	let { modalId = 'scheduleTodosModal', todos = [], settings } = $props();
 	let isSaving = $state(false);
 	let errorMessage = $state('');
 
@@ -32,7 +32,7 @@
 			...todo,
 			scheduledDate
 		}));
-		const scheduleError = validateScheduleCapacity(todos, scheduledTodos);
+		const scheduleError = validateScheduleCapacity(todos, scheduledTodos, settings);
 
 		if (scheduleError) {
 			errorMessage = scheduleError.message;

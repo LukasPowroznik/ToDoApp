@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { createTodo, listTodos } from '$lib/server/todos.js';
+import { getCapacitySettings } from '$lib/server/settings.js';
 import { validateScheduleCapacity } from '$lib/scheduleCapacity.js';
 
 export async function GET() {
@@ -16,7 +17,8 @@ export async function POST({ request }) {
 	}
 
 	const todos = await listTodos();
-	const scheduleError = validateScheduleCapacity(todos, [todo]);
+	const settings = await getCapacitySettings();
+	const scheduleError = validateScheduleCapacity(todos, [todo], settings);
 
 	if (scheduleError) {
 		return json({ message: scheduleError.message }, { status: 400 });

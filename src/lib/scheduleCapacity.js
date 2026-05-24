@@ -3,6 +3,12 @@ import { getWeekday, isTodoDueOnDate, isTodoOccurrenceCompleted } from '$lib/tod
 export const DAILY_HOUR_LIMIT = 16;
 export const WORK_DAILY_HOUR_LIMIT = 8;
 export const WORK_CATEGORY = 'Arbeit';
+export const DEFAULT_CATEGORY_HOUR_LIMITS = {
+	Privat: DAILY_HOUR_LIMIT,
+	Arbeit: WORK_DAILY_HOUR_LIMIT,
+	Sport: DAILY_HOUR_LIMIT,
+	Sonstiges: DAILY_HOUR_LIMIT
+};
 
 export function getEstimatedHours(duration) {
 	if (duration === '30 min') return 0.5;
@@ -32,7 +38,18 @@ function formatDate(date) {
 	return `${day}.${month}.${year}`;
 }
 
-export function validateScheduleCapacity(todos, candidates) {
+function getCapacitySettings(settings = {}) {
+	return {
+		dailyHourLimit: Number(settings.dailyHourLimit) || DAILY_HOUR_LIMIT,
+		categoryHourLimits: {
+			...DEFAULT_CATEGORY_HOUR_LIMITS,
+			...(settings.categoryHourLimits ?? {})
+		}
+	};
+}
+
+export function validateScheduleCapacity(todos, candidates, settings) {
+	const capacitySettings = getCapacitySettings(settings);
 	const scheduledCandidates = candidates.filter(
 		(todo) => todo.status !== 'Completed' && todo.scheduledDate
 	);
@@ -64,20 +81,23 @@ export function validateScheduleCapacity(todos, candidates) {
 			(sum, todo) => sum + getEstimatedHours(todo.estimatedDuration),
 			0
 		);
-		const workHours = todosForDate
-			.filter((todo) => todo.category === WORK_CATEGORY)
-			.reduce((sum, todo) => sum + getEstimatedHours(todo.estimatedDuration), 0);
 
-		if (totalHours > DAILY_HOUR_LIMIT) {
+		if (totalHours > capacitySettings.dailyHourLimit) {
 			return {
-				message: `Am ${formatDate(date)} sind maximal ${DAILY_HOUR_LIMIT} Stunden geplante To-Dos erlaubt.`
+				message: `Am ${formatDate(date)} sind maximal ${capacitySettings.dailyHourLimit} Stunden geplante To-Dos erlaubt.`
 			};
 		}
 
-		if (workHours > WORK_DAILY_HOUR_LIMIT) {
-			return {
-				message: `Am ${formatDate(date)} sind maximal ${WORK_DAILY_HOUR_LIMIT} Stunden Arbeit erlaubt.`
-			};
+		for (const [category, limit] of Object.entries(capacitySettings.categoryHourLimits)) {
+			const categoryHours = todosForDate
+				.filter((todo) => todo.category === category)
+				.reduce((sum, todo) => sum + getEstimatedHours(todo.estimatedDuration), 0);
+
+			if (categoryHours > limit) {
+				return {
+					message: `Am ${formatDate(date)} sind maximal ${limit} Stunden ${category} erlaubt.`
+				};
+			}
 		}
 	}
 

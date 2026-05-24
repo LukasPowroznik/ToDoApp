@@ -206,5 +206,5 @@
 	</section>
 
 	<AddTodoModal />
-	<ScheduleTodosModal {todos} />
+	<ScheduleTodosModal {todos} settings={data.settings} />
 </div>
