@@ -38,6 +38,17 @@ function formatDate(date) {
 	return `${day}.${month}.${year}`;
 }
 
+function formatHours(hours) {
+	const formattedHours = Number.isInteger(hours)
+		? hours.toString()
+		: hours.toLocaleString('de-CH', {
+				maximumFractionDigits: 1,
+				minimumFractionDigits: 1
+			});
+
+	return `${formattedHours} ${hours === 1 ? 'Stunde' : 'Stunden'}`;
+}
+
 function getCapacitySettings(settings = {}) {
 	return {
 		dailyHourLimit: Number(settings.dailyHourLimit) || DAILY_HOUR_LIMIT,
@@ -83,25 +94,36 @@ export function validateScheduleCapacity(todos, candidates, settings) {
 			...existingTodos,
 			...scheduledCandidates.filter((todo) => todo.scheduledDate === date)
 		];
+		const existingTotalHours = existingTodos.reduce(
+			(sum, todo) => sum + getEstimatedHours(todo.estimatedDuration),
+			0
+		);
 		const totalHours = todosForDate.reduce(
 			(sum, todo) => sum + getEstimatedHours(todo.estimatedDuration),
 			0
 		);
 
 		if (totalHours > capacitySettings.dailyHourLimit) {
+			const availableHours = Math.max(0, capacitySettings.dailyHourLimit - existingTotalHours);
+
 			return {
-				message: `Am ${formatDate(date)} sind maximal ${capacitySettings.dailyHourLimit} Stunden geplante To-Dos erlaubt.`
+				message: `Am ${formatDate(date)} sind maximal ${formatHours(capacitySettings.dailyHourLimit)} geplante To-Dos erlaubt. Noch einplanbar wären ${formatHours(availableHours)}.`
 			};
 		}
 
 		for (const [category, limit] of Object.entries(capacitySettings.categoryHourLimits)) {
+			const existingCategoryHours = existingTodos
+				.filter((todo) => todo.category === category)
+				.reduce((sum, todo) => sum + getEstimatedHours(todo.estimatedDuration), 0);
 			const categoryHours = todosForDate
 				.filter((todo) => todo.category === category)
 				.reduce((sum, todo) => sum + getEstimatedHours(todo.estimatedDuration), 0);
 
 			if (categoryHours > limit) {
+				const availableHours = Math.max(0, limit - existingCategoryHours);
+
 				return {
-					message: `Am ${formatDate(date)} sind maximal ${limit} Stunden ${category} erlaubt.`
+					message: `Am ${formatDate(date)} sind maximal ${formatHours(limit)} ${category} erlaubt. Noch einplanbar wären ${formatHours(availableHours)}.`
 				};
 			}
 		}
