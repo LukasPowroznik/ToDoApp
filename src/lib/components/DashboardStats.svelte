@@ -1,5 +1,5 @@
 <script>
-	import { showModal } from '$lib/bootstrapModal.js';
+	import { getEstimatedHours } from '$lib/scheduleCapacity.js';
 	import { buildTodoOccurrence, isTodoDueOnDate } from '$lib/todoSchedule.js';
 
 	let { todos = [], monthPrefix = '2026-05', today = '2026-05-06' } = $props();
@@ -15,7 +15,17 @@
 	const overdueTodos = $derived(
 		todos.filter((todo) => todo.status === 'Open' && todo.deadline && todo.deadline < today)
 	);
-	const createdTodayTodos = $derived(todos.filter((todo) => todo.createdAt?.startsWith(today)));
+	const todaysEstimatedHours = $derived(
+		todaysOpenTodos.reduce((sum, todo) => sum + getEstimatedHours(todo.estimatedDuration), 0)
+	);
+	const formattedTodaysEstimatedHours = $derived(
+		Number.isInteger(todaysEstimatedHours)
+			? `${todaysEstimatedHours} h`
+			: `${todaysEstimatedHours.toLocaleString('de-CH', {
+					maximumFractionDigits: 1,
+					minimumFractionDigits: 1
+				})} h`
+	);
 	const scheduledThisMonth = $derived(
 		todos.filter((todo) => todo.scheduledDate?.startsWith(monthPrefix))
 	);
@@ -34,12 +44,12 @@
 
 <div class="row g-3">
 	<div class="col-sm-6">
-		<button class="card dashboard-card stat-card stat-card-create h-100 w-100 text-start" type="button" onclick={() => showModal('dashboardAddTodoModal')}>
-			<span class="card-body">
-				<span class="text-secondary small d-block mb-1">Neues To-Do erfassen</span>
-				<span class="h3 mb-0 d-block">{createdTodayTodos.length}</span>
-			</span>
-		</button>
+		<a class="card dashboard-card stat-card stat-card-create stat-card-link h-100" href="/tasks?status=today">
+			<div class="card-body">
+				<p class="text-secondary small mb-1">Anzahl Stunden heute</p>
+				<h2 class="h3 mb-0">{formattedTodaysEstimatedHours}</h2>
+			</div>
+		</a>
 	</div>
 	<div class="col-sm-6">
 		<a class="card dashboard-card stat-card stat-card-open stat-card-link h-100" href="/tasks?status=open">

@@ -31,7 +31,17 @@
 				<h2 class="h5 mb-1">Heute terminierte To-Dos</h2>
 				<p class="text-secondary mb-0">To-Dos mit geplantem Termin {readableDate}.</p>
 			</div>
-			<span class="badge text-bg-primary">{todaysTodos.length}</span>
+			<div class="d-flex align-items-center gap-2">
+				<span class="badge text-bg-primary dashboard-todo-counter">{todaysTodos.length}</span>
+				<button
+					class="btn btn-action-primary calendar-add-button dashboard-add-button"
+					type="button"
+					aria-label="Neues To-Do fuer heute erfassen"
+					onclick={() => showModal('dashboardAddTodoModal')}
+				>
+					<span aria-hidden="true">+</span>
+				</button>
+			</div>
 		</div>
 	</div>
 

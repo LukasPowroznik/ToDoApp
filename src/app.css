@@ -1083,6 +1083,20 @@ html[data-bs-theme='dark'] .status-message-success .status-message-marker {
 	padding: 0;
 }
 
+.dashboard-add-button {
+	font-size: 0.75rem;
+	font-weight: 700;
+	height: 1.5rem;
+	min-width: 1.5rem;
+	width: 1.5rem;
+}
+
+.dashboard-todo-counter {
+	align-items: center;
+	display: inline-flex;
+	min-height: 1.5rem;
+}
+
 .calendar-view-icon {
 	border: 1.8px solid currentColor;
 	border-radius: 0.22rem;

@@ -12,6 +12,9 @@
 	let statusFilter = $state('open');
 	let categoryFilter = $state('all');
 	let priorityFilter = $state('all');
+	let dateFieldFilter = $state('scheduledDate');
+	let dateFromFilter = $state('');
+	let dateToFilter = $state('');
 
 	const todos = $derived(data.todos);
 	const editTodoId = $derived(page.url.searchParams.get('edit'));
@@ -26,6 +29,7 @@
 		Medium: 1,
 		Low: 2
 	};
+	const hasDateFilter = $derived(Boolean(dateFromFilter || dateToFilter));
 	const filteredTodos = $derived(
 		todos
 			.filter((todo) => {
@@ -42,8 +46,23 @@
 					(statusFilter === 'scheduled' && todo.scheduledDate?.startsWith(data.monthPrefix));
 				const matchesCategory = categoryFilter === 'all' || todo.category === categoryFilter;
 				const matchesPriority = priorityFilter === 'all' || todo.priority === priorityFilter;
+				const todoDate = todo[dateFieldFilter];
+				const lowerDate =
+					dateFromFilter && dateToFilter && dateFromFilter > dateToFilter
+						? dateToFilter
+						: dateFromFilter;
+				const upperDate =
+					dateFromFilter && dateToFilter && dateFromFilter > dateToFilter
+						? dateFromFilter
+						: dateToFilter;
+				const matchesDate =
+					!hasDateFilter ||
+					(Boolean(todoDate) &&
+						(dateFromFilter && !dateToFilter
+							? todoDate === dateFromFilter
+							: (!lowerDate || todoDate >= lowerDate) && (!upperDate || todoDate <= upperDate)));
 
-				return matchesStatus && matchesCategory && matchesPriority;
+				return matchesStatus && matchesCategory && matchesPriority && matchesDate;
 			})
 			.toSorted((firstTodo, secondTodo) => {
 				const shouldGroupCompletedLast = statusFilter === 'all' || statusFilter === 'scheduled';
@@ -67,14 +86,25 @@
 		statusFilter = statusFilter === filter ? 'all' : filter;
 	}
 
+	function resetDateFilter() {
+		dateFromFilter = '';
+		dateToFilter = '';
+	}
+
 	$effect(() => {
 		const status = page.url.searchParams.get('status');
 		const category = page.url.searchParams.get('category');
 		const priority = page.url.searchParams.get('priority');
+		const dateField = page.url.searchParams.get('dateField');
+		const dateFrom = page.url.searchParams.get('dateFrom');
+		const dateTo = page.url.searchParams.get('dateTo');
 
 		statusFilter = status ?? 'open';
 		categoryFilter = category ?? 'all';
 		priorityFilter = priority ?? 'all';
+		dateFieldFilter = dateField === 'deadline' ? 'deadline' : 'scheduledDate';
+		dateFromFilter = dateFrom ?? '';
+		dateToFilter = dateTo ?? '';
 	});
 </script>
 
@@ -167,7 +197,7 @@
 			</div>
 
 			<div class="row g-3 mb-4">
-				<div class="col-md-4">
+				<div class="col-md-4 col-xl-3">
 					<label class="form-label" for="status-filter">Status</label>
 					<select class="form-select" id="status-filter" bind:value={statusFilter}>
 						<option value="all">Alle</option>
@@ -180,7 +210,7 @@
 					</select>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-xl-3">
 					<label class="form-label" for="category-filter">Kategorie</label>
 					<select class="form-select" id="category-filter" bind:value={categoryFilter}>
 						<option value="all">Alle Kategorien</option>
@@ -190,7 +220,7 @@
 					</select>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-xl-3">
 					<label class="form-label" for="priority-filter">Priorität</label>
 					<select class="form-select" id="priority-filter" bind:value={priorityFilter}>
 						<option value="all">Alle Prioritäten</option>
@@ -198,6 +228,45 @@
 							<option value={priority}>{priority}</option>
 						{/each}
 					</select>
+				</div>
+
+				<div class="col-md-4 col-xl-3">
+					<label class="form-label" for="date-field-filter">Datumsfeld</label>
+					<select class="form-select" id="date-field-filter" bind:value={dateFieldFilter}>
+						<option value="scheduledDate">Termin</option>
+						<option value="deadline">Deadline</option>
+					</select>
+				</div>
+
+				<div class="col-md-4 col-xl-3">
+					<label class="form-label" for="date-from-filter">Datum von</label>
+					<input
+						class="form-control"
+						id="date-from-filter"
+						type="date"
+						bind:value={dateFromFilter}
+					/>
+				</div>
+
+				<div class="col-md-4 col-xl-3">
+					<label class="form-label" for="date-to-filter">Datum bis</label>
+					<input
+						class="form-control"
+						id="date-to-filter"
+						type="date"
+						bind:value={dateToFilter}
+					/>
+				</div>
+
+				<div class="col-md-4 col-xl-3 d-flex align-items-end">
+					<button
+						class="btn btn-outline-secondary w-100"
+						type="button"
+						onclick={resetDateFilter}
+						disabled={!hasDateFilter}
+					>
+						Datum zurücksetzen
+					</button>
 				</div>
 			</div>
 
