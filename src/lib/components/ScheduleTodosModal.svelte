@@ -99,7 +99,12 @@
 										<div class="col-md">
 											<h3 class="h6 mb-1">{todo.title}</h3>
 											<p class="text-secondary small mb-1">{todo.description}</p>
-											<p class="text-secondary small mb-0">Deadline: {todo.deadline ?? 'offen'}</p>
+											<div class="d-flex flex-wrap gap-2">
+												<span class="badge badge-meta">Deadline {todo.deadline ?? 'offen'}</span>
+												<span class="badge badge-meta">
+													Dauer {todo.estimatedDuration || 'keine Angabe'}
+												</span>
+											</div>
 										</div>
 										<div class="col-md-4">
 											<label class="form-label" for={`${modalId}-${todo.id}`}>Zu erledigen am</label>
