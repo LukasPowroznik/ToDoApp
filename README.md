@@ -58,12 +58,12 @@ Die folgenden User Stories leiten sich aus den Personas und den zentralen Nutzun
 | --- | --- | --- |
 | US-01 | Als Nutzerin möchte ich auf dem Dashboard sofort sehen, wie viele To-Dos offen, erledigt, überfällig oder heute terminiert sind, damit ich meinen aktuellen Stand schnell einschätzen kann. | Das Dashboard zeigt die wichtigsten Kennzahlen und verlinkt auf passende gefilterte Ansichten. |
 | US-02 | Als Nutzer möchte ich ein neues To-Do mit Titel, Kategorie, Priorität, Deadline und geschätzter Dauer erfassen, damit ich meine To-Dos vollständig planen kann. | Ein neues To-Do kann gespeichert werden und erscheint danach in der To-Do-Liste. |
-| US-03 | Als Nutzerin möchte ich To-Dos nach Status, Kategorie und Priorität filtern, damit ich bei vielen Einträgen schneller relevante To-Dos finde. | Die To-Do-Liste reagiert auf die Filterauswahl und zeigt nur passende To-Dos an. |
-| US-04 | Als Nutzer möchte ich To-Dos terminieren können, damit klar ist, an welchem Tag ich sie erledigen will. | Ein To-Do kann ein Datum im Feld "Zu erledigen am" erhalten und erscheint danach im Kalender. |
-| US-05 | Als Nutzerin möchte ich offene, noch nicht terminierte To-Dos gesammelt terminieren, damit ich mehrere To-Dos effizient planen kann. | Das Terminierungsmodal zeigt offene To-Dos ohne Termin und speichert neue Termine. |
+| US-03 | Als Nutzerin möchte ich To-Dos nach Status, Kategorie, Priorität und Datum filtern, damit ich bei vielen Einträgen schneller relevante To-Dos finde. | Die To-Do-Liste reagiert auf die Filterauswahl, speichert aktive Filter in URL-Parametern und zeigt nur passende To-Dos an. |
+| US-04 | Als Nutzer möchte ich To-Dos terminieren können, damit klar ist, an welchem Tag ich sie erledigen will. | Ein To-Do kann ein Datum im Feld "Zu erledigen am" erhalten, darf nicht nach seiner Deadline terminiert werden und erscheint danach im Kalender. |
+| US-05 | Als Nutzerin möchte ich offene, noch nicht terminierte To-Dos gesammelt terminieren, damit ich mehrere To-Dos effizient planen kann. | Das Terminierungsmodal zeigt offene To-Dos ohne Termin inklusive Deadline und geschätzter Dauer und speichert neue Termine. |
 | US-06 | Als Nutzer möchte ich im Kalender zwischen Woche, Arbeitswoche und Monat wechseln können, damit ich die Ansicht an meine Planungssituation anpassen kann. | Die Kalenderseite bietet die drei Ansichten und zeigt die jeweils passenden Tage. |
 | US-07 | Als Nutzerin möchte ich To-Dos im Kalender per Drag-and-Drop verschieben können, damit ich Termine schnell umplanen kann. | Ein verschobenes To-Do erhält das neue Datum und bleibt nach dem Speichern sichtbar. |
-| US-08 | Als Nutzer möchte ich gewarnt werden, wenn geplante To-Dos die Tages- oder Kategorie-Limits überschreiten, damit meine Planung realistisch bleibt. | Beim Speichern wird eine verständliche Fehlermeldung angezeigt, wenn ein Limit verletzt wird. |
+| US-08 | Als Nutzer möchte ich gewarnt werden, wenn geplante To-Dos die Tages- oder Kategorie-Limits überschreiten, damit meine Planung realistisch bleibt. | Beim Speichern wird eine verständliche Fehlermeldung angezeigt, wenn ein Limit verletzt wird, inklusive der noch einplanbaren Zeit. |
 | US-09 | Als Nutzerin möchte ich wiederkehrende To-Dos anlegen und einzelne Vorkommen abschliessen können, damit regelmässige To-Dos nicht jedes Mal neu erstellt werden müssen. | Wiederkehrende To-Dos erscheinen bis zur Deadline im Kalender und einzelne Vorkommen können als erledigt markiert werden. |
 | US-10 | Als Nutzer möchte ich die Standardansicht des Kalenders und die Planungs-Limits in den Einstellungen anpassen können, damit die App zu meiner Arbeitsweise passt. | Die Einstellungen können gespeichert werden und beeinflussen Kalenderansicht sowie Terminierungsregeln. |
 | US-11 | Als Nutzerin möchte ich zwischen White Mode und Dark Mode wechseln können, damit die App in unterschiedlichen Lichtverhältnissen gut lesbar bleibt. | Der gewählte Modus ändert die Darstellung der App konsistent. |
@@ -74,7 +74,7 @@ Die ToDoApp ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt Kennz
 
 Die App kombiniert damit zwei Perspektiven:
 
-- **Listenperspektive:** To-Dos lassen sich nach Status, Kategorie, Priorität und Terminierung filtern.
+- **Listenperspektive:** To-Dos lassen sich nach Status, Kategorie, Priorität, Terminierung und Datum filtern. Aktive Filter werden über URL-Parameter abgebildet.
 - **Zeitperspektive:** Geplante To-Dos erscheinen im Kalender und können dort im Kontext ihres Datums betrachtet, verschoben und geöffnet werden.
 
 ## 3. Vorgehen und Artefakte
@@ -104,18 +104,23 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 
 ### 4.1 Funktionen
 
-- Dashboard mit Kennzahlen für offene, erledigte, heutige, überfällige und im aktuellen Monat terminierte To-Dos.
+- Dashboard mit Kennzahlen für offene, erledigte, heutige, überfällige und im aktuellen Monat terminierte To-Dos sowie die geschätzte Stundensumme für heute.
+- Button zum schnellen Erfassen eines neuen To-Dos direkt aus der Dashboard-Card "Heute terminierte To-Dos"; neue To-Dos werden dabei auf heute terminiert.
 - Monatsauswertung für erledigte To-Dos der letzten sechs Monate.
-- To-Do-Liste mit Filterung nach Status, Kategorie und Priorität.
+- To-Do-Liste mit Filterung nach Status, Kategorie, Priorität und Datum.
+- Erweiterte Datumsfilter sind einklappbar und unterstützen einzelne Daten sowie Zeiträume für Termin oder Deadline.
+- Aktive Filter werden als URL-Parameter gespeichert, sodass gefilterte Ansichten neu geladen, geteilt oder als Bookmark gespeichert werden können.
 - To-Dos erstellen, bearbeiten, löschen und als erledigt markieren.
 - Felder für Titel, Beschreibung, Kategorie, Priorität, Status, Deadline, geschätzte Dauer, Wiederholung und "Zu erledigen am".
-- Sammelmodal zum Terminieren noch nicht geplanter To-Dos.
+- Sammelmodal zum Terminieren noch nicht geplanter To-Dos mit Anzeige von Deadline und geschätzter Dauer.
+- Validierung, dass To-Dos nicht auf ein Datum nach ihrer Deadline terminiert werden können.
 - Kalender mit Wochenansicht, Arbeitswoche und Monatsansicht.
 - Drag-and-Drop zum Verschieben terminierter To-Dos im Kalender.
 - Detailmodal für To-Dos im Kalender, das über die ganze To-Do-Karte geöffnet werden kann.
 - Wiederkehrende To-Dos mit täglicher, wöchentlicher oder monatlicher Wiederholung bis zur gesetzten Deadline.
 - Einzelne Vorkommen wiederkehrender To-Dos können im Kalender als erledigt markiert werden.
 - Einstellungen für Tageslimit, Kategorie-Limits und Standard-Kalenderansicht.
+- Fehlermeldungen bei überschrittenen Tages- oder Kategorie-Limits zeigen zusätzlich, wie viel Zeit noch einplanbar wäre.
 
 ### 4.2 Technologie
 
@@ -130,7 +135,7 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 
 - `src/routes/+page.svelte`: Dashboard
 - `src/routes/+page.server.js`: Lädt To-Dos und Datumsmetadaten für das Dashboard
-- `src/routes/tasks/+page.svelte`: To-Do-Verwaltung mit Filtern und Modals
+- `src/routes/tasks/+page.svelte`: To-Do-Verwaltung mit Filtern, URL-Parametern, einklappbaren Datumsfiltern und Modals
 - `src/routes/tasks/+page.server.js`: Lädt To-Dos für die To-Do-Ansicht
 - `src/routes/calendar/+page.svelte`: Kalender mit Wochen-, Arbeitswochen- und Monatsansicht
 - `src/routes/calendar/+page.server.js`: Lädt To-Dos, Kalender-Metadaten und Standardansicht
@@ -142,7 +147,7 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 - `src/lib/server/db.js`: MongoDB-Verbindung
 - `src/lib/server/todos.js`: CRUD-Funktionen für To-Dos
 - `src/lib/server/settings.js`: Standardwerte und Speicherung der App-Einstellungen
-- `src/lib/scheduleCapacity.js`: Validierung von Tages- und Kategorie-Limits
+- `src/lib/scheduleCapacity.js`: Validierung von Tages- und Kategorie-Limits, Deadline-Regel und Kapazitäts-Fehlermeldungen
 - `src/lib/todoSchedule.js`: Logik für Termine und Wiederholungen
 - `src/lib/components`: Wiederverwendbare UI-Komponenten
 - `src/lib/data/todoOptions.js`: UI-Optionen und Badge-Klassen für To-Dos
@@ -165,6 +170,25 @@ Ein To-Do kann unter anderem folgende Eigenschaften enthalten:
 - `recurrence.type`: daily, weekly oder monthly
 - `completedAt`: Abschlusszeitpunkt für normale To-Dos
 - `completedOccurrences`: Abgeschlossene Einzeltermine bei wiederkehrenden To-Dos
+
+### 4.5 URL-Parameter für Filter
+
+Die To-Do-Ansicht speichert aktive Filter in der URL. Dadurch bleiben Filter nach einem Reload erhalten und gefilterte Ansichten können geteilt oder als Bookmark gespeichert werden.
+
+Unterstützte Parameter:
+
+- `status`: `all`, `open`, `completed`, `overdue`, `unscheduled`, `today` oder `scheduled`
+- `category`: zum Beispiel `Privat`, `Arbeit`, `Sport` oder `Sonstiges`
+- `priority`: `Low`, `Medium` oder `High`
+- `dateField`: `scheduledDate` oder `deadline`
+- `dateFrom`: Startdatum im Format `YYYY-MM-DD`
+- `dateTo`: Enddatum im Format `YYYY-MM-DD`
+
+Beispiel:
+
+```text
+/tasks?status=open&category=Arbeit&dateField=deadline&dateFrom=2026-05-01&dateTo=2026-05-31
+```
 
 ## 5. Lokales Setup
 
@@ -254,13 +278,15 @@ Der aktuelle Prototyp wurde lokal getestet und mit einem Mitstudierenden in eine
 
 - Neues To-Do erstellen und in MongoDB speichern.
 - To-Do bearbeiten und das Feld "Zu erledigen am" setzen.
-- To-Do nach Status, Kategorie und Priorität filtern.
+- To-Do nach Status, Kategorie, Priorität und Datum filtern.
+- Gefilterte To-Do-Ansicht neu laden und prüfen, ob die Filter über URL-Parameter erhalten bleiben.
 - Überfällige To-Dos erkennen.
 - To-Do löschen und prüfen, ob es aus MongoDB entfernt wird.
 - Wiederkehrendes To-Do im Kalender prüfen.
 - Einzelnes Kalender-Vorkommen als erledigt markieren.
 - Kalenderansichten Woche, Arbeitswoche und Monat auf Desktop prüfen.
 - To-Do im Kalender per Drag-and-Drop verschieben.
+- Terminierung nach der Deadline versuchen und prüfen, ob die App dies verhindert.
 - Einstellungen für Limits und Standard-Kalenderansicht speichern.
 - White Mode und Dark Mode prüfen.
 
@@ -342,6 +368,7 @@ Beobachtungen aus dem Test:
 - Der Button `To-Dos terminieren` wurde während des Tests nicht verwendet.
 - Die Fehlermeldungen wurden gelesen, verstanden und als hilfreich eingeschätzt.
 - Die Planungsregeln mit Arbeitslimit und Tageslimit wurden verstanden.
+- Die erweiterten Fehlermeldungen zeigen inzwischen zusätzlich, wie viel Zeit am betroffenen Tag oder in der betroffenen Kategorie noch einplanbar wäre.
 - Die Testperson würde die App grundsätzlich nutzen, wenn sie ihre To-Dos nicht bereits mit einem anderen System tracken würde.
 - Der Dark Mode wurde als besonders gelungen wahrgenommen.
 - Als Verbesserung wurde genannt, dass der White Mode farblich stärker an den Dark Mode angeglichen werden könnte.
@@ -351,13 +378,19 @@ Beobachtungen aus dem Test:
 Aus dem Usability-Test wurden mehrere Anpassungen am Prototyp vorgenommen:
 
 - Auf den wichtigsten Seiten wurde ein Button zum Erstellen neuer To-Dos ergänzt, damit der Einstieg schneller gefunden wird.
+- Auf dem Dashboard wurde ein zusätzlicher Plus-Button in der Card "Heute terminierte To-Dos" ergänzt, der neue To-Dos direkt auf heute terminiert.
+- Die Dashboard-Kennzahlen wurden um die geschätzte Stundensumme für heute ergänzt.
 - Beim Erstellen eines neuen To-Dos wurde die direkte Terminierung ausgeblendet, damit der Button `To-Dos terminieren` gezielter verwendet wird.
+- In der To-Do-Liste wurden URL-basierte Filter und einklappbare Datumsfilter ergänzt.
+- Beim Terminieren werden Deadline und geschätzte Dauer angezeigt.
+- To-Dos können nicht mehr nach ihrer Deadline terminiert werden.
 - Der White Mode wurde farblich stärker an den Indigo-Stil des Dark Mode angeglichen.
 - Die Nachher-Screenshots dokumentieren den Stand nach diesen Anpassungen.
 
 ### 8.5 Mögliche nächste Schritte
 
-- Terminierungsmodal final gegen Issue `#6` prüfen.
+- URL-basierte Filter und Datumsfilter in einem erneuten Usability-Test prüfen.
+- Verhalten der Terminierungsregeln mit Randfällen testen, zum Beispiel Deadline am gleichen Tag, fehlende Dauer oder mehrere gleichzeitig geplante To-Dos.
 - Abschlussdokumentation und Reflexion ergänzen.
 - Fehlermeldungen und Ladezustände weiter verfeinern.
 
