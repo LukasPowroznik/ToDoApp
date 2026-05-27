@@ -15,6 +15,7 @@
 	let dateFieldFilter = $state('scheduledDate');
 	let dateFromFilter = $state('');
 	let dateToFilter = $state('');
+	let showAdditionalFilters = $state(false);
 
 	const todos = $derived(data.todos);
 	const editTodoId = $derived(page.url.searchParams.get('edit'));
@@ -91,6 +92,10 @@
 		dateToFilter = '';
 	}
 
+	function toggleAdditionalFilters() {
+		showAdditionalFilters = !showAdditionalFilters;
+	}
+
 	$effect(() => {
 		const status = page.url.searchParams.get('status');
 		const category = page.url.searchParams.get('category');
@@ -105,6 +110,10 @@
 		dateFieldFilter = dateField === 'deadline' ? 'deadline' : 'scheduledDate';
 		dateFromFilter = dateFrom ?? '';
 		dateToFilter = dateTo ?? '';
+
+		if (dateFrom || dateTo) {
+			showAdditionalFilters = true;
+		}
 	});
 </script>
 
@@ -229,7 +238,25 @@
 						{/each}
 					</select>
 				</div>
+			</div>
 
+			<div class="mb-4">
+				<button
+					class="btn btn-outline-secondary"
+					type="button"
+					aria-expanded={showAdditionalFilters}
+					aria-controls="additional-task-filters"
+					onclick={toggleAdditionalFilters}
+				>
+					{showAdditionalFilters ? 'Weitere Filter ausblenden' : 'Weitere Filter'}
+					{#if hasDateFilter}
+						<span class="badge text-bg-primary ms-2">aktiv</span>
+					{/if}
+				</button>
+			</div>
+
+			{#if showAdditionalFilters}
+				<div class="row g-3 mb-4" id="additional-task-filters">
 				<div class="col-md-4 col-xl-3">
 					<label class="form-label" for="date-field-filter">Datumsfeld</label>
 					<select class="form-select" id="date-field-filter" bind:value={dateFieldFilter}>
@@ -268,7 +295,8 @@
 						Datum zurücksetzen
 					</button>
 				</div>
-			</div>
+				</div>
+			{/if}
 
 			<TodoList todos={filteredTodos} today={data.today} {editTodoId} />
 		</div>
