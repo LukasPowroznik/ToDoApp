@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { showModal } from '$lib/bootstrapModal.js';
 	import AddTodoModal from '$lib/components/AddTodoModal.svelte';
@@ -16,6 +17,7 @@
 	let dateFromFilter = $state('');
 	let dateToFilter = $state('');
 	let showAdditionalFilters = $state(false);
+	let hasLoadedFiltersFromUrl = $state(false);
 
 	const todos = $derived(data.todos);
 	const editTodoId = $derived(page.url.searchParams.get('edit'));
@@ -96,6 +98,45 @@
 		showAdditionalFilters = !showAdditionalFilters;
 	}
 
+	function getFilterUrl() {
+		const params = new URLSearchParams(page.url.searchParams);
+
+		params.delete('status');
+		params.delete('category');
+		params.delete('priority');
+		params.delete('dateField');
+		params.delete('dateFrom');
+		params.delete('dateTo');
+
+		if (statusFilter !== 'open') {
+			params.set('status', statusFilter);
+		}
+
+		if (categoryFilter !== 'all') {
+			params.set('category', categoryFilter);
+		}
+
+		if (priorityFilter !== 'all') {
+			params.set('priority', priorityFilter);
+		}
+
+		if (dateFieldFilter !== 'scheduledDate' || hasDateFilter) {
+			params.set('dateField', dateFieldFilter);
+		}
+
+		if (dateFromFilter) {
+			params.set('dateFrom', dateFromFilter);
+		}
+
+		if (dateToFilter) {
+			params.set('dateTo', dateToFilter);
+		}
+
+		const query = params.toString();
+
+		return `${page.url.pathname}${query ? `?${query}` : ''}`;
+	}
+
 	$effect(() => {
 		const status = page.url.searchParams.get('status');
 		const category = page.url.searchParams.get('category');
@@ -113,6 +154,24 @@
 
 		if (dateFrom || dateTo) {
 			showAdditionalFilters = true;
+		}
+
+		hasLoadedFiltersFromUrl = true;
+	});
+
+	$effect(() => {
+		if (!hasLoadedFiltersFromUrl) {
+			return;
+		}
+
+		const filterUrl = getFilterUrl();
+
+		if (filterUrl !== `${page.url.pathname}${page.url.search}`) {
+			goto(filterUrl, {
+				keepFocus: true,
+				noScroll: true,
+				replaceState: true
+			});
 		}
 	});
 </script>
