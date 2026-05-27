@@ -109,6 +109,7 @@
 												name={`scheduledDate-${todo.id}`}
 												type="date"
 												value={todo.scheduledDate ?? ''}
+												max={todo.deadline || undefined}
 											/>
 										</div>
 									</div>

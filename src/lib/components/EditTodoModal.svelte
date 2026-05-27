@@ -28,6 +28,7 @@
 			createdAt: new Date().toISOString()
 		}
 	);
+	const scheduledDateMax = $derived(currentTodo.deadline || undefined);
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -190,6 +191,7 @@
 								name="scheduledDate"
 								type="date"
 								value={currentTodo.scheduledDate ?? ''}
+								max={scheduledDateMax}
 							/>
 						</div>
 
