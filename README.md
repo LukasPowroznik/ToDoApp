@@ -88,13 +88,26 @@ Die Umsetzung erfolgte schrittweise von einem statischen SvelteKit-Prototyp zu e
 
 ### 3.2 Sketch
 
+- Der visuelle Prototypentwurf wurde in Figma erstellt: [To Do Website Prototyping](https://www.figma.com/design/AKiaBL2UNGeplpsCrdPBYM/To-Do-Website-Prototyping?node-id=0-1&t=IrgAJ56JOBU5Wo50-1).
+- Als Ideationsmethode wurden Crazy Eights genutzt, um mehrere Layout- und Funktionsideen in kurzer Zeit zu skizzieren.
+
+![Crazy-Eights-Skizzen der ToDoApp](docs/assets/crazy-eights/crazy-eights.jpg)
+
 - Erste Layoutideen wurden direkt als SvelteKit-Prototyp umgesetzt.
 - Die Grundstruktur besteht aus Navigation, Dashboard, To-Do-Liste, Formular-Modals und Kalenderansicht.
 
 ### 3.3 Decide
 
-- Ein Dashboard als Startseite wurde gewählt, weil es den aktuellen To-Do-Stand schnell sichtbar macht.
-- Die getrennten Seiten `/tasks` und `/calendar` unterstützen zwei typische Arbeitsweisen: To-Dos pflegen und Termine prüfen.
+Nach der Ideensammlung wurden die Varianten aus den Skizzen danach bewertet, wie gut sie die zentralen Bedürfnisse der Personas unterstützen. Wichtig waren vor allem schnelle Orientierung, einfache Bedienung, klare Priorisierung und eine sinnvolle Verbindung zwischen To-Do-Liste und Zeitplanung.
+
+- Ein Dashboard als Startseite wurde gewählt, weil es den aktuellen To-Do-Stand schnell sichtbar macht. Dadurch sehen Nutzerinnen und Nutzer sofort, welche Aufgaben offen, erledigt, überfällig oder für heute geplant sind.
+- Die getrennten Seiten `/tasks` und `/calendar` unterstützen zwei typische Arbeitsweisen: To-Dos pflegen und Termine prüfen. So bleibt die Listenansicht fokussiert auf Verwaltung und Filterung, während die Kalenderansicht für die zeitliche Planung genutzt wird.
+- Die wichtigsten Kennzahlen wurden prominent platziert, damit der Prototyp nicht nur eine Sammlung von Aufgaben ist, sondern auch einen schnellen Überblick über den aktuellen Arbeitsstand bietet.
+- Filter nach Status, Kategorie, Priorität und Datum wurden priorisiert, weil sie bei vielen To-Dos die Orientierung verbessern und direkt zu den User Stories passen.
+- Die Kalenderansicht wurde als eigener Bereich umgesetzt, weil Termine, Deadlines und wiederkehrende Aufgaben visuell leichter verständlich sind als in einer reinen Liste.
+- Modals für das Erstellen, Bearbeiten und Terminieren von To-Dos wurden gewählt, damit Nutzerinnen und Nutzer im aktuellen Kontext bleiben und nicht für jede Aktion auf eine neue Seite wechseln müssen.
+
+Nicht weiterverfolgt wurden Varianten, die zu stark auf eine reine Aufgabenliste oder eine reine Kalenderlösung gesetzt haben. Die finale Richtung kombiniert beide Ansätze, weil die App sowohl beim Sammeln als auch beim konkreten Planen von To-Dos helfen soll.
 
 ### 3.4 Prototype
 
@@ -206,6 +219,7 @@ MONGODB_URI=mongodb+srv://...
 ```
 
 Als Vorlage kann `.env.example` verwendet werden. Die lokale `.env`-Datei wird durch `.gitignore` ausgeschlossen und darf nicht ins Repository übernommen werden.
+Der echte Connection String mit Benutzername und Passwort darf nur lokal in `.env` oder in den Netlify Environment Variables stehen, nicht in der README oder in `.env.example`.
 
 Die Datenbank heisst `todoapp`. Die App verwendet die Collections `todos` für To-Dos und `settings` für App-Einstellungen.
 
@@ -248,6 +262,7 @@ MONGODB_URI=mongodb+srv://...
 ```
 
 Der Wert darf nicht im Repository gespeichert werden.
+Wenn Zugangsdaten versehentlich geteilt wurden, sollte das MongoDB-Passwort in Atlas geändert und danach der neue Wert lokal sowie in Netlify aktualisiert werden.
 
 ### 6.3 Deployment-Status
 
@@ -265,7 +280,7 @@ Der lokale Produktionsbuild funktioniert und das Projekt ist auf Netlify deployt
 
 ## 8. Testing, Validierung und nächste Schritte
 
-Der aktuelle Prototyp wurde lokal getestet und mit einem Mitstudierenden in einem kurzen Usability-Test validiert.
+Der aktuelle Prototyp wurde lokal getestet und mit zwei Testpersonen in kurzen Usability-Tests validiert.
 
 ### 8.1 Bereits geprüft
 
@@ -357,18 +372,23 @@ Während des Tests sollte festgehalten werden:
 - Findet die Testperson To-Dos im Kalender wieder?
 - Werden die 8h- und 16h-Regeln ohne zusätzliche Erklärung verstanden?
 
-#### Durchführung und Ergebnisse
+#### Durchführung und Ergebnisse mit Dario
 
-Der Usability-Test wurde mit einem Mitstudierenden durchgeführt. Die Testperson konnte die App grundsätzlich gut verstehen und die wichtigsten Abläufe nachvollziehen. Besonders positiv bewertet wurden die verständlichen Fehlermeldungen, die nachvollziehbaren Planungsregeln und der Dark Mode.
+Der Usability-Test wurde mit dem Mitstudenten Dario durchgeführt. Die Testperson konnte die App grundsätzlich gut verstehen und die wichtigsten Abläufe nachvollziehen. Besonders positiv bewertet wurden die verständlichen Fehlermeldungen, die nachvollziehbaren Planungsregeln und der Dark Mode.
 
 Beobachtungen aus dem Test:
 
 - Die Testperson musste zunächst suchen, bis sie den Button zum Erstellen eines neuen To-Dos gefunden hatte.
 - Die vorhandenen Buttons waren verständlich und wurden nicht als unklar wahrgenommen.
 - Der Button `To-Dos terminieren` wurde während des Tests nicht verwendet.
+- Beim Erstellen eines neuen To-Dos war die direkte Terminierung zu präsent und hat vom späteren Planungsablauf abgelenkt.
 - Die Fehlermeldungen wurden gelesen, verstanden und als hilfreich eingeschätzt.
 - Die Planungsregeln mit Arbeitslimit und Tageslimit wurden verstanden.
+- Bei Fehlermeldungen zu Planungs-Limits sollte klarer sichtbar sein, wie viel Zeit noch verfügbar ist und ob ein To-Do trotz Warnung gespeichert werden darf.
+- Im Kalender sollte nicht nur ein kleiner Bereich, sondern die ganze To-Do-Card anklickbar sein.
+- Wenn noch keine Aufgabe vorhanden ist, sollte direkt ein Button zum Erstellen einer neuen Aufgabe sichtbar sein.
 - Die erweiterten Fehlermeldungen zeigen inzwischen zusätzlich, wie viel Zeit am betroffenen Tag oder in der betroffenen Kategorie noch einplanbar wäre.
+- Als zusätzliche Funktion wurde vorgeschlagen, Aufgaben über mehrere Tage planen zu können.
 - Die Testperson würde die App grundsätzlich nutzen, wenn sie ihre To-Dos nicht bereits mit einem anderen System tracken würde.
 - Der Dark Mode wurde als besonders gelungen wahrgenommen.
 - Als Verbesserung wurde genannt, dass der White Mode farblich stärker an den Dark Mode angeglichen werden könnte.
@@ -381,16 +401,50 @@ Aus dem Usability-Test wurden mehrere Anpassungen am Prototyp vorgenommen:
 - Auf dem Dashboard wurde ein zusätzlicher Plus-Button in der Card "Heute terminierte To-Dos" ergänzt, der neue To-Dos direkt auf heute terminiert.
 - Die Dashboard-Kennzahlen wurden um die geschätzte Stundensumme für heute ergänzt.
 - Beim Erstellen eines neuen To-Dos wurde die direkte Terminierung ausgeblendet, damit der Button `To-Dos terminieren` gezielter verwendet wird.
+- Wenn keine Aufgaben vorhanden sind, wird ein Button zum Erstellen einer neuen Aufgabe angezeigt.
+- Auf dem Dashboard wurde ein Button zum Erstellen neuer To-Dos ergänzt.
+- Der Button `To-Dos terminieren` wurde sichtbarer platziert.
 - In der To-Do-Liste wurden URL-basierte Filter und einklappbare Datumsfilter ergänzt.
 - Beim Terminieren werden Deadline und geschätzte Dauer angezeigt.
+- Das Datumsformat in den Fehlermeldungen der Planungs-Limits wurde verständlicher dargestellt.
+- To-Dos dürfen bei bestimmten Planungswarnungen trotzdem gespeichert werden.
 - To-Dos können nicht mehr nach ihrer Deadline terminiert werden.
+- Im Kalender ist die ganze To-Do-Card anklickbar.
+- Die Planungs-Limits können in den Einstellungen angepasst werden.
 - Der White Mode wurde farblich stärker an den Indigo-Stil des Dark Mode angeglichen.
 - Die Nachher-Screenshots dokumentieren den Stand nach diesen Anpassungen.
+
+#### Durchführung und Ergebnisse mit zweiter Testperson
+
+Ein weiterer Usability-Test wurde mit meiner Mutter durchgeführt. Dabei wurden die Testaufgaben erneut durchgespielt und besonders auf Verständlichkeit, Beschriftungen, Fehlermeldungen und Orientierung im Dashboard geachtet.
+
+Beobachtungen aus dem Test:
+
+- Der Counter für neue To-Dos war zunächst irreführend.
+- Der Button zum Erstellen neuer Aufgaben sollte optisch klarer dargestellt werden.
+- Bei Aufgaben der Kategorie `Arbeit` musste geprüft werden, ob das Verhalten am Samstag korrekt ist.
+- Die Logik, dass ein To-Do nicht nach seiner Deadline terminiert werden darf, sollte in der Terminierung klar abgebildet sein.
+- Beim Bearbeiten eines To-Dos wurde überlegt, ob das Feld "Zu erledigen am" ausgeblendet werden soll. Die Entscheidung war, das Feld nicht auszublenden, weil bestehende Termine beim Bearbeiten weiterhin nachvollziehbar bleiben sollen.
+- Aktive Filter sollten gespeichert bleiben, damit Nutzerinnen und Nutzer nach dem Neuladen oder Teilen einer Ansicht nicht erneut filtern müssen.
+- Die total geplanten Stunden sollten an einer passenden Stelle sichtbar sein.
+- Die heute verplante Zeit sollte auf dem Dashboard klarer erkennbar sein.
+- Datumsfilter wurden als hilfreiche Erweiterung bewertet.
+
+Abgeleitete Anpassungen aus diesem Test:
+
+- Der Counter für neue To-Dos wurde verständlicher dargestellt.
+- Der Button zum Erstellen neuer Aufgaben wurde optisch angepasst.
+- Die Terminierungslogik für Aufgaben der Kategorie `Arbeit` am Samstag wurde überprüft und angepasst.
+- Die Regel, dass To-Dos nicht nach ihrer Deadline terminiert werden können, wurde in die Terminierungslogik eingebaut.
+- Filter werden über URL-Parameter gespeichert.
+- Die total geplanten Stunden beziehungsweise die heute verplante Zeit werden im Dashboard angezeigt.
+- Datumsfilter wurden ergänzt.
 
 ### 8.5 Mögliche nächste Schritte
 
 - URL-basierte Filter und Datumsfilter in einem erneuten Usability-Test prüfen.
 - Verhalten der Terminierungsregeln mit Randfällen testen, zum Beispiel Deadline am gleichen Tag, fehlende Dauer oder mehrere gleichzeitig geplante To-Dos.
+- Prüfen, wie Aufgaben sinnvoll über mehrere Tage geplant oder aufgeteilt werden können.
 - Abschlussdokumentation und Reflexion ergänzen.
 - Fehlermeldungen und Ladezustände weiter verfeinern.
 
@@ -405,6 +459,19 @@ Aus dem Usability-Test wurden mehrere Anpassungen am Prototyp vorgenommen:
 ### 9.2 Prompt-Vorgehen
 
 KI wurde gezielt für konkrete To-Dos eingesetzt, zum Beispiel zur Analyse des Repository-Stands, zur Anpassung von Komponenten, zur Vorbereitung des Netlify-Deployments und zur Aktualisierung der README anhand des aktuellen Codes. Ergebnisse werden geprüft und bei Bedarf angepasst, bevor sie ins Projekt übernommen werden.
+
+Beispielprompts aus dem Projekt:
+
+- "Kannst du den aktuellen Projektstand analysieren und mir sagen, welche Funktionen bereits umgesetzt sind?"
+- "Bitte prüfe, warum das Terminieren eines To-Dos nach der Deadline möglich ist, und baue eine passende Validierung ein."
+- "Ergänze im Dashboard einen Button, mit dem direkt ein neues To-Do erstellt werden kann."
+- "Kannst du den Button `To-Dos terminieren` sichtbarer platzieren, ohne das Layout unruhig zu machen?"
+- "Dokumentiere die Ergebnisse aus dem Usability-Test in der README und formuliere daraus abgeleitete Anpassungen."
+- "Erstelle aus den erledigten Usability-Test-Punkten GitHub Issues und schliesse sie direkt als erledigt ab."
+- "Bereite die README so vor, dass ein Crazy-Eights-Bild eingefügt werden kann."
+- "Prüfe, ob der MongoDB Connection String in die README gehört oder nur als Umgebungsvariable verwendet werden soll."
+
+Die Prompts wurden meist iterativ gestellt. Nach einer ersten Antwort oder Umsetzung wurden Details ergänzt, zum Beispiel konkrete Testnotizen, gewünschte Formulierungen oder Hinweise, ob ein Punkt bereits erledigt war.
 
 ### 9.3 Reflexion
 
