@@ -6,6 +6,8 @@
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import '../app.css';
 	import Navigation from '$lib/components/Navigation.svelte';
+	import StatusMessage from '$lib/components/StatusMessage.svelte';
+	import { appStatusMessage } from '$lib/appStatusMessage.js';
 
 	let { children } = $props();
 
@@ -21,5 +23,11 @@
 <Navigation />
 
 <main class="app-main">
+	{#if $appStatusMessage.message}
+		<div class="container app-status-message">
+			<StatusMessage message={$appStatusMessage.message} tone={$appStatusMessage.tone} />
+		</div>
+	{/if}
+
 	{@render children()}
 </main>

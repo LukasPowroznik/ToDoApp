@@ -1,5 +1,6 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
+	import { showAppStatusMessage } from '$lib/appStatusMessage.js';
 	import { hideModal } from '$lib/bootstrapModal.js';
 	import StatusMessage from '$lib/components/StatusMessage.svelte';
 	import { validateScheduleCapacity } from '$lib/scheduleCapacity.js';
@@ -65,6 +66,9 @@
 			);
 
 			await invalidateAll();
+			showAppStatusMessage(
+				updates.length === 1 ? 'Termin wurde gespeichert.' : `${updates.length} Termine wurden gespeichert.`
+			);
 
 			await hideModal(modalId);
 		} catch (error) {

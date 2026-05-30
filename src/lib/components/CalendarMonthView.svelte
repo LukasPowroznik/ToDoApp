@@ -1,6 +1,7 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
 	import { tick } from 'svelte';
+	import { showAppStatusMessage } from '$lib/appStatusMessage.js';
 	import { showModal } from '$lib/bootstrapModal.js';
 	import CalendarTodoDetailModal from '$lib/components/CalendarTodoDetailModal.svelte';
 	import EmptyState from '$lib/components/EmptyState.svelte';
@@ -93,6 +94,7 @@
 			}
 
 			await invalidateAll();
+			showAppStatusMessage('To-Do wurde verschoben.');
 		} catch (error) {
 			errorMessage = error.message;
 		}

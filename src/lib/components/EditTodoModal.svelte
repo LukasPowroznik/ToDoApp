@@ -1,5 +1,6 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
+	import { showAppStatusMessage } from '$lib/appStatusMessage.js';
 	import { hideModal } from '$lib/bootstrapModal.js';
 	import StatusMessage from '$lib/components/StatusMessage.svelte';
 
@@ -78,6 +79,7 @@
 			}
 
 			await invalidateAll();
+			showAppStatusMessage('To-Do wurde gespeichert.');
 
 			await hideModal(modalId);
 			document.body.classList.remove('modal-open');
@@ -108,6 +110,7 @@
 			}
 
 			await invalidateAll();
+			showAppStatusMessage('To-Do wurde gelöscht.');
 
 			await hideModal(modalId);
 			document.body.classList.remove('modal-open');

@@ -1,5 +1,6 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
+	import { showAppStatusMessage } from '$lib/appStatusMessage.js';
 	import {
 		categoryBadgeClasses,
 		priorityBadgeClasses,
@@ -36,6 +37,7 @@
 			}
 
 			await invalidateAll();
+			showAppStatusMessage('To-Do wurde als erledigt markiert.');
 		} catch (error) {
 			errorMessage = error.message;
 		} finally {
@@ -58,6 +60,7 @@
 			}
 
 			await invalidateAll();
+			showAppStatusMessage('To-Do wurde gelöscht.');
 		} catch (error) {
 			errorMessage = error.message;
 		} finally {

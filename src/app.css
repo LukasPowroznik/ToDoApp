@@ -296,6 +296,10 @@ html[data-bs-theme='dark'] .form-select option:focus {
 	padding: 2rem 0 3rem;
 }
 
+.app-status-message .status-message {
+	margin-bottom: 1.5rem;
+}
+
 .page-header {
 	border-left: 0.28rem solid var(--app-accent);
 	margin-bottom: 1.5rem;

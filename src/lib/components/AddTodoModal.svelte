@@ -1,5 +1,6 @@
 <script>
 	import { invalidateAll } from '$app/navigation';
+	import { showAppStatusMessage } from '$lib/appStatusMessage.js';
 	import { hideModal } from '$lib/bootstrapModal.js';
 	import StatusMessage from '$lib/components/StatusMessage.svelte';
 
@@ -57,6 +58,7 @@
 
 			form.reset();
 			await invalidateAll();
+			showAppStatusMessage('To-Do wurde erstellt.');
 
 			await hideModal(modalId);
 		} catch (error) {
