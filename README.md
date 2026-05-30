@@ -4,14 +4,16 @@
 
 1. [Ausgangslage](#1-ausgangslage)
 2. [Lösungsidee](#2-lösungsidee)
-3. [Vorgehen und Artefakte](#3-vorgehen-und-artefakte)
-4. [Aktueller Prototyp](#4-aktueller-prototyp)
-5. [Lokales Setup](#5-lokales-setup)
-6. [Deployment auf Netlify](#6-deployment-auf-netlify)
-7. [Projektorganisation](#7-projektorganisation)
-8. [Testing, Validierung und nächste Schritte](#8-testing-validierung-und-nächste-schritte)
-9. [KI-Deklaration](#9-ki-deklaration)
-10. [Anhang](#10-anhang)
+3. [Vorgehen & Artefakte](#3-vorgehen--artefakte)
+    1. [Understand & Define](#31-understand--define)
+    2. [Sketch](#32-sketch)
+    3. [Decide](#33-decide)
+    4. [Prototype](#34-prototype)
+    5. [Validate](#35-validate)
+4. [Erweiterungen [Optional]](#4-erweiterungen-optional)
+5. [Projektorganisation [Optional]](#5-projektorganisation-optional)
+6. [KI-Deklaration](#6-ki-deklaration)
+7. [Anhang [Optional]](#7-anhang-optional)
 
 ## 1. Ausgangslage
 
@@ -77,11 +79,11 @@ Die App kombiniert damit zwei Perspektiven:
 - **Listenperspektive:** To-Dos lassen sich nach Status, Kategorie, Priorität, Terminierung und Datum filtern. Aktive Filter werden über URL-Parameter abgebildet.
 - **Zeitperspektive:** Geplante To-Dos erscheinen im Kalender und können dort im Kontext ihres Datums betrachtet, verschoben und geöffnet werden.
 
-## 3. Vorgehen und Artefakte
+## 3. Vorgehen & Artefakte
 
 Die Umsetzung erfolgte schrittweise von einem statischen SvelteKit-Prototyp zu einer datenbankgestützten Anwendung.
 
-### 3.1 Understand und Define
+### 3.1 Understand & Define
 
 - Die App richtet sich an Personen, die einfache To-Do-Verwaltung ohne komplexes Projektmanagement brauchen.
 - Wichtige Anforderungen sind schnelle Orientierung, klare Prioritäten, erkennbare Termine, Deadlines und einfache Navigation.
@@ -91,14 +93,33 @@ Die Umsetzung erfolgte schrittweise von einem statischen SvelteKit-Prototyp zu e
 - Der visuelle Prototypentwurf wurde in Figma erstellt: [To Do Website Prototyping](https://www.figma.com/design/AKiaBL2UNGeplpsCrdPBYM/To-Do-Website-Prototyping?node-id=0-1&t=IrgAJ56JOBU5Wo50-1).
 - Als Ideationsmethode wurden Crazy Eights genutzt, um mehrere Layout- und Funktionsideen in kurzer Zeit zu skizzieren.
 
-![Crazy-Eights-Skizzen der ToDoApp](docs/assets/crazy-eights/crazy-eights.jpg)
+![Crazy-Eights-Skizzen der ToDoApp](docs/assets/crazy-eights/crazy-eights.png)
 
+- Aus den Skizzen entstanden mehrere konkrete UI-Ideen:
+  - **To-Do-Erfassung:** Formularfelder für Titel, Aufgabe, Deadline, geschätzte Dauer, Kategorie, Priorität und erledigt-Status.
+  - **Dashboard-Überblick:** Kennzahlen und Auswertungen zu erledigten, offenen und überfälligen To-Dos sowie eine Monatsübersicht.
+  - **Planungsbereich:** Liste ungeplanter Tasks mit einer Aktion zum Planen beziehungsweise Terminieren.
+  - **Kalenderansicht:** Wochenraster mit Tagen von Montag bis Sonntag, in dem geplante To-Dos sichtbar platziert werden können.
+  - **Kategorien und Filter:** Kategorien wie Privat, Arbeit, Sport und Sonstiges zur besseren Strukturierung.
+  - **Optionale Ideen:** Push-Mitteilungen, iPhone-App und Kalenderexport wurden angedacht, aber für den Prototyp nicht priorisiert.
 - Erste Layoutideen wurden direkt als SvelteKit-Prototyp umgesetzt.
 - Die Grundstruktur besteht aus Navigation, Dashboard, To-Do-Liste, Formular-Modals und Kalenderansicht.
 
 ### 3.3 Decide
 
 Nach der Ideensammlung wurden die Varianten aus den Skizzen danach bewertet, wie gut sie die zentralen Bedürfnisse der Personas unterstützen. Wichtig waren vor allem schnelle Orientierung, einfache Bedienung, klare Priorisierung und eine sinnvolle Verbindung zwischen To-Do-Liste und Zeitplanung.
+
+Für die Entscheidung wurden folgende Kriterien verwendet:
+
+- **Orientierung:** Nutzerinnen und Nutzer sollen schnell erkennen, welche To-Dos offen, erledigt, überfällig oder heute relevant sind.
+- **Bedienbarkeit:** Die wichtigsten Aktionen wie Erstellen, Bearbeiten, Löschen, Abschliessen und Terminieren sollen ohne Umwege erreichbar sein.
+- **Planbarkeit:** To-Dos sollen nicht nur gesammelt, sondern auch einem konkreten Datum zugeordnet und im Kalender überprüft werden können.
+- **Umsetzbarkeit im Prototyp:** Die Lösung sollte mit SvelteKit, Formularen, Filtern, Modals und einer einfachen Kalenderansicht realistisch umsetzbar bleiben.
+- **Erweiterbarkeit:** Zusätzliche Funktionen wie Wiederholungen, Limits oder gespeicherte Filter sollten später ergänzt werden können, ohne die Grundstruktur zu verändern.
+
+Im Vergleich zeigte sich, dass eine reine Listenansicht zwar einfach umzusetzen und gut für das Erfassen von Aufgaben ist, aber die zeitliche Planung zu wenig unterstützt. Eine reine Kalenderlösung macht Termine sichtbar, ist aber für das schnelle Erfassen und Filtern vieler To-Dos weniger geeignet. Die dashboard-zentrierte Variante bietet einen guten Überblick, reicht allein aber nicht aus, um Aufgaben im Detail zu verwalten.
+
+Entschieden wurde deshalb eine kombinierte Lösung aus Dashboard, To-Do-Liste und Kalender. Diese Variante erfüllt die wichtigsten Kriterien am besten: Das Dashboard gibt Orientierung, die To-Do-Liste unterstützt Verwaltung und Filterung, und der Kalender macht die konkrete Planung sichtbar.
 
 - Ein Dashboard als Startseite wurde gewählt, weil es den aktuellen To-Do-Stand schnell sichtbar macht. Dadurch sehen Nutzerinnen und Nutzer sofort, welche Aufgaben offen, erledigt, überfällig oder für heute geplant sind.
 - Die getrennten Seiten `/tasks` und `/calendar` unterstützen zwei typische Arbeitsweisen: To-Dos pflegen und Termine prüfen. So bleibt die Listenansicht fokussiert auf Verwaltung und Filterung, während die Kalenderansicht für die zeitliche Planung genutzt wird.
@@ -111,31 +132,24 @@ Nicht weiterverfolgt wurden Varianten, die zu stark auf eine reine Aufgabenliste
 
 ### 3.4 Prototype
 
+#### Aktueller Prototyp
+
 Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbindung und Netlify-Deployment.
 
-## 4. Aktueller Prototyp
+#### Geforderte Kernfunktionen
 
-### 4.1 Funktionen
+Die geforderten Kernfunktionen orientieren sich am Standardumfang der Übungen bis Semesterwoche 8: Inhalte erfassen, über Buttons bedienen, mit eigenem CSS gestalten und gefiltert anzeigen.
 
-- Dashboard mit Kennzahlen für offene, erledigte, heutige, überfällige und im aktuellen Monat terminierte To-Dos sowie die geschätzte Stundensumme für heute.
-- Button zum schnellen Erfassen eines neuen To-Dos direkt aus der Dashboard-Card "Heute terminierte To-Dos"; neue To-Dos werden dabei auf heute terminiert.
-- Monatsauswertung für erledigte To-Dos der letzten sechs Monate.
-- To-Do-Liste mit Filterung nach Status, Kategorie, Priorität und Datum.
-- Erweiterte Datumsfilter sind einklappbar und unterstützen einzelne Daten sowie Zeiträume für Termin oder Deadline.
-- Aktive Filter werden als URL-Parameter gespeichert, sodass gefilterte Ansichten neu geladen, geteilt oder als Bookmark gespeichert werden können.
-- To-Dos erstellen, bearbeiten, löschen und als erledigt markieren.
-- Felder für Titel, Beschreibung, Kategorie, Priorität, Status, Deadline, geschätzte Dauer, Wiederholung und "Zu erledigen am".
-- Sammelmodal zum Terminieren noch nicht geplanter To-Dos mit Anzeige von Deadline und geschätzter Dauer.
-- Validierung, dass To-Dos nicht auf ein Datum nach ihrer Deadline terminiert werden können.
-- Kalender mit Wochenansicht, Arbeitswoche und Monatsansicht.
-- Drag-and-Drop zum Verschieben terminierter To-Dos im Kalender.
-- Detailmodal für To-Dos im Kalender, das über die ganze To-Do-Karte geöffnet werden kann.
-- Wiederkehrende To-Dos mit täglicher, wöchentlicher oder monatlicher Wiederholung bis zur gesetzten Deadline.
-- Einzelne Vorkommen wiederkehrender To-Dos können im Kalender als erledigt markiert werden.
-- Einstellungen für Tageslimit, Kategorie-Limits und Standard-Kalenderansicht.
-- Fehlermeldungen bei überschrittenen Tages- oder Kategorie-Limits zeigen zusätzlich, wie viel Zeit noch einplanbar wäre.
+- SvelteKit-Prototyp mit mehreren Seiten, Navigation und eigenem Styling über Bootstrap sowie projektbezogene CSS-Regeln in `src/app.css`.
+- To-Dos als eigene Einträge erfassen und in der To-Do-Liste anzeigen.
+- Buttons zum Erstellen, Bearbeiten, Löschen und Abschliessen von To-Dos.
+- Formulare und Modals zum Erfassen und Bearbeiten der wichtigsten To-Do-Daten.
+- Basisfelder für Titel, Beschreibung, Kategorie, Priorität und Status.
+- To-Dos nach Status, Kategorie und Priorität filtern.
+- Gefilterte To-Dos direkt in der Liste anzeigen, sodass nur passende Einträge sichtbar bleiben.
+- Grundlegende Dashboard-Übersicht mit Kennzahlen zu offenen, erledigten, heutigen und überfälligen To-Dos.
 
-### 4.2 Technologie
+#### Technologie
 
 - **Framework:** SvelteKit mit Svelte 5
 - **Build-Tool:** Vite
@@ -144,7 +158,7 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 - **Serverlogik:** SvelteKit Server Load Functions und API-Routen
 - **Deployment:** Netlify mit `@sveltejs/adapter-netlify`
 
-### 4.3 Wichtige Projektstruktur
+#### Wichtige Projektstruktur
 
 - `src/routes/+page.svelte`: Dashboard
 - `src/routes/+page.server.js`: Lädt To-Dos und Datumsmetadaten für das Dashboard
@@ -167,7 +181,7 @@ Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbind
 - `netlify.toml`: Netlify-Buildkonfiguration
 - `.env.example`: Beispiel für benötigte Umgebungsvariablen
 
-### 4.4 Datenmodell
+#### Datenmodell
 
 Ein To-Do kann unter anderem folgende Eigenschaften enthalten:
 
@@ -184,7 +198,7 @@ Ein To-Do kann unter anderem folgende Eigenschaften enthalten:
 - `completedAt`: Abschlusszeitpunkt für normale To-Dos
 - `completedOccurrences`: Abgeschlossene Einzeltermine bei wiederkehrenden To-Dos
 
-### 4.5 URL-Parameter für Filter
+#### URL-Parameter für Filter
 
 Die To-Do-Ansicht speichert aktive Filter in der URL. Dadurch bleiben Filter nach einem Reload erhalten und gefilterte Ansichten können geteilt oder als Bookmark gespeichert werden.
 
@@ -203,93 +217,18 @@ Beispiel:
 /tasks?status=open&category=Arbeit&dateField=deadline&dateFrom=2026-05-01&dateTo=2026-05-31
 ```
 
-## 5. Lokales Setup
-
-### 5.1 Voraussetzungen
-
-- Node.js und npm
-- Zugriff auf eine MongoDB-Instanz, zum Beispiel MongoDB Atlas
-
-### 5.2 Umgebungsvariable
-
-Die App erwartet eine MongoDB-Verbindung in einer lokalen `.env`-Datei:
-
-```bash
-MONGODB_URI=mongodb+srv://...
-```
-
-Als Vorlage kann `.env.example` verwendet werden. Die lokale `.env`-Datei wird durch `.gitignore` ausgeschlossen und darf nicht ins Repository übernommen werden.
-Der echte Connection String mit Benutzername und Passwort darf nur lokal in `.env` oder in den Netlify Environment Variables stehen, nicht in der README oder in `.env.example`.
-
-Die Datenbank heisst `todoapp`. Die App verwendet die Collections `todos` für To-Dos und `settings` für App-Einstellungen.
-
-### 5.3 Installation und Entwicklung
-
-```bash
-npm install
-npm run dev
-```
-
-Der Entwicklungsserver wird standardmässig durch Vite gestartet.
-
-### 5.4 Produktionsbuild
-
-```bash
-npm run build
-npm run preview
-```
-
-Der Produktionsbuild wurde lokal mit `npm.cmd run build` geprüft und erfolgreich mit dem Netlify-Adapter erstellt.
-
-## 6. Deployment auf Netlify
-
-Das Projekt ist auf Netlify deployt.
-
-### 6.1 Konfiguration
-
-- `@sveltejs/adapter-netlify` ist installiert.
-- `svelte.config.js` verwendet den Netlify-Adapter.
-- `netlify.toml` definiert den Build-Befehl `npm run build`.
-- Der Publish-Ordner ist `build`.
-- Die Node-Version ist in `netlify.toml` auf `22` gesetzt.
-
-### 6.2 Environment Variables in Netlify
-
-In Netlify muss unter **Site configuration > Environment variables** folgende Variable gesetzt werden:
-
-```bash
-MONGODB_URI=mongodb+srv://...
-```
-
-Der Wert darf nicht im Repository gespeichert werden.
-Wenn Zugangsdaten versehentlich geteilt wurden, sollte das MongoDB-Passwort in Atlas geändert und danach der neue Wert lokal sowie in Netlify aktualisiert werden.
-
-### 6.3 Deployment-Status
-
-Der lokale Produktionsbuild funktioniert und das Projekt ist auf Netlify deployt.
-
-- **Deployment-Plattform:** Netlify
-- **Deployment-URL:** https://prototypingtodoapp.netlify.app/
-
-## 7. Projektorganisation
-
-- **Repository:** `LukasPowroznik/ToDoApp`
-- **Projektform:** SvelteKit-Prototyp im Rahmen des Moduls Prototyping
-- **Issue-Management:** Umsetzung und Erweiterungen werden über GitHub Issues organisiert.
-- **Commit-Praxis:** Änderungen werden thematisch und nachvollziehbar versioniert.
-
-## 8. Testing, Validierung und nächste Schritte
+### 3.5 Validate
 
 Der aktuelle Prototyp wurde lokal getestet und mit zwei Testpersonen in kurzen Usability-Tests validiert.
 
-### 8.1 Bereits geprüft
+#### Bereits geprüft
 
 - Produktionsbuild mit `npm.cmd run build` erfolgreich.
 - Netlify-Adapter wird beim Build verwendet.
 - `.env` ist in `.gitignore` ausgeschlossen.
 - `.env.example` dokumentiert die benötigte MongoDB-Variable.
 
-### 8.2 Geplante Testszenarien
+#### Geplante Testszenarien
 
 - Neues To-Do erstellen und in MongoDB speichern.
 - To-Do bearbeiten und das Feld "Zu erledigen am" setzen.
@@ -305,7 +244,7 @@ Der aktuelle Prototyp wurde lokal getestet und mit zwei Testpersonen in kurzen U
 - Einstellungen für Limits und Standard-Kalenderansicht speichern.
 - White Mode und Dark Mode prüfen.
 
-### 8.3 Screenshot-Dokumentation für Testing
+#### Screenshot-Dokumentation für Testing
 
 Damit spätere Änderungen nach dem Testing nachvollziehbar bleiben, wird der aktuelle Desktop-Stand vor den Anpassungen mit Screenshots festgehalten. Die Screenshots liegen unter `docs/testing/screenshots/`.
 
@@ -326,7 +265,7 @@ Damit spätere Änderungen nach dem Testing nachvollziehbar bleiben, wird der ak
 
 Die Vorher-Screenshots wurden vor den Testing-Änderungen erstellt. Die Nachher-Screenshots wurden nach den Anpassungen mit denselben Dateinamen im Ordner `nachher/` ergänzt, damit der Vergleich direkt sichtbar ist.
 
-### 8.4 Usability-Test mit Testperson
+#### Usability-Test mit Testperson
 
 Für den kurzen Usability-Test wurde die App auf dem Laptop bereitgestellt. Die Test-To-Dos konnte die Testperson auf dem Smartphone lesen. Die Testperson sollte laut denken und sagen, was sie erwartet, was sie verwirrt und warum sie eine bestimmte Aktion ausführt.
 
@@ -334,7 +273,7 @@ Wichtiger Hinweis für die Testperson:
 
 > Es wird nicht die Person getestet, sondern der Prototyp. Wenn etwas unklar ist, ist das ein wertvoller Hinweis für die Weiterentwicklung.
 
-#### Test-To-Dos
+##### Test-To-Dos
 
 1. Öffne die App und verschaffe dir einen Überblick. Finde heraus, wie viele offene To-Dos aktuell vorhanden sind und ob heute To-Dos terminiert sind.
 2. Erstelle ein neues To-Do mit dem Titel `Präsentation vorbereiten`, Kategorie `Arbeit`, Priorität `High`, geschätzter Dauer `1 h` und einer Deadline in den nächsten sieben Tagen. Das To-Do soll noch nicht terminiert werden.
@@ -349,7 +288,7 @@ Wichtiger Hinweis für die Testperson:
 11. Wechsle zwischen White Mode und Dark Mode. Schaue Dashboard, To-Do-Liste und Kalender kurz an und achte auf Lesbarkeit und Farbkonsistenz.
 12. Erstelle zum Abschluss ein echtes To-Do aus deinem Alltag und plane es ein.
 
-#### Fragen nach dem Test
+##### Fragen nach dem Test
 
 - Was war einfach verständlich?
 - Wo musstest du überlegen?
@@ -360,7 +299,7 @@ Wichtiger Hinweis für die Testperson:
 - Was würdest du als Erstes verbessern?
 - Würdest du die App für eigene To-Dos benutzen? Warum oder warum nicht?
 
-#### Beobachtungsnotizen
+##### Beobachtungsnotizen
 
 Während des Tests sollte festgehalten werden:
 
@@ -372,7 +311,7 @@ Während des Tests sollte festgehalten werden:
 - Findet die Testperson To-Dos im Kalender wieder?
 - Werden die 8h- und 16h-Regeln ohne zusätzliche Erklärung verstanden?
 
-#### Durchführung und Ergebnisse mit Dario
+##### Durchführung und Ergebnisse mit Dario
 
 Der Usability-Test wurde mit dem Mitstudenten Dario durchgeführt. Die Testperson konnte die App grundsätzlich gut verstehen und die wichtigsten Abläufe nachvollziehen. Besonders positiv bewertet wurden die verständlichen Fehlermeldungen, die nachvollziehbaren Planungsregeln und der Dark Mode.
 
@@ -393,7 +332,7 @@ Beobachtungen aus dem Test:
 - Der Dark Mode wurde als besonders gelungen wahrgenommen.
 - Als Verbesserung wurde genannt, dass der White Mode farblich stärker an den Dark Mode angeglichen werden könnte.
 
-#### Abgeleitete Anpassungen
+##### Abgeleitete Anpassungen
 
 Aus dem Usability-Test wurden mehrere Anpassungen am Prototyp vorgenommen:
 
@@ -414,7 +353,7 @@ Aus dem Usability-Test wurden mehrere Anpassungen am Prototyp vorgenommen:
 - Der White Mode wurde farblich stärker an den Indigo-Stil des Dark Mode angeglichen.
 - Die Nachher-Screenshots dokumentieren den Stand nach diesen Anpassungen.
 
-#### Durchführung und Ergebnisse mit zweiter Testperson
+##### Durchführung und Ergebnisse mit zweiter Testperson
 
 Ein weiterer Usability-Test wurde mit meiner Mutter durchgeführt. Dabei wurden die Testaufgaben erneut durchgespielt und besonders auf Verständlichkeit, Beschriftungen, Fehlermeldungen und Orientierung im Dashboard geachtet.
 
@@ -440,7 +379,7 @@ Abgeleitete Anpassungen aus diesem Test:
 - Die total geplanten Stunden beziehungsweise die heute verplante Zeit werden im Dashboard angezeigt.
 - Datumsfilter wurden ergänzt.
 
-### 8.5 Mögliche nächste Schritte
+#### Mögliche nächste Schritte
 
 - URL-basierte Filter und Datumsfilter in einem erneuten Usability-Test prüfen.
 - Verhalten der Terminierungsregeln mit Randfällen testen, zum Beispiel Deadline am gleichen Tag, fehlende Dauer oder mehrere gleichzeitig geplante To-Dos.
@@ -448,15 +387,113 @@ Abgeleitete Anpassungen aus diesem Test:
 - Abschlussdokumentation und Reflexion ergänzen.
 - Fehlermeldungen und Ladezustände weiter verfeinern.
 
-## 9. KI-Deklaration
+## 4. Erweiterungen [Optional]
 
-### 9.1 KI-Tools
+Die folgenden Funktionen gehen über den Standardumfang aus den Übungen bis Semesterwoche 8 hinaus. Sie wurden ergänzt, um den Prototyp praxisnäher, planbarer und komfortabler zu machen.
+
+- Button zum schnellen Erfassen eines neuen To-Dos direkt aus der Dashboard-Card "Heute terminierte To-Dos"; neue To-Dos werden dabei auf heute terminiert.
+- Monatsauswertung für erledigte To-Dos der letzten sechs Monate.
+- Zusätzliche Dashboard-Kennzahlen, zum Beispiel heutige, überfällige und im aktuellen Monat terminierte To-Dos sowie die geschätzte Stundensumme für heute.
+- Erweiterte Felder für Deadline, geschätzte Dauer, Wiederholung und "Zu erledigen am".
+- Terminierungslogik für To-Dos mit geplanter Erledigung an einem konkreten Datum.
+- Validierung, dass To-Dos nicht auf ein Datum nach ihrer Deadline terminiert werden können.
+- Erweiterte Datumsfilter sind einklappbar und unterstützen einzelne Daten sowie Zeiträume für Termin oder Deadline.
+- Aktive Filter werden als URL-Parameter gespeichert, sodass gefilterte Ansichten neu geladen, geteilt oder als Bookmark gespeichert werden können.
+- Sammelmodal zum Terminieren noch nicht geplanter To-Dos mit Anzeige von Deadline und geschätzter Dauer.
+- Kalender mit Wochenansicht, Arbeitswoche und Monatsansicht.
+- Drag-and-Drop zum Verschieben terminierter To-Dos im Kalender.
+- Detailmodal für To-Dos im Kalender, das über die ganze To-Do-Karte geöffnet werden kann.
+- Wiederkehrende To-Dos mit täglicher, wöchentlicher oder monatlicher Wiederholung bis zur gesetzten Deadline.
+- Einzelne Vorkommen wiederkehrender To-Dos können im Kalender als erledigt markiert werden.
+- Einstellungen für Tageslimit, Kategorie-Limits und Standard-Kalenderansicht.
+- Fehlermeldungen bei überschrittenen Tages- oder Kategorie-Limits zeigen zusätzlich, wie viel Zeit noch einplanbar wäre.
+
+## 5. Projektorganisation [Optional]
+
+### 5.1 Repository und Arbeitsweise
+
+- **Repository:** `LukasPowroznik/ToDoApp`
+- **Projektform:** SvelteKit-Prototyp im Rahmen des Moduls Prototyping
+- **Issue-Management:** Umsetzung und Erweiterungen werden über GitHub Issues organisiert.
+- **Commit-Praxis:** Änderungen werden thematisch und nachvollziehbar versioniert.
+
+### 5.2 Lokales Setup
+
+#### Voraussetzungen
+
+- Node.js und npm
+- Zugriff auf eine MongoDB-Instanz, zum Beispiel MongoDB Atlas
+
+#### Umgebungsvariable
+
+Die App erwartet eine MongoDB-Verbindung in einer lokalen `.env`-Datei:
+
+```bash
+MONGODB_URI=mongodb+srv://...
+```
+
+Als Vorlage kann `.env.example` verwendet werden. Die lokale `.env`-Datei wird durch `.gitignore` ausgeschlossen und darf nicht ins Repository übernommen werden.
+Der echte Connection String mit Benutzername und Passwort darf nur lokal in `.env` oder in den Netlify Environment Variables stehen, nicht in der README oder in `.env.example`.
+
+Die Datenbank heisst `todoapp`. Die App verwendet die Collections `todos` für To-Dos und `settings` für App-Einstellungen.
+
+#### Installation und Entwicklung
+
+```bash
+npm install
+npm run dev
+```
+
+Der Entwicklungsserver wird standardmässig durch Vite gestartet.
+
+#### Produktionsbuild
+
+```bash
+npm run build
+npm run preview
+```
+
+Der Produktionsbuild wurde lokal mit `npm.cmd run build` geprüft und erfolgreich mit dem Netlify-Adapter erstellt.
+
+### 5.3 Deployment auf Netlify
+
+Das Projekt ist auf Netlify deployt.
+
+#### Konfiguration
+
+- `@sveltejs/adapter-netlify` ist installiert.
+- `svelte.config.js` verwendet den Netlify-Adapter.
+- `netlify.toml` definiert den Build-Befehl `npm run build`.
+- Der Publish-Ordner ist `build`.
+- Die Node-Version ist in `netlify.toml` auf `22` gesetzt.
+
+#### Environment Variables in Netlify
+
+In Netlify muss unter **Site configuration > Environment variables** folgende Variable gesetzt werden:
+
+```bash
+MONGODB_URI=mongodb+srv://...
+```
+
+Der Wert darf nicht im Repository gespeichert werden.
+Wenn Zugangsdaten versehentlich geteilt wurden, sollte das MongoDB-Passwort in Atlas geändert und danach der neue Wert lokal sowie in Netlify aktualisiert werden.
+
+#### Deployment-Status
+
+Der lokale Produktionsbuild funktioniert und das Projekt ist auf Netlify deployt.
+
+- **Deployment-Plattform:** Netlify
+- **Deployment-URL:** https://prototypingtodoapp.netlify.app/
+
+## 6. KI-Deklaration
+
+### 6.1 KI-Tools
 
 - **Eingesetzte Tools:** Codex / ChatGPT im Entwicklungsumfeld.
 - **Zweck und Umfang:** Unterstützung beim Strukturieren von GitHub Issues, Prüfen des Projektstands, Implementieren einzelner Funktionen, Vorbereiten des Deployments und Aktualisieren der Projektdokumentation.
 - **Eigene Leistung:** Entscheidungen zum Projektumfang, fachliche Einordnung, Tests und finale Überarbeitung bleiben Teil der eigenen Projektarbeit.
 
-### 9.2 Prompt-Vorgehen
+### 6.2 Prompt-Vorgehen
 
 KI wurde gezielt für konkrete To-Dos eingesetzt, zum Beispiel zur Analyse des Repository-Stands, zur Anpassung von Komponenten, zur Vorbereitung des Netlify-Deployments und zur Aktualisierung der README anhand des aktuellen Codes. Ergebnisse werden geprüft und bei Bedarf angepasst, bevor sie ins Projekt übernommen werden.
 
@@ -473,12 +510,12 @@ Beispielprompts aus dem Projekt:
 
 Die Prompts wurden meist iterativ gestellt. Nach einer ersten Antwort oder Umsetzung wurden Details ergänzt, zum Beispiel konkrete Testnotizen, gewünschte Formulierungen oder Hinweise, ob ein Punkt bereits erledigt war.
 
-### 9.3 Reflexion
+### 6.3 Reflexion
 
 KI beschleunigt organisatorische, technische und dokumentarische Arbeit, ersetzt aber nicht die fachliche Bewertung des Prototyps. Besonders wichtig ist, generierte Texte mit dem tatsächlichen Projektstand abzugleichen, damit keine veralteten oder noch nicht umgesetzten Funktionen dokumentiert werden.
 
-## 10. Anhang
+## 7. Anhang [Optional]
 
 - **Quellen:** SvelteKit-Dokumentation, Bootstrap-Dokumentation, MongoDB-Dokumentation, Netlify-Dokumentation und Projektdateien im Repository.
-- **Testskript und Materialien:** Usability-Test-Aufgaben, Fragen und Beobachtungsnotizen sind in Abschnitt 8.4 dokumentiert.
-- **Rohdaten und Auswertung:** Die zusammengefassten Beobachtungen und abgeleiteten Anpassungen sind in Abschnitt 8.4 dokumentiert.
+- **Testskript und Materialien:** Usability-Test-Aufgaben, Fragen und Beobachtungsnotizen sind in Abschnitt 3.5 dokumentiert.
+- **Rohdaten und Auswertung:** Die zusammengefassten Beobachtungen und abgeleiteten Anpassungen sind in Abschnitt 3.5 dokumentiert.
