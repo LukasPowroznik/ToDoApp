@@ -1,4 +1,4 @@
-# Projektdokumentation - ToDoApp
+# Projektdokumentation - To-Do-App
 
 ## Inhaltsverzeichnis
 
@@ -33,7 +33,7 @@ Die Personas helfen dabei, typische Nutzungssituationen des Prototyps einzuordne
 - **Alter:** 22 Jahre
 - **Situation:** Lea studiert, arbeitet nebenbei und muss Abgaben, Lernzeiten und private Termine koordinieren.
 - **Bedürfnis:** Sie möchte schnell erkennen, welche To-Dos heute wichtig sind und welche Deadlines näher rücken.
-- **Nutzung der App:** Lea nutzt das Dashboard für den Überblick, erstellt neue To-Dos mit Priorität und plant grössere Aufgaben im Kalender ein.
+- **Nutzung der App:** Lea nutzt das Dashboard für den Überblick, erstellt neue To-Dos mit Priorität und plant grössere To-Dos im Kalender ein.
 - **Relevante Funktionen:** Dashboard-Kennzahlen, Deadline, Priorität, Kalenderansicht und Filter nach Status.
 
 #### Persona 2: Marco, Berufstätiger
@@ -72,7 +72,7 @@ Die folgenden User Stories leiten sich aus den Personas und den zentralen Nutzun
 
 ## 2. Lösungsidee
 
-Die ToDoApp ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt Kennzahlen und heutige To-Dos. Die To-Do-Ansicht erlaubt das Erfassen, Filtern, Bearbeiten, Löschen, Terminieren und Abschliessen von To-Dos. Die Kalenderansicht zeigt terminierte To-Dos in Wochen-, Arbeitswochen- und Monatsansicht, unterstützt Drag-and-Drop zum Verschieben von Terminen und berücksichtigt wiederkehrende To-Dos. In den Einstellungen können Planungs-Limits und die Standardansicht des Kalenders angepasst werden.
+Die To-Do-App ist als webbasiertes Dashboard aufgebaut. Die Startseite zeigt Kennzahlen und heutige To-Dos. Die To-Do-Ansicht erlaubt das Erfassen, Filtern, Bearbeiten, Löschen, Terminieren und Abschliessen von To-Dos. Die Kalenderansicht zeigt terminierte To-Dos in Wochen-, Arbeitswochen- und Monatsansicht, unterstützt Drag-and-Drop zum Verschieben von Terminen und berücksichtigt wiederkehrende To-Dos. In den Einstellungen können Planungs-Limits und die Standardansicht des Kalenders angepasst werden.
 
 Die App kombiniert damit zwei Perspektiven:
 
@@ -83,22 +83,53 @@ Die App kombiniert damit zwei Perspektiven:
 
 Die Umsetzung erfolgte schrittweise von einem statischen SvelteKit-Prototyp zu einer datenbankgestützten Anwendung.
 
+| Phase | Ziel | Ergebnis im Projekt |
+| --- | --- | --- |
+| Understand & Define | Problem, Zielgruppe und zentrale Bedürfnisse klären | Ausgangslage, Personas, User Stories, Anforderungen und Konkurrenzanalyse |
+| Sketch | Unterschiedliche Lösungsrichtungen und UI-Ideen entwickeln | Figma-Prototyp, Crazy-Eights-Skizzen, Ideen für Dashboard, To-Do-Liste, Planung und Kalender |
+| Decide | Geeignete Richtung auswählen und begründen | Entscheidungskriterien, Priorisierung, Risiken, Hauptworkflow und Planungsworkflow |
+| Prototype | Kernfunktionen umsetzen und lauffähigen Prototyp erstellen | SvelteKit-App mit To-Do-Verwaltung, MongoDB-Anbindung, Kalender, Einstellungen und vorbereitetem Netlify-Deployment |
+| Validate | Prototyp mit Nutzenden prüfen und verbessern | Usability-Tests, Beobachtungen, abgeleitete Anpassungen und Vorher-/Nachher-Screenshots |
+
+Die Artefakte bauen dabei aufeinander auf: Die Personas führten zu Anforderungen wie schneller Orientierung, Deadline-Verständlichkeit und Kalenderplanung. Die Skizzen konkretisierten mögliche UI-Bereiche wie Dashboard, To-Do-Erfassung, Planungsbereich und Kalender. In der Decide-Phase wurden diese Ideen priorisiert und als kombinierte Lösung umgesetzt. Die Usability-Tests zeigten anschliessend, welche Teile des Prototyps angepasst werden mussten.
+
+#### Iteration
+
+Das Vorgehen war nicht linear abgeschlossen, sondern iterativ:
+
+```text
+Problem verstehen -> Skizzen erstellen -> Variante auswählen -> Prototyp bauen -> testen -> anpassen -> erneut dokumentieren
+```
+
+Nach dem ersten nutzbaren Prototyp wurden mit den Testpersonen konkrete Schwachstellen sichtbar, zum Beispiel die Auffindbarkeit des Erstellen-Buttons, die Sichtbarkeit des Buttons `To-Dos terminieren`, die Verständlichkeit der Planungsregeln und die Darstellung von Fehlermeldungen. Diese Beobachtungen wurden in Anpassungen überführt und danach in README, Screenshots und Issues dokumentiert.
+
 ### 3.1 Understand & Define
 
 - Die App richtet sich an Personen, die einfache To-Do-Verwaltung ohne komplexes Projektmanagement brauchen.
 - Wichtige Anforderungen sind schnelle Orientierung, klare Prioritäten, erkennbare Termine, Deadlines und einfache Navigation.
+
+#### Konkurrenzanalyse
+
+Zur Einordnung der Lösung wurden bestehende To-Do- und Produktivitätstools betrachtet:
+
+- **Todoist:** Todoist bietet sehr ausgereifte To-Do-Verwaltung mit Projekten, Prioritäten, Labels, Filtern sowie Listen-, Kalender- und Board-Ansichten. Im Vergleich dazu fokussiert die To-Do-App stärker auf einen reduzierten Prototyp mit Dashboard, Terminierung und Planungs-Limits statt auf ein vollständiges Produktivitätssystem. Quelle: [Todoist Features](https://www.todoist.com/features)
+- **Microsoft To Do:** Microsoft To Do konzentriert sich auf einfache To-Do-Listen, Fälligkeiten, Erinnerungen, Wichtigkeit, Notizen, Schritte und Synchronisierung über Geräte. Die To-Do-App übernimmt den einfachen Listenansatz, ergänzt ihn aber um Kalenderplanung, Kategorie-Limits und eine stärkere Auswertung im Dashboard. Quelle: [Microsoft To Do](https://www.microsoft.com/en-us/microsoft-365/microsoft-to-do-list-app)
+- **Google Tasks:** Google Tasks ist stark in Google Workspace eingebunden und erlaubt To-Dos aus Gmail oder Kalender heraus, mit Details, Unter-To-Dos, Fälligkeiten und Benachrichtigungen. Die To-Do-App ist unabhängiger von einem bestehenden Ökosystem und legt mehr Gewicht auf gefilterte Ansichten, Kapazitätsregeln und sichtbare Planung im eigenen Kalender. Quelle: [Google Tasks Help](https://support.google.com/tasks/answer/7675772)
+- **Notion:** Notion ist deutlich breiter angelegt und verbindet To-Dos mit Datenbanken, Projekten, Dokumentation, Ansichten wie Boards oder Timelines und Teamfunktionen. Die To-Do-App ist bewusst kleiner und konkreter: Sie soll nicht ein flexibles Workspace-System sein, sondern einen klaren Workflow für persönliche To-Dos, Termine und Deadlines abbilden. Quelle: [Notion Projects](https://www.notion.com/product/projects)
+
+Aus der Konkurrenzanalyse ergab sich für den Prototyp die Entscheidung, keine möglichst umfangreiche All-in-one-Lösung zu bauen. Stattdessen sollte die App einen überschaubaren persönlichen Workflow abdecken: To-Dos erfassen, filtern, terminieren, im Kalender prüfen und bei unrealistischer Planung Feedback erhalten.
 
 ### 3.2 Sketch
 
 - Der visuelle Prototypentwurf wurde in Figma erstellt: [To Do Website Prototyping](https://www.figma.com/design/AKiaBL2UNGeplpsCrdPBYM/To-Do-Website-Prototyping?node-id=0-1&t=IrgAJ56JOBU5Wo50-1).
 - Als Ideationsmethode wurden Crazy Eights genutzt, um mehrere Layout- und Funktionsideen in kurzer Zeit zu skizzieren.
 
-![Crazy-Eights-Skizzen der ToDoApp](docs/assets/crazy-eights/crazy-eights.png)
+![Crazy-Eights-Skizzen der To-Do-App](docs/assets/crazy-eights/crazy-eights.png)
 
 - Aus den Skizzen entstanden mehrere konkrete UI-Ideen:
-  - **To-Do-Erfassung:** Formularfelder für Titel, Aufgabe, Deadline, geschätzte Dauer, Kategorie, Priorität und erledigt-Status.
+  - **To-Do-Erfassung:** Formularfelder für Titel, To-Do, Deadline, geschätzte Dauer, Kategorie, Priorität und erledigt-Status.
   - **Dashboard-Überblick:** Kennzahlen und Auswertungen zu erledigten, offenen und überfälligen To-Dos sowie eine Monatsübersicht.
-  - **Planungsbereich:** Liste ungeplanter Tasks mit einer Aktion zum Planen beziehungsweise Terminieren.
+  - **Planungsbereich:** Liste ungeplanter To-Dos mit einer Aktion zum Planen beziehungsweise Terminieren.
   - **Kalenderansicht:** Wochenraster mit Tagen von Montag bis Sonntag, in dem geplante To-Dos sichtbar platziert werden können.
   - **Kategorien und Filter:** Kategorien wie Privat, Arbeit, Sport und Sonstiges zur besseren Strukturierung.
   - **Optionale Ideen:** Push-Mitteilungen, iPhone-App und Kalenderexport wurden angedacht, aber für den Prototyp nicht priorisiert.
@@ -117,24 +148,103 @@ Für die Entscheidung wurden folgende Kriterien verwendet:
 - **Umsetzbarkeit im Prototyp:** Die Lösung sollte mit SvelteKit, Formularen, Filtern, Modals und einer einfachen Kalenderansicht realistisch umsetzbar bleiben.
 - **Erweiterbarkeit:** Zusätzliche Funktionen wie Wiederholungen, Limits oder gespeicherte Filter sollten später ergänzt werden können, ohne die Grundstruktur zu verändern.
 
-Im Vergleich zeigte sich, dass eine reine Listenansicht zwar einfach umzusetzen und gut für das Erfassen von Aufgaben ist, aber die zeitliche Planung zu wenig unterstützt. Eine reine Kalenderlösung macht Termine sichtbar, ist aber für das schnelle Erfassen und Filtern vieler To-Dos weniger geeignet. Die dashboard-zentrierte Variante bietet einen guten Überblick, reicht allein aber nicht aus, um Aufgaben im Detail zu verwalten.
+Im Vergleich zeigte sich, dass eine reine Listenansicht zwar einfach umzusetzen und gut für das Erfassen von To-Dos ist, aber die zeitliche Planung zu wenig unterstützt. Eine reine Kalenderlösung macht Termine sichtbar, ist aber für das schnelle Erfassen und Filtern vieler To-Dos weniger geeignet. Die dashboard-zentrierte Variante bietet einen guten Überblick, reicht allein aber nicht aus, um To-Dos im Detail zu verwalten.
 
 Entschieden wurde deshalb eine kombinierte Lösung aus Dashboard, To-Do-Liste und Kalender. Diese Variante erfüllt die wichtigsten Kriterien am besten: Das Dashboard gibt Orientierung, die To-Do-Liste unterstützt Verwaltung und Filterung, und der Kalender macht die konkrete Planung sichtbar.
 
-- Ein Dashboard als Startseite wurde gewählt, weil es den aktuellen To-Do-Stand schnell sichtbar macht. Dadurch sehen Nutzerinnen und Nutzer sofort, welche Aufgaben offen, erledigt, überfällig oder für heute geplant sind.
+#### Priorisierung der Funktionen
+
+Die wichtigsten Funktionen wurden nach Nutzen für die Personas, geschätztem Umsetzungsaufwand und Bedeutung für den Prototyp priorisiert.
+
+| Funktion | Nutzen | Aufwand | Priorität | Status |
+| --- | --- | --- | --- | --- |
+| To-Dos erstellen, bearbeiten, löschen und abschliessen | Grundlage der App und Teil des Mindestumfangs | Mittel | Hoch | Umgesetzt |
+| Filter nach Status, Kategorie und Priorität | Verbessert Orientierung bei mehreren To-Dos | Mittel | Hoch | Umgesetzt |
+| Dashboard mit Kennzahlen | Gibt schnellen Überblick über aktuellen To-Do-Stand | Mittel | Hoch | Umgesetzt |
+| Kalenderansicht für geplante To-Dos | Macht Termine und Planung sichtbar | Hoch | Hoch | Umgesetzt |
+| Terminierung mit Deadline-Prüfung | Verhindert unrealistische Planung nach Deadline | Mittel | Hoch | Umgesetzt |
+| Tages- und Kategorie-Limits | Unterstützt realistische Tagesplanung | Hoch | Mittel | Umgesetzt |
+| Wiederkehrende To-Dos | Erhöht Nutzen für regelmässige To-Dos | Hoch | Mittel | Umgesetzt |
+| URL-basierte Filter | Macht gefilterte Ansichten teilbar und stabil nach Reload | Mittel | Mittel | Umgesetzt |
+| Kalenderexport | Nützlich für externe Kalender, aber nicht zentral für den Prototyp | Hoch | Niedrig | Nicht umgesetzt |
+| Push-Mitteilungen | Könnten Erinnerungen verbessern, erfordern aber zusätzlichen technischen Aufwand | Hoch | Niedrig | Nicht umgesetzt |
+
+- Ein Dashboard als Startseite wurde gewählt, weil es den aktuellen To-Do-Stand schnell sichtbar macht. Dadurch sehen Nutzerinnen und Nutzer sofort, welche To-Dos offen, erledigt, überfällig oder für heute geplant sind.
 - Die getrennten Seiten `/tasks` und `/calendar` unterstützen zwei typische Arbeitsweisen: To-Dos pflegen und Termine prüfen. So bleibt die Listenansicht fokussiert auf Verwaltung und Filterung, während die Kalenderansicht für die zeitliche Planung genutzt wird.
-- Die wichtigsten Kennzahlen wurden prominent platziert, damit der Prototyp nicht nur eine Sammlung von Aufgaben ist, sondern auch einen schnellen Überblick über den aktuellen Arbeitsstand bietet.
+- Die wichtigsten Kennzahlen wurden prominent platziert, damit der Prototyp nicht nur eine Sammlung von To-Dos ist, sondern auch einen schnellen Überblick über den aktuellen Arbeitsstand bietet.
 - Filter nach Status, Kategorie, Priorität und Datum wurden priorisiert, weil sie bei vielen To-Dos die Orientierung verbessern und direkt zu den User Stories passen.
-- Die Kalenderansicht wurde als eigener Bereich umgesetzt, weil Termine, Deadlines und wiederkehrende Aufgaben visuell leichter verständlich sind als in einer reinen Liste.
+- Die Kalenderansicht wurde als eigener Bereich umgesetzt, weil Termine, Deadlines und wiederkehrende To-Dos visuell leichter verständlich sind als in einer reinen Liste.
 - Modals für das Erstellen, Bearbeiten und Terminieren von To-Dos wurden gewählt, damit Nutzerinnen und Nutzer im aktuellen Kontext bleiben und nicht für jede Aktion auf eine neue Seite wechseln müssen.
 
-Nicht weiterverfolgt wurden Varianten, die zu stark auf eine reine Aufgabenliste oder eine reine Kalenderlösung gesetzt haben. Die finale Richtung kombiniert beide Ansätze, weil die App sowohl beim Sammeln als auch beim konkreten Planen von To-Dos helfen soll.
+Nicht weiterverfolgt wurden Varianten, die zu stark auf eine reine To-Do-Liste oder eine reine Kalenderlösung gesetzt haben. Die finale Richtung kombiniert beide Ansätze, weil die App sowohl beim Sammeln als auch beim konkreten Planen von To-Dos helfen soll.
+
+#### Risiken und Annahmen
+
+Während der Planung wurden mehrere Risiken und Annahmen festgehalten:
+
+| Risiko oder Annahme | Bedeutung für den Prototyp | Umgang damit |
+| --- | --- | --- |
+| Nutzerinnen und Nutzer könnten Deadline und "Zu erledigen am" verwechseln. | Falsche Terminierung oder unklare Bedienung möglich. | Beide Felder werden dokumentiert, die Terminierung prüft die Deadline und der Unterschied wurde im Usability-Test abgefragt. |
+| Zu viele geplante To-Dos können einen Tag unrealistisch machen. | Der Kalender allein zeigt nicht automatisch, ob ein Tag zu voll ist. | Tages- und Kategorie-Limits prüfen die geplante Dauer und geben verständliche Fehlermeldungen aus. |
+| Die Kalenderansicht kann bei vielen To-Dos unübersichtlich werden. | Die Planung könnte schwer lesbar werden. | Filter, Monats-/Wochenansicht und Detailmodal helfen bei der Orientierung. |
+| Externe Dienste wie MongoDB Atlas und Netlify müssen verfügbar sein. | Ohne Datenbank oder Deployment ist die App nicht vollständig nutzbar. | `.env.example`, Netlify-Konfiguration und Build-Prüfung sind dokumentiert. |
+| Erweiterungen dürfen den Mindestumfang nicht gefährden. | Zusatzfunktionen könnten Aufwand und Komplexität erhöhen. | Kernfunktionen wurden zuerst umgesetzt; optionale Ideen wurden priorisiert oder bewusst nicht umgesetzt. |
+
+#### Hauptworkflow: To-Do verwalten
+
+Der zentrale Workflow zeigt, wie ein To-Do vom Einstieg über das Erstellen bis zur späteren Verwaltung genutzt wird.
+
+```mermaid
+flowchart TD
+    A[Dashboard öffnen] --> B[Überblick über offene, heutige und überfällige To-Dos prüfen]
+    B --> C{Neues To-Do nötig?}
+    C -->|Ja| D[To-Do erstellen]
+    C -->|Nein| F[To-Do-Liste öffnen]
+    D --> E[Titel, Kategorie, Priorität und Status erfassen]
+    E --> F[To-Do-Liste öffnen]
+    F --> G[Filter nach Status, Kategorie oder Priorität setzen]
+    G --> H[Gefilterte To-Dos anzeigen]
+    H --> I{Aktion wählen}
+    I -->|Bearbeiten| J[To-Do bearbeiten und speichern]
+    I -->|Abschliessen| K[To-Do als erledigt markieren]
+    I -->|Löschen| L[To-Do löschen]
+    J --> M[Liste und Dashboard aktualisieren]
+    K --> M
+    L --> M
+```
+
+#### Planungsworkflow: To-Do terminieren
+
+Der Planungsworkflow zeigt, wie ein noch nicht geplantes To-Do einem Datum zugeordnet wird und wie die App dabei Deadline und Planungs-Limits berücksichtigt.
+
+```mermaid
+flowchart TD
+    A[To-Do-Liste öffnen] --> B[Offene und ungeplante To-Dos prüfen]
+    B --> C[To-Dos terminieren öffnen]
+    C --> D[To-Do mit Deadline und geschätzter Dauer auswählen]
+    D --> E[Datum für Zu erledigen am setzen]
+    E --> F{Datum nach Deadline?}
+    F -->|Ja| G[Fehlermeldung anzeigen und anderes Datum wählen]
+    G --> E
+    F -->|Nein| H{Tages- oder Kategorie-Limit überschritten?}
+    H -->|Ja| I[Warnung mit verfügbarer Restzeit anzeigen]
+    I --> J{Trotz Warnung speichern möglich?}
+    J -->|Nein| E
+    J -->|Ja| K[Termin speichern]
+    H -->|Nein| K
+    K --> L[To-Do erscheint im Kalender]
+    L --> M{Termin im Kalender ändern?}
+    M -->|Ja| N[To-Do per Drag-and-Drop verschieben]
+    N --> O[Neue Planung erneut prüfen und speichern]
+    M -->|Nein| P[Planung bleibt bestehen]
+    O --> P
+```
 
 ### 3.4 Prototype
 
 #### Aktueller Prototyp
 
-Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbindung und Netlify-Deployment.
+Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbindung. Das Netlify-Deployment ist vorbereitet und wird für die finale Abgabe noch veröffentlicht.
 
 #### Geforderte Kernfunktionen
 
@@ -156,7 +266,7 @@ Die geforderten Kernfunktionen orientieren sich am Standardumfang der Übungen b
 - **Styling:** Bootstrap und projektbezogene CSS-Regeln in `src/app.css`
 - **Datenbank:** MongoDB
 - **Serverlogik:** SvelteKit Server Load Functions und API-Routen
-- **Deployment:** Netlify mit `@sveltejs/adapter-netlify`
+- **Deployment:** vorbereitet für Netlify mit `@sveltejs/adapter-netlify`
 
 #### Wichtige Projektstruktur
 
@@ -198,6 +308,17 @@ Ein To-Do kann unter anderem folgende Eigenschaften enthalten:
 - `completedAt`: Abschlusszeitpunkt für normale To-Dos
 - `completedOccurrences`: Abgeschlossene Einzeltermine bei wiederkehrenden To-Dos
 
+#### Planungsregeln
+
+Für die Terminierung gelten konkrete Regeln, damit geplante To-Dos realistisch bleiben:
+
+- Ein To-Do darf nicht auf ein Datum nach seiner Deadline terminiert werden.
+- Pro Tag dürfen standardmässig maximal 16 Stunden geplante To-Dos eingetragen werden.
+- Für To-Dos der Kategorie `Arbeit` gilt standardmässig ein Limit von 8 Stunden pro Tag.
+- To-Dos der Kategorie `Arbeit` dürfen nicht auf Samstag oder Sonntag terminiert werden.
+- Tageslimit, Kategorie-Limits und Standard-Kalenderansicht können in den Einstellungen angepasst werden.
+- Bei überschrittenen Limits zeigt die App eine verständliche Fehlermeldung und zusätzlich die noch verfügbare Restzeit an.
+
 #### URL-Parameter für Filter
 
 Die To-Do-Ansicht speichert aktive Filter in der URL. Dadurch bleiben Filter nach einem Reload erhalten und gefilterte Ansichten können geteilt oder als Bookmark gespeichert werden.
@@ -220,6 +341,39 @@ Beispiel:
 ### 3.5 Validate
 
 Der aktuelle Prototyp wurde lokal getestet und mit zwei Testpersonen in kurzen Usability-Tests validiert.
+
+#### Testübersicht
+
+| Test | Testperson | Fokus | Zentrale Erkenntnis |
+| --- | --- | --- | --- |
+| Usability-Test 1 | Mitstudent Dario | Hauptworkflows, Planungsregeln, Fehlermeldungen und Dark/White Mode | Die App war grundsätzlich verständlich; Einstieg zum Erstellen und Terminieren musste sichtbarer werden. |
+| Usability-Test 2 | Zweite Testperson aus dem privaten Umfeld | Verständlichkeit von Beschriftungen, Orientierung im Dashboard und Terminierungslogik | Counter, Erstellen-Button, Datumsfilter und Regeln für Arbeitstermine mussten klarer werden. |
+
+#### Erfolgskriterien der Tests
+
+| Kriterium | Ergebnis |
+| --- | --- |
+| Neues To-Do erstellen | Erfolgreich möglich; Einstieg wurde nach dem ersten Test sichtbarer gemacht. |
+| To-Do in der Liste wiederfinden | Möglich; Filter und URL-Parameter verbessern die Orientierung. |
+| To-Do terminieren | Möglich; Button `To-Dos terminieren` wurde nach dem ersten Test sichtbarer platziert. |
+| To-Do im Kalender finden und öffnen | Möglich; ganze Kalender-Card wurde anklickbar gemacht. |
+| Fehlermeldungen zu Limits verstehen | Grundsätzlich verständlich; Restzeit und Datumsformat wurden verbessert. |
+| Unterschied zwischen Deadline und "Zu erledigen am" verstehen | Verständlich, aber erklärungsbedürftig; deshalb in README und Terminierungslogik klar dokumentiert. |
+| White Mode und Dark Mode prüfen | Beide Modi wurden geprüft; White Mode wurde optisch stärker an den Dark Mode angepasst. |
+
+#### Beobachtung und Anpassung
+
+| Beobachtung aus den Tests | Abgeleitete Anpassung |
+| --- | --- |
+| Button zum Erstellen eines neuen To-Dos wurde zunächst gesucht. | Erstellen-Button auf Dashboard und wichtigen Seiten ergänzt beziehungsweise optisch klarer gemacht. |
+| Button `To-Dos terminieren` wurde im ersten Test nicht genutzt. | Button sichtbarer platziert und Terminierungsablauf stärker vom Erstellen getrennt. |
+| Direkte Terminierung beim Erstellen lenkte vom späteren Planungsablauf ab. | Terminierung beim Erstellen neuer To-Dos ausgeblendet. |
+| Fehlermeldungen zu Planungs-Limits sollten konkreter sein. | Fehlermeldungen zeigen verständlicheres Datum und verfügbare Restzeit. |
+| Kalender-To-Do war nur teilweise anklickbar. | Ganze To-Do-Card im Kalender öffnet nun das Detailmodal. |
+| Aktive Filter sollten nach Reload oder Teilen erhalten bleiben. | Filter werden über URL-Parameter gespeichert. |
+| Geplante Stunden sollten sichtbarer sein. | Geschätzte Stundensumme für heute wird im Dashboard angezeigt. |
+| Datumsfilter wurden als hilfreiche Erweiterung bewertet. | Einklappbare Datumsfilter für Termin und Deadline wurden ergänzt. |
+| To-Dos über mehrere Tage wurden als weitere Idee genannt. | Als nächstes Feature in Issue [#12](https://github.com/LukasPowroznik/ToDoApp/issues/12) dokumentiert. |
 
 #### Bereits geprüft
 
@@ -325,33 +479,18 @@ Beobachtungen aus dem Test:
 - Die Planungsregeln mit Arbeitslimit und Tageslimit wurden verstanden.
 - Bei Fehlermeldungen zu Planungs-Limits sollte klarer sichtbar sein, wie viel Zeit noch verfügbar ist und ob ein To-Do trotz Warnung gespeichert werden darf.
 - Im Kalender sollte nicht nur ein kleiner Bereich, sondern die ganze To-Do-Card anklickbar sein.
-- Wenn noch keine Aufgabe vorhanden ist, sollte direkt ein Button zum Erstellen einer neuen Aufgabe sichtbar sein.
+- Wenn noch kein To-Do vorhanden ist, sollte direkt ein Button zum Erstellen eines neuen To-Dos sichtbar sein.
 - Die erweiterten Fehlermeldungen zeigen inzwischen zusätzlich, wie viel Zeit am betroffenen Tag oder in der betroffenen Kategorie noch einplanbar wäre.
-- Als zusätzliche Funktion wurde vorgeschlagen, Aufgaben über mehrere Tage planen zu können.
+- Als zusätzliche Funktion wurde vorgeschlagen, To-Dos über mehrere Tage planen zu können.
 - Die Testperson würde die App grundsätzlich nutzen, wenn sie ihre To-Dos nicht bereits mit einem anderen System tracken würde.
 - Der Dark Mode wurde als besonders gelungen wahrgenommen.
 - Als Verbesserung wurde genannt, dass der White Mode farblich stärker an den Dark Mode angeglichen werden könnte.
 
 ##### Abgeleitete Anpassungen
 
-Aus dem Usability-Test wurden mehrere Anpassungen am Prototyp vorgenommen:
+Aus dem Usability-Test wurden mehrere Anpassungen am Prototyp vorgenommen. Die wichtigsten Änderungen waren ein sichtbarerer Einstieg zum Erstellen und Terminieren von To-Dos, verständlichere Planungs-Fehlermeldungen, eine klarere Trennung zwischen Erstellen und Terminieren sowie eine bessere Bedienbarkeit im Kalender.
 
-- Auf den wichtigsten Seiten wurde ein Button zum Erstellen neuer To-Dos ergänzt, damit der Einstieg schneller gefunden wird.
-- Auf dem Dashboard wurde ein zusätzlicher Plus-Button in der Card "Heute terminierte To-Dos" ergänzt, der neue To-Dos direkt auf heute terminiert.
-- Die Dashboard-Kennzahlen wurden um die geschätzte Stundensumme für heute ergänzt.
-- Beim Erstellen eines neuen To-Dos wurde die direkte Terminierung ausgeblendet, damit der Button `To-Dos terminieren` gezielter verwendet wird.
-- Wenn keine Aufgaben vorhanden sind, wird ein Button zum Erstellen einer neuen Aufgabe angezeigt.
-- Auf dem Dashboard wurde ein Button zum Erstellen neuer To-Dos ergänzt.
-- Der Button `To-Dos terminieren` wurde sichtbarer platziert.
-- In der To-Do-Liste wurden URL-basierte Filter und einklappbare Datumsfilter ergänzt.
-- Beim Terminieren werden Deadline und geschätzte Dauer angezeigt.
-- Das Datumsformat in den Fehlermeldungen der Planungs-Limits wurde verständlicher dargestellt.
-- To-Dos dürfen bei bestimmten Planungswarnungen trotzdem gespeichert werden.
-- To-Dos können nicht mehr nach ihrer Deadline terminiert werden.
-- Im Kalender ist die ganze To-Do-Card anklickbar.
-- Die Planungs-Limits können in den Einstellungen angepasst werden.
-- Der White Mode wurde farblich stärker an den Indigo-Stil des Dark Mode angeglichen.
-- Die Nachher-Screenshots dokumentieren den Stand nach diesen Anpassungen.
+Die einzelnen Beobachtungen und Anpassungen sind in der Tabelle **Beobachtung und Anpassung** zusammengefasst. Die Nachher-Screenshots dokumentieren den Stand nach diesen Änderungen.
 
 ##### Durchführung und Ergebnisse mit zweiter Testperson
 
@@ -360,8 +499,8 @@ Ein weiterer Usability-Test wurde mit meiner Mutter durchgeführt. Dabei wurden 
 Beobachtungen aus dem Test:
 
 - Der Counter für neue To-Dos war zunächst irreführend.
-- Der Button zum Erstellen neuer Aufgaben sollte optisch klarer dargestellt werden.
-- Bei Aufgaben der Kategorie `Arbeit` musste geprüft werden, ob das Verhalten am Samstag korrekt ist.
+- Der Button zum Erstellen neuer To-Dos sollte optisch klarer dargestellt werden.
+- Bei To-Dos der Kategorie `Arbeit` musste geprüft werden, ob das Verhalten am Samstag korrekt ist.
 - Die Logik, dass ein To-Do nicht nach seiner Deadline terminiert werden darf, sollte in der Terminierung klar abgebildet sein.
 - Beim Bearbeiten eines To-Dos wurde überlegt, ob das Feld "Zu erledigen am" ausgeblendet werden soll. Die Entscheidung war, das Feld nicht auszublenden, weil bestehende Termine beim Bearbeiten weiterhin nachvollziehbar bleiben sollen.
 - Aktive Filter sollten gespeichert bleiben, damit Nutzerinnen und Nutzer nach dem Neuladen oder Teilen einer Ansicht nicht erneut filtern müssen.
@@ -369,21 +508,14 @@ Beobachtungen aus dem Test:
 - Die heute verplante Zeit sollte auf dem Dashboard klarer erkennbar sein.
 - Datumsfilter wurden als hilfreiche Erweiterung bewertet.
 
-Abgeleitete Anpassungen aus diesem Test:
-
-- Der Counter für neue To-Dos wurde verständlicher dargestellt.
-- Der Button zum Erstellen neuer Aufgaben wurde optisch angepasst.
-- Die Terminierungslogik für Aufgaben der Kategorie `Arbeit` am Samstag wurde überprüft und angepasst.
-- Die Regel, dass To-Dos nicht nach ihrer Deadline terminiert werden können, wurde in die Terminierungslogik eingebaut.
-- Filter werden über URL-Parameter gespeichert.
-- Die total geplanten Stunden beziehungsweise die heute verplante Zeit werden im Dashboard angezeigt.
-- Datumsfilter wurden ergänzt.
+Abgeleitete Anpassungen aus diesem Test wurden in die finale Verbesserungstabelle übernommen. Besonders relevant waren die verständlichere Darstellung des Counters, der klarere Erstellen-Button, die Terminierungslogik für `Arbeit` am Wochenende, gespeicherte Filter und sichtbare geplante Stunden im Dashboard.
 
 #### Mögliche nächste Schritte
 
 - URL-basierte Filter und Datumsfilter in einem erneuten Usability-Test prüfen.
 - Verhalten der Terminierungsregeln mit Randfällen testen, zum Beispiel Deadline am gleichen Tag, fehlende Dauer oder mehrere gleichzeitig geplante To-Dos.
-- Prüfen, wie Aufgaben sinnvoll über mehrere Tage geplant oder aufgeteilt werden können.
+- Kalenderexport als `.ics`-Datei prüfen, damit geplante To-Dos später in externe Kalender wie Google Calendar, Apple Calendar oder Outlook übernommen werden können.
+- Mehrtägige To-Dos als geplantes Feature aus Issue [#12](https://github.com/LukasPowroznik/ToDoApp/issues/12) ausarbeiten, damit grössere To-Dos sinnvoll über mehrere Tage verteilt werden können.
 - Abschlussdokumentation und Reflexion ergänzen.
 - Fehlermeldungen und Ladezustände weiter verfeinern.
 
@@ -408,6 +540,18 @@ Die folgenden Funktionen gehen über den Standardumfang aus den Übungen bis Sem
 - Einstellungen für Tageslimit, Kategorie-Limits und Standard-Kalenderansicht.
 - Fehlermeldungen bei überschrittenen Tages- oder Kategorie-Limits zeigen zusätzlich, wie viel Zeit noch einplanbar wäre.
 
+### 4.1 Bewusst nicht umgesetzte Ideen
+
+Einige Ideen aus der Sketch-Phase wurden bewusst nicht umgesetzt, damit der Prototyp fokussiert bleibt und der Mindestumfang stabil funktioniert.
+
+| Idee | Entscheidung | Begründung |
+| --- | --- | --- |
+| Push-Mitteilungen | Nicht umgesetzt | Erinnerungen wären nützlich, benötigen aber zusätzliche Browser- oder App-Berechtigungen und waren für den Kernworkflow nicht notwendig. |
+| iPhone-App | Nicht umgesetzt | Der Fokus lag auf einem webbasierten SvelteKit-Prototyp, der online erreichbar ist. |
+| Kalenderexport | Als nächstes Feature vorgesehen | Ein Export in externe Kalender wäre eine sinnvolle Erweiterung, wurde aber zugunsten eines stabilen Kernworkflows nicht mehr umgesetzt. |
+| To-Dos über mehrere Tage planen | Als nächstes Feature in Issue [#12](https://github.com/LukasPowroznik/ToDoApp/issues/12) vorgesehen | Die Idee wurde im Usability-Test genannt, braucht aber ein eigenes Konzept für Aufteilung, Dauer und Darstellung im Kalender. |
+| Subtasks | Nicht umgesetzt | Unteraufgaben wurden in den Skizzen angedacht, aber zugunsten von Terminierung, Filterung und Kalenderplanung zurückgestellt. |
+
 ## 5. Projektorganisation [Optional]
 
 ### 5.1 Repository und Arbeitsweise
@@ -416,6 +560,8 @@ Die folgenden Funktionen gehen über den Standardumfang aus den Übungen bis Sem
 - **Projektform:** SvelteKit-Prototyp im Rahmen des Moduls Prototyping
 - **Issue-Management:** Umsetzung und Erweiterungen werden über GitHub Issues organisiert.
 - **Commit-Praxis:** Änderungen werden thematisch und nachvollziehbar versioniert.
+
+Umgesetzte Anpassungen aus den Usability-Tests wurden als Issues dokumentiert und nach der Umsetzung geschlossen. Offene Issues bleiben bewusst für geplante nächste Features bestehen, zum Beispiel mehrtägige To-Dos in Issue [#12](https://github.com/LukasPowroznik/ToDoApp/issues/12) und das finale Netlify-Deployment in Issue [#9](https://github.com/LukasPowroznik/ToDoApp/issues/9).
 
 ### 5.2 Lokales Setup
 
@@ -457,7 +603,7 @@ Der Produktionsbuild wurde lokal mit `npm.cmd run build` geprüft und erfolgreic
 
 ### 5.3 Deployment auf Netlify
 
-Das Projekt ist auf Netlify deployt.
+Das Projekt ist für Netlify vorbereitet. Das finale Deployment wird am Schluss durchgeführt, weil dafür Netlify-Credits benötigt werden.
 
 #### Konfiguration
 
@@ -480,10 +626,26 @@ Wenn Zugangsdaten versehentlich geteilt wurden, sollte das MongoDB-Passwort in A
 
 #### Deployment-Status
 
-Der lokale Produktionsbuild funktioniert und das Projekt ist auf Netlify deployt.
+Der lokale Produktionsbuild funktioniert. Das Netlify-Deployment ist vorbereitet, aber noch nicht final veröffentlicht.
 
 - **Deployment-Plattform:** Netlify
-- **Deployment-URL:** https://prototypingtodoapp.netlify.app/
+- **Deployment-URL:** Wird nach dem finalen Deployment ergänzt.
+
+### 5.4 Abgabevideo
+
+Für die Abgabe ist ein kommentierter Walkthrough vorgesehen. Das Video soll die wichtigsten Workflows aus Sicht der Nutzenden zeigen und nicht den Code erklären.
+
+Geplante Inhalte des Videos:
+
+- Dashboard öffnen und Kennzahlen erklären.
+- Neues To-Do erstellen.
+- To-Dos filtern und gefilterte Ansicht zeigen.
+- To-Do bearbeiten, abschliessen und löschen.
+- Offenes To-Do terminieren und Deadline-/Limit-Feedback zeigen.
+- Kalenderansichten öffnen und ein To-Do im Kalender verschieben.
+- Einstellungen für Planungs-Limits und Standard-Kalenderansicht zeigen.
+- White Mode und Dark Mode kurz vergleichen.
+- Offene nächste Features wie Kalenderexport und mehrtägige To-Dos kurz einordnen.
 
 ## 6. KI-Deklaration
 
@@ -512,10 +674,18 @@ Die Prompts wurden meist iterativ gestellt. Nach einer ersten Antwort oder Umset
 
 ### 6.3 Reflexion
 
-KI beschleunigt organisatorische, technische und dokumentarische Arbeit, ersetzt aber nicht die fachliche Bewertung des Prototyps. Besonders wichtig ist, generierte Texte mit dem tatsächlichen Projektstand abzugleichen, damit keine veralteten oder noch nicht umgesetzten Funktionen dokumentiert werden.
+Die Arbeit am Prototyp hat gezeigt, dass eine To-Do-App schnell komplexer wird, sobald To-Dos nicht nur erfasst, sondern auch realistisch geplant werden sollen. Zu Beginn wirkte der Funktionsumfang überschaubar: To-Dos erstellen, bearbeiten, löschen und filtern. Durch die Auseinandersetzung mit Deadlines, geschätzter Dauer, Kategorien, Kalenderansicht und Planungs-Limits wurde aber deutlich, dass die eigentliche Herausforderung in der Verbindung zwischen To-Do-Liste und Zeitplanung liegt.
+
+Besonders wichtig war deshalb die klare Trennung zwischen Deadline und "Zu erledigen am". Die Usability-Tests haben gezeigt, dass diese Unterscheidung für Nutzerinnen und Nutzer verständlich sein muss, damit die App nicht nur technisch funktioniert, sondern auch im Alltag sinnvoll bedienbar ist. Aus den Tests entstanden mehrere konkrete Verbesserungen, zum Beispiel sichtbarere Buttons, verständlichere Fehlermeldungen, gespeicherte Filter und eine bessere Darstellung der geplanten Stunden. Dadurch wurde der Prototyp nicht nur erweitert, sondern auch stärker an echten Nutzungssituationen ausgerichtet.
+
+Technisch war vor allem die Terminierungslogik anspruchsvoll. Regeln wie das Tageslimit, das Arbeitslimit, die Deadline-Prüfung und die Einschränkung von Arbeitsterminen am Wochenende mussten so umgesetzt werden, dass sie nachvollziehbar bleiben und den Arbeitsfluss nicht unnötig blockieren. Gleichzeitig sollte die App trotz zusätzlicher Funktionen stabil und übersichtlich bleiben. Deshalb wurden einige Ideen wie Push-Mitteilungen, iPhone-App oder Kalenderexport bewusst nicht umgesetzt, sondern als mögliche Weiterentwicklungen dokumentiert.
+
+Der Einsatz von KI hat die Arbeit deutlich beschleunigt, vor allem beim Strukturieren von Issues, beim Prüfen des Projektstands, beim Formulieren der Dokumentation und beim Finden technischer Lösungswege. Gleichzeitig musste jede generierte Antwort überprüft werden. Besonders bei der README war wichtig, dass nur Funktionen dokumentiert werden, die tatsächlich umgesetzt oder klar als nächste Schritte markiert sind. KI war damit ein hilfreiches Werkzeug, hat aber die fachliche Entscheidung, Priorisierung und finale Kontrolle nicht ersetzt.
+
+Insgesamt hat das Projekt gezeigt, wie wichtig ein iteratives Vorgehen ist: Erst durch Skizzen, Prototyp, Tests und anschliessende Anpassungen wurde klar, welche Funktionen wirklich helfen und welche eher zusätzliche Komplexität erzeugen. Der finale Stand erfüllt den Mindestumfang und enthält mehrere sinnvolle Erweiterungen, bleibt aber bewusst ein Prototyp mit klar dokumentierten Grenzen und nächsten Entwicklungsschritten.
 
 ## 7. Anhang [Optional]
 
 - **Quellen:** SvelteKit-Dokumentation, Bootstrap-Dokumentation, MongoDB-Dokumentation, Netlify-Dokumentation und Projektdateien im Repository.
-- **Testskript und Materialien:** Usability-Test-Aufgaben, Fragen und Beobachtungsnotizen sind in Abschnitt 3.5 dokumentiert.
+- **Testskript und Materialien:** Usability-Test-To-Dos, Fragen und Beobachtungsnotizen sind in Abschnitt 3.5 dokumentiert.
 - **Rohdaten und Auswertung:** Die zusammengefassten Beobachtungen und abgeleiteten Anpassungen sind in Abschnitt 3.5 dokumentiert.
