@@ -88,7 +88,7 @@ Die Umsetzung erfolgte schrittweise von einem statischen SvelteKit-Prototyp zu e
 | Understand & Define | Problem, Zielgruppe und zentrale Bedürfnisse klären | Ausgangslage, Personas, User Stories, Anforderungen und Konkurrenzanalyse |
 | Sketch | Unterschiedliche Lösungsrichtungen und UI-Ideen entwickeln | Figma-Prototyp, Crazy-Eights-Skizzen, Ideen für Dashboard, To-Do-Liste, Planung und Kalender |
 | Decide | Geeignete Richtung auswählen und begründen | Entscheidungskriterien, Priorisierung, Risiken, Hauptworkflow und Planungsworkflow |
-| Prototype | Kernfunktionen umsetzen und lauffähigen Prototyp erstellen | SvelteKit-App mit To-Do-Verwaltung, MongoDB-Anbindung, Kalender, Einstellungen und vorbereitetem Netlify-Deployment |
+| Prototype | Kernfunktionen umsetzen und lauffähigen Prototyp erstellen | SvelteKit-App mit To-Do-Verwaltung, MongoDB-Anbindung, Kalender, Einstellungen und veröffentlichtem Netlify-Deployment |
 | Validate | Prototyp mit Nutzenden prüfen und verbessern | Usability-Tests, Beobachtungen, abgeleitete Anpassungen und Vorher-/Nachher-Screenshots |
 
 Die Artefakte bauen dabei aufeinander auf: Die Personas führten zu Anforderungen wie schneller Orientierung, Deadline-Verständlichkeit und Kalenderplanung. Die Skizzen konkretisierten mögliche UI-Bereiche wie Dashboard, To-Do-Erfassung, Planungsbereich und Kalender. In der Decide-Phase wurden diese Ideen priorisiert und als kombinierte Lösung umgesetzt. Die Usability-Tests zeigten anschliessend, welche Teile des Prototyps angepasst werden mussten.
@@ -244,7 +244,7 @@ flowchart TD
 
 #### Aktueller Prototyp
 
-Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbindung. Das Netlify-Deployment ist vorbereitet und wird für die finale Abgabe noch veröffentlicht.
+Der aktuelle Prototyp ist eine funktionsfähige SvelteKit-App mit MongoDB-Anbindung. Das Netlify-Deployment ist veröffentlicht und unter [https://prototypingtodolist.netlify.app/](https://prototypingtodolist.netlify.app/) erreichbar.
 
 #### Geforderte Kernfunktionen
 
@@ -266,7 +266,7 @@ Die geforderten Kernfunktionen orientieren sich am Standardumfang der Übungen b
 - **Styling:** Bootstrap und projektbezogene CSS-Regeln in `src/app.css`
 - **Datenbank:** MongoDB
 - **Serverlogik:** SvelteKit Server Load Functions und API-Routen
-- **Deployment:** vorbereitet für Netlify mit `@sveltejs/adapter-netlify`
+- **Deployment:** veröffentlicht auf Netlify mit `@sveltejs/adapter-netlify`
 
 #### Wichtige Projektstruktur
 
@@ -561,7 +561,7 @@ Einige Ideen aus der Sketch-Phase wurden bewusst nicht umgesetzt, damit der Prot
 - **Issue-Management:** Umsetzung und Erweiterungen werden über GitHub Issues organisiert.
 - **Commit-Praxis:** Änderungen werden thematisch und nachvollziehbar versioniert.
 
-Umgesetzte Anpassungen aus den Usability-Tests wurden als Issues dokumentiert und nach der Umsetzung geschlossen. Offene Issues bleiben bewusst für geplante nächste Features bestehen, zum Beispiel mehrtägige To-Dos in Issue [#12](https://github.com/LukasPowroznik/ToDoApp/issues/12) und das finale Netlify-Deployment in Issue [#9](https://github.com/LukasPowroznik/ToDoApp/issues/9).
+Umgesetzte Anpassungen aus den Usability-Tests wurden als Issues dokumentiert und nach der Umsetzung geschlossen. Offene Issues bleiben bewusst für geplante nächste Features bestehen, zum Beispiel mehrtägige To-Dos in Issue [#12](https://github.com/LukasPowroznik/ToDoApp/issues/12). Das finale Netlify-Deployment aus Issue [#9](https://github.com/LukasPowroznik/ToDoApp/issues/9) ist inzwischen veröffentlicht.
 
 ### 5.2 Lokales Setup
 
@@ -603,7 +603,7 @@ Der Produktionsbuild wurde lokal mit `npm.cmd run build` geprüft und erfolgreic
 
 ### 5.3 Deployment auf Netlify
 
-Das Projekt ist für Netlify vorbereitet. Das finale Deployment wird am Schluss durchgeführt, weil dafür Netlify-Credits benötigt werden.
+Das Projekt ist auf Netlify veröffentlicht und online unter [https://prototypingtodolist.netlify.app/](https://prototypingtodolist.netlify.app/) erreichbar.
 
 #### Konfiguration
 
@@ -626,10 +626,10 @@ Wenn Zugangsdaten versehentlich geteilt wurden, sollte das MongoDB-Passwort in A
 
 #### Deployment-Status
 
-Der lokale Produktionsbuild funktioniert. Das Netlify-Deployment ist vorbereitet, aber noch nicht final veröffentlicht.
+Der lokale Produktionsbuild funktioniert. Das Netlify-Deployment ist final veröffentlicht.
 
 - **Deployment-Plattform:** Netlify
-- **Deployment-URL:** Wird nach dem finalen Deployment ergänzt.
+- **Deployment-URL:** [https://prototypingtodolist.netlify.app/](https://prototypingtodolist.netlify.app/)
 
 ### 5.4 Abgabevideo
 
