@@ -546,17 +546,17 @@ Die folgenden Funktionen gehen über den Standardumfang aus den Übungen bis Sem
 
 ### 4.1 Randfälle und Validierungen
 
-Die folgenden Randfälle zeigen, dass der Prototyp nicht nur den Normalfall unterstützt, sondern auch ungültige oder erklärungsbedürftige Eingaben abfängt. Die Screenshots können nach dem finalen Testlauf ergänzt werden.
+Die folgenden Randfälle zeigen, dass der Prototyp nicht nur den Normalfall unterstützt, sondern auch ungültige oder erklärungsbedürftige Eingaben abfängt. Die Screenshots dokumentieren jeweils White Mode und Dark Mode.
 
-| Randfall | Erwartetes Verhalten | Screenshot |
-| --- | --- | --- |
-| To-Do ohne Titel speichern | Die App verhindert das Speichern und verlangt einen Titel. | ![Validierung: fehlender Titel](docs/assets/edge-cases/missing-title.png) |
-| To-Do nach seiner Deadline terminieren | Die App verhindert die Terminierung und zeigt eine verständliche Fehlermeldung. | ![Validierung: Termin nach Deadline](docs/assets/edge-cases/deadline-validation.png) |
-| Arbeits-To-Do auf Samstag oder Sonntag terminieren | Die App verhindert den Arbeitstermin am Wochenende. | ![Validierung: Arbeit am Wochenende](docs/assets/edge-cases/work-weekend-validation.png) |
-| Tageslimit überschreiten | Die App verhindert die Terminierung und zeigt, wie viele Stunden noch einplanbar wären. | ![Validierung: Tageslimit](docs/assets/edge-cases/daily-limit-validation.png) |
-| Kategorie-Limit überschreiten | Die App verhindert die Terminierung innerhalb der betroffenen Kategorie und zeigt die verfügbare Restzeit. | ![Validierung: Kategorie-Limit](docs/assets/edge-cases/category-limit-validation.png) |
-| Wiederkehrendes To-Do als einzelnes Vorkommen erledigen | Nur das konkrete Kalender-Vorkommen wird als erledigt markiert; die Wiederholung bleibt bestehen. | ![Randfall: einzelnes wiederkehrendes Vorkommen erledigt](docs/assets/edge-cases/recurring-occurrence-completed.png) |
-| Filter ohne Treffer | Die App zeigt einen leeren Zustand und fordert dazu auf, Filter anzupassen oder ein neues To-Do zu erfassen. | ![Randfall: Filter ohne Treffer](docs/assets/edge-cases/empty-filter-state.png) |
+| Randfall | Erwartetes Verhalten | White Mode | Dark Mode |
+| --- | --- | --- | --- |
+| To-Do ohne Titel speichern | Die App verhindert das Speichern und verlangt einen Titel. | ![Validierung: fehlender Titel im White Mode](docs/assets/edge-cases/missing-title-white.png) | ![Validierung: fehlender Titel im Dark Mode](docs/assets/edge-cases/missing-title-dark.png) |
+| To-Do nach seiner Deadline terminieren | Die App verhindert die Terminierung und zeigt eine verständliche Fehlermeldung. | ![Validierung: Termin nach Deadline im White Mode](docs/assets/edge-cases/deadline-validation-white.png) | ![Validierung: Termin nach Deadline im Dark Mode](docs/assets/edge-cases/deadline-validation-dark.png) |
+| Arbeits-To-Do auf Samstag oder Sonntag terminieren | Die App verhindert den Arbeitstermin am Wochenende. | ![Validierung: Arbeit am Wochenende im White Mode](docs/assets/edge-cases/work-weekend-white.png) | ![Validierung: Arbeit am Wochenende im Dark Mode](docs/assets/edge-cases/work-weekend-dark.png) |
+| Tageslimit überschreiten | Die App verhindert die Terminierung und zeigt, wie viele Stunden noch einplanbar wären. | ![Validierung: Tageslimit im White Mode](docs/assets/edge-cases/daily-limit-white.png) | ![Validierung: Tageslimit im Dark Mode](docs/assets/edge-cases/daily-limit-dark.png) |
+| Kategorie-Limit überschreiten | Die App verhindert die Terminierung innerhalb der betroffenen Kategorie und zeigt die verfügbare Restzeit. | ![Validierung: Kategorie-Limit im White Mode](docs/assets/edge-cases/kategorie-limit-white.png) | ![Validierung: Kategorie-Limit im Dark Mode](docs/assets/edge-cases/kategorie-limit-dark.png) |
+| Wiederkehrendes To-Do als einzelnes Vorkommen erledigen | Nur das konkrete Kalender-Vorkommen wird als erledigt markiert; die Wiederholung bleibt bestehen. | ![Randfall: einzelnes wiederkehrendes Vorkommen im White Mode erledigt](docs/assets/edge-cases/recurring-occurrence-completed-white.png) | ![Randfall: einzelnes wiederkehrendes Vorkommen im Dark Mode erledigt](docs/assets/edge-cases/recurring-occurrence-completed-dark.png) |
+| Filter ohne Treffer | Die App zeigt einen leeren Zustand und fordert dazu auf, Filter anzupassen oder ein neues To-Do zu erfassen. | ![Randfall: Filter ohne Treffer im White Mode](docs/assets/edge-cases/empty-filter-white.png) | ![Randfall: Filter ohne Treffer im Dark Mode](docs/assets/edge-cases/empty-filter-dark.png) |
 
 ### 4.2 Bewusst nicht umgesetzte Ideen
 

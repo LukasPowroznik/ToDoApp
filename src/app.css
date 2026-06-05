@@ -1209,7 +1209,11 @@ html[data-bs-theme='dark'] .status-message-success .status-message-marker {
 	background: var(--app-surface);
 	border-bottom: 1px solid var(--app-border);
 	border-right: 1px solid var(--app-border);
+	display: flex;
+	flex-direction: column;
 	min-height: 8.5rem;
+	min-width: 0;
+	overflow: hidden;
 	padding: 0.55rem;
 }
 
@@ -1235,6 +1239,9 @@ html[data-bs-theme='dark'] .status-message-success .status-message-marker {
 .calendar-month-todos {
 	display: grid;
 	gap: 0.35rem;
+	min-width: 0;
+	overflow-y: auto;
+	padding-right: 0.1rem;
 }
 
 .calendar-month-todo {
@@ -1242,11 +1249,15 @@ html[data-bs-theme='dark'] .status-message-success .status-message-marker {
 	background: var(--app-surface-muted);
 	border: 1px solid var(--app-border);
 	border-radius: 0.4rem;
+	box-sizing: border-box;
 	color: inherit;
 	cursor: grab;
 	display: flex;
 	gap: 0.4rem;
+	max-width: 100%;
 	min-height: 2rem;
+	min-width: 0;
+	overflow: hidden;
 	padding: 0.35rem 0.45rem;
 	text-align: left;
 	width: 100%;
@@ -1270,8 +1281,10 @@ html[data-bs-theme='dark'] .status-message-success .status-message-marker {
 }
 
 .calendar-month-todo-title {
+	flex: 1 1 auto;
 	font-size: 0.82rem;
 	line-height: 1.2;
+	max-width: 100%;
 	min-width: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;
