@@ -544,7 +544,21 @@ Die folgenden Funktionen gehen über den Standardumfang aus den Übungen bis Sem
 - Einstellungen für Tageslimit, Kategorie-Limits und Standard-Kalenderansicht.
 - Fehlermeldungen bei überschrittenen Tages- oder Kategorie-Limits zeigen zusätzlich, wie viel Zeit noch einplanbar wäre.
 
-### 4.1 Bewusst nicht umgesetzte Ideen
+### 4.1 Randfälle und Validierungen
+
+Die folgenden Randfälle zeigen, dass der Prototyp nicht nur den Normalfall unterstützt, sondern auch ungültige oder erklärungsbedürftige Eingaben abfängt. Die Screenshots können nach dem finalen Testlauf ergänzt werden.
+
+| Randfall | Erwartetes Verhalten | Screenshot |
+| --- | --- | --- |
+| To-Do ohne Titel speichern | Die App verhindert das Speichern und verlangt einen Titel. | ![Validierung: fehlender Titel](docs/assets/edge-cases/missing-title.png) |
+| To-Do nach seiner Deadline terminieren | Die App verhindert die Terminierung und zeigt eine verständliche Fehlermeldung. | ![Validierung: Termin nach Deadline](docs/assets/edge-cases/deadline-validation.png) |
+| Arbeits-To-Do auf Samstag oder Sonntag terminieren | Die App verhindert den Arbeitstermin am Wochenende. | ![Validierung: Arbeit am Wochenende](docs/assets/edge-cases/work-weekend-validation.png) |
+| Tageslimit überschreiten | Die App verhindert die Terminierung und zeigt, wie viele Stunden noch einplanbar wären. | ![Validierung: Tageslimit](docs/assets/edge-cases/daily-limit-validation.png) |
+| Kategorie-Limit überschreiten | Die App verhindert die Terminierung innerhalb der betroffenen Kategorie und zeigt die verfügbare Restzeit. | ![Validierung: Kategorie-Limit](docs/assets/edge-cases/category-limit-validation.png) |
+| Wiederkehrendes To-Do als einzelnes Vorkommen erledigen | Nur das konkrete Kalender-Vorkommen wird als erledigt markiert; die Wiederholung bleibt bestehen. | ![Randfall: einzelnes wiederkehrendes Vorkommen erledigt](docs/assets/edge-cases/recurring-occurrence-completed.png) |
+| Filter ohne Treffer | Die App zeigt einen leeren Zustand und fordert dazu auf, Filter anzupassen oder ein neues To-Do zu erfassen. | ![Randfall: Filter ohne Treffer](docs/assets/edge-cases/empty-filter-state.png) |
+
+### 4.2 Bewusst nicht umgesetzte Ideen
 
 Einige Ideen aus der Sketch-Phase wurden bewusst nicht umgesetzt, damit der Prototyp fokussiert bleibt und der Mindestumfang stabil funktioniert.
 
