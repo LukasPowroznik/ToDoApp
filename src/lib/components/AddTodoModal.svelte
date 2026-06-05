@@ -159,11 +159,12 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-action-primary" disabled={isSaving}>
+					<button type="submit" class="btn btn-action-primary btn-with-icon" disabled={isSaving}>
 						{#if isSaving}
 							<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
 							Speichert...
 						{:else}
+							<span class="btn-icon" aria-hidden="true">✓</span>
 							To-Do speichern
 						{/if}
 					</button>

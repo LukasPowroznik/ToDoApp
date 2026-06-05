@@ -184,6 +184,33 @@ html:not([data-bs-theme='dark']) .app-navbar .nav-link.active:focus-visible {
 	opacity: 0.65;
 }
 
+.btn-with-icon {
+	align-items: center;
+	display: inline-flex;
+	gap: 0.45rem;
+	justify-content: center;
+}
+
+.btn-icon {
+	align-items: center;
+	border-radius: 999px;
+	display: inline-flex;
+	font-size: 0.95em;
+	font-weight: 800;
+	height: 1.15rem;
+	justify-content: center;
+	line-height: 1;
+	width: 1.15rem;
+}
+
+.btn-action-primary .btn-icon {
+	background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-action-schedule .btn-icon {
+	background: rgba(79, 70, 229, 0.1);
+}
+
 .form-select {
 	background-color: rgba(255, 255, 255, 0.86);
 	border-color: rgba(79, 70, 229, 0.2);
@@ -257,6 +284,10 @@ html[data-bs-theme='dark'] .btn-action-schedule:disabled {
 	border-color: rgba(167, 139, 250, 0.26);
 	color: #c4b5fd;
 	opacity: 0.65;
+}
+
+html[data-bs-theme='dark'] .btn-action-schedule .btn-icon {
+	background: rgba(221, 214, 254, 0.14);
 }
 
 html[data-bs-theme='dark'] .form-select {
@@ -902,6 +933,18 @@ html[data-bs-theme='dark'] .todo-card-footer {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.45rem;
+}
+
+.todo-card-meta .badge {
+	align-items: center;
+	display: inline-flex;
+	gap: 0.25rem;
+	min-height: 1.55rem;
+}
+
+.badge-meta-icon {
+	font-size: 0.85em;
+	line-height: 1;
 }
 
 .todo-card-footer {

@@ -120,10 +120,19 @@
 		<div class="todo-card-meta">
 			<span class={`badge ${categoryBadgeClasses[todo.category]}`}>{todo.category}</span>
 			<span class={`badge ${priorityBadgeClasses[todo.priority]}`}>{todo.priority}</span>
-			<span class="badge badge-meta">Termin {todo.scheduledDate ?? 'offen'}</span>
-			<span class="badge badge-meta">Deadline {todo.deadline ?? 'offen'}</span>
+			<span class="badge badge-meta">
+				<span class="badge-meta-icon" aria-hidden="true">◷</span>
+				Termin {todo.scheduledDate ?? 'offen'}
+			</span>
+			<span class="badge badge-meta">
+				<span class="badge-meta-icon" aria-hidden="true">◇</span>
+				Deadline {todo.deadline ?? 'offen'}
+			</span>
 			{#if todo.estimatedDuration}
-				<span class="badge badge-meta">{todo.estimatedDuration}</span>
+				<span class="badge badge-meta">
+					<span class="badge-meta-icon" aria-hidden="true">⏱</span>
+					{todo.estimatedDuration}
+				</span>
 			{/if}
 			{#if todo.recurring && todo.recurrence}
 				<span class="badge badge-meta-strong">{recurrenceLabels[todo.recurrence.type]}</span>
@@ -172,7 +181,7 @@
 				<div>
 					{#if !isCompleted}
 						<button
-							class="btn btn-sm btn-outline-success"
+							class="btn btn-sm btn-outline-success btn-with-icon"
 							type="button"
 							onclick={completeTodo}
 							disabled={isUpdating || isDeleting}
@@ -181,18 +190,20 @@
 								<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
 								Speichert...
 							{:else}
-								erledigt
+								<span class="btn-icon" aria-hidden="true">✓</span>
+								Erledigt
 							{/if}
 						</button>
 					{/if}
 				</div>
 
 				<button
-					class="btn btn-sm btn-outline-danger"
+					class="btn btn-sm btn-outline-danger btn-with-icon"
 					type="button"
 					onclick={requestDeleteConfirmation}
 					disabled={isUpdating || isDeleting}
 				>
+					<span class="btn-icon" aria-hidden="true">×</span>
 					Löschen
 				</button>
 			</div>

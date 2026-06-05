@@ -283,21 +283,23 @@
 						{:else}
 							<button
 								type="button"
-								class="btn btn-outline-danger"
+								class="btn btn-outline-danger btn-with-icon"
 								onclick={requestDeleteConfirmation}
 								disabled={isSaving || isDeleting}
 							>
+								<span class="btn-icon" aria-hidden="true">×</span>
 								Löschen
 							</button>
 						{/if}
 					</div>
 
 					<div class="d-flex gap-2">
-						<button type="submit" class="btn btn-action-primary" disabled={isSaving || isDeleting}>
+						<button type="submit" class="btn btn-action-primary btn-with-icon" disabled={isSaving || isDeleting}>
 							{#if isSaving}
 								<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
 								Speichert...
 							{:else}
+								<span class="btn-icon" aria-hidden="true">✓</span>
 								Speichern
 							{/if}
 						</button>

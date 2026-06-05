@@ -227,7 +227,7 @@
 
 										{#if !todo.isOccurrenceCompleted}
 											<button
-												class="btn btn-sm btn-outline-success d-block mt-3"
+												class="btn btn-sm btn-outline-success btn-with-icon d-flex mt-3"
 												type="button"
 												onclick={(event) => handleCompleteClick(event, todo)}
 												disabled={updatingOccurrence === `${todo.id}-${todo.calendarDate}`}
@@ -236,7 +236,8 @@
 													<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
 													Speichert...
 												{:else}
-													erledigt
+													<span class="btn-icon" aria-hidden="true">✓</span>
+													Erledigt
 												{/if}
 											</button>
 										{/if}

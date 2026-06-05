@@ -248,17 +248,19 @@
 				</div>
 				<div class="d-flex flex-wrap gap-2">
 					<button
-						class="btn btn-action-primary"
+						class="btn btn-action-primary btn-with-icon"
 						type="button"
 						onclick={() => showModal('addTodoModal')}
 					>
+						<span class="btn-icon" aria-hidden="true">+</span>
 						Neues To-Do erfassen
 					</button>
 					<button
-						class="btn btn-action-primary"
+						class="btn btn-action-schedule btn-with-icon"
 						type="button"
 						onclick={() => showModal('scheduleTodosModal')}
 					>
+						<span class="btn-icon" aria-hidden="true">▦</span>
 						To-Dos terminieren
 					</button>
 				</div>
