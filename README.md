@@ -363,17 +363,21 @@ Der aktuelle Prototyp wurde lokal getestet und mit zwei Testpersonen in kurzen U
 
 #### Beobachtung und Anpassung
 
-| Beobachtung aus den Tests | Abgeleitete Anpassung |
-| --- | --- |
-| Button zum Erstellen eines neuen To-Dos wurde zunächst gesucht. | Erstellen-Button auf Dashboard und wichtigen Seiten ergänzt beziehungsweise optisch klarer gemacht. |
-| Button `To-Dos terminieren` wurde im ersten Test nicht genutzt. | Button sichtbarer platziert und Terminierungsablauf stärker vom Erstellen getrennt. |
-| Direkte Terminierung beim Erstellen lenkte vom späteren Planungsablauf ab. | Terminierung beim Erstellen neuer To-Dos ausgeblendet. |
-| Fehlermeldungen zu Planungs-Limits sollten konkreter sein. | Fehlermeldungen zeigen verständlicheres Datum und verfügbare Restzeit. |
-| Kalender-To-Do war nur teilweise anklickbar. | Ganze To-Do-Card im Kalender öffnet nun das Detailmodal. |
-| Aktive Filter sollten nach Reload oder Teilen erhalten bleiben. | Filter werden über URL-Parameter gespeichert. |
-| Geplante Stunden sollten sichtbarer sein. | Geschätzte Stundensumme für heute wird im Dashboard angezeigt. |
-| Datumsfilter wurden als hilfreiche Erweiterung bewertet. | Einklappbare Datumsfilter für Termin und Deadline wurden ergänzt. |
-| To-Dos über mehrere Tage wurden als weitere Idee genannt. | Als nächstes Feature in Issue [#12](https://github.com/LukasPowroznik/ToDoApp/issues/12) dokumentiert. |
+Die folgende Tabelle fasst die wichtigsten Testaufgaben, den erreichten Erfolg, die beobachteten Schwierigkeiten und die daraus abgeleiteten Anpassungen zusammen.
+
+| Testaufgabe | Erfolg | Beobachtung | Abgeleitete Anpassung |
+| --- | --- | --- | --- |
+| App öffnen und Dashboard verstehen | Erfolgreich | Die Kennzahlen wurden verstanden, der Counter für neue To-Dos war aber zunächst irreführend. | Dashboard-Kennzahlen und Beschriftungen wurden klarer formuliert; geplante Stunden für heute werden sichtbarer angezeigt. |
+| Neues To-Do erstellen | Erfolgreich | Der Button zum Erstellen eines neuen To-Dos wurde zunächst gesucht. | Erstellen-Button auf Dashboard und wichtigen Seiten ergänzt beziehungsweise optisch klarer gemacht. |
+| Erstelltes To-Do in der Liste wiederfinden | Erfolgreich | Die Liste war verständlich; bei mehreren To-Dos waren Filter hilfreich. | Filter nach Status, Kategorie, Priorität und Datum wurden ausgebaut und über URL-Parameter gespeichert. |
+| To-Do terminieren | Erfolgreich mit kurzem Zögern | Der Button `To-Dos terminieren` wurde im ersten Test nicht genutzt. | Button sichtbarer platziert und Terminierungsablauf stärker vom Erstellen getrennt. |
+| Unterschied zwischen Deadline und "Zu erledigen am" verstehen | Teilweise erfolgreich | Die Unterscheidung war grundsätzlich verständlich, musste aber aufmerksam gelesen werden. | Terminierung prüft die Deadline; Begriffe und Ablauf werden in README und UI klarer getrennt. |
+| Planungs-Limits überschreiten | Erfolgreich | Fehlermeldungen wurden gelesen und verstanden, sollten aber konkreter zeigen, was noch möglich ist. | Fehlermeldungen zeigen verständlicheres Datum und verfügbare Restzeit. |
+| To-Do im Kalender finden und öffnen | Erfolgreich | Die Testperson erwartete, dass die ganze Kalender-Card anklickbar ist. | Ganze To-Do-Card im Kalender öffnet nun das Detailmodal. |
+| To-Do bearbeiten und speichern | Erfolgreich | Das Feld "Zu erledigen am" sollte beim Bearbeiten sichtbar bleiben, damit bestehende Termine nachvollziehbar bleiben. | Feld bleibt im Bearbeitungsmodal sichtbar; Änderungen werden in Liste und Kalender aktualisiert. |
+| To-Do als erledigt markieren | Erfolgreich | Die Aktion war verständlich; Rückmeldung und Dashboard-Zahlen sollten direkt nachvollziehbar sein. | Erfolgsmeldung und Aktualisierung über `invalidateAll()` bleiben erhalten; Erledigt-Buttons wurden optisch klarer gestaltet. |
+| White Mode und Dark Mode prüfen | Erfolgreich | Dark Mode wurde besonders positiv wahrgenommen; White Mode sollte konsistenter wirken. | White Mode wurde farblich stärker an den Dark Mode angeglichen. |
+| Erweiterungsideen sammeln | Erfolgreich | To-Dos über mehrere Tage wurden als weitere Idee genannt. | Als nächstes Feature in Issue [#12](https://github.com/LukasPowroznik/ToDoApp/issues/12) dokumentiert. |
 
 #### Bereits geprüft
 
