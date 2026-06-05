@@ -651,9 +651,9 @@ Der lokale Produktionsbuild funktioniert. Das Netlify-Deployment ist final verö
 
 ### 5.4 Abgabevideo
 
-Für die Abgabe ist ein kommentierter Walkthrough vorgesehen. Das Video soll die wichtigsten Workflows aus Sicht der Nutzenden zeigen und nicht den Code erklären.
+Für die Abgabe wurde ein kommentierter Walkthrough erstellt. Das Video zeigt die wichtigsten Workflows aus Sicht der Nutzenden und erklärt nicht den Code.
 
-Geplante Inhalte des Videos:
+Gezeigte Inhalte des Videos:
 
 - Dashboard öffnen und Kennzahlen erklären.
 - Neues To-Do erstellen.
@@ -663,7 +663,7 @@ Geplante Inhalte des Videos:
 - Kalenderansichten öffnen und ein To-Do im Kalender verschieben.
 - Einstellungen für Planungs-Limits und Standard-Kalenderansicht zeigen.
 - White Mode und Dark Mode kurz vergleichen.
-- Offene nächste Features wie Kalenderexport und mehrtägige To-Dos kurz einordnen.
+
 
 ## 6. KI-Deklaration
 
